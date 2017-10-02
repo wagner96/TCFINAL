@@ -7,6 +7,7 @@ use TC\Models\AdPetAbandoned;
 use TC\Models\Pet;
 use TC\Models\PhotosPet;
 
+
 class ControllerAdAbandonedPet extends Controller
 {
 
@@ -29,17 +30,36 @@ class ControllerAdAbandonedPet extends Controller
      */
     public function store(Request $request)
     {
+
+
         $pet = new Pet();
 
         $data = $request->all();
         $data['fkUser'] = auth()->user()->id;
-        $data2 = $pet->create($data);
+        $array_pet = $pet->create($data);
 
         $data = $request->all();
 
         $adAbandoned = new AdPetAbandoned();
-        $data['fkPet']=$data2['id'];
+        $data['fkPet'] = $array_pet['id'];
+
         $adAbandoned->create($data);
+
+        $fk_pet = $data['fkPet'];
+
+        if ($request->hasFile('photos')) {
+            $photos = $request->photos;
+            $i = 0;
+            foreach ($photos as $photo) {
+                $photos_pet = new PhotosPet();
+                $photo_name = time() . $photo->getClientOriginalName();
+                $photo->move('images/Pets Disappeared', $photo_name);
+                $photos_pet->fkPet = $fk_pet;
+                $photos_pet->url = 'images/Pets Disappeared/' . $photo_name;
+                $photos_pet->save();
+                unset($photos_pet);
+            }
+        }
     }
 
     /**
@@ -105,7 +125,7 @@ class ControllerAdAbandonedPet extends Controller
 
         $photo = new PhotosPet();
         $photo->url = $imageName;
-       // $photo->save();
+        // $photo->save();
 
 
         return response()->json(['success' => $imageName]);

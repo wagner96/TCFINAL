@@ -22,8 +22,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 
     <!--DROPZONE-->
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.1.1/min/dropzone.min.css">
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.1.1/min/dropzone.min.css"></script>
+
 
 
     <![endif]-->
@@ -99,8 +98,8 @@
 {{--<script src="{{URL::asset('js/validator.js')}}"></script>--}}
 <script src="{{asset('js/all.js')}}"></script>
 <script src="{{URL::asset('js/jquery.mask.js')}}"></script>
-<script src="{{URL::asset('js/dropzone.js')}}"></script>
-<script src="{{URL::asset('js/dropzone-config.js')}}"></script>
+{{--<script src="{{URL::asset('js/dropzone.js')}}"></script>--}}
+{{--<script src="{{URL::asset('css/dropzone.css')}}"></script>--}}
 
 {{--DROPZONE--}}
 
