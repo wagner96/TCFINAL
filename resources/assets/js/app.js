@@ -11,7 +11,7 @@ window.Vue = require('vue');
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
 import VcUsers from './components/users.vue'
-
+import VcPetsAbandoned from './components/Ad_Abandoned_Pets.vue'
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -23,7 +23,8 @@ new Vue({
     el: '#app',
     
     components:{
-      VcUsers  
+      VcUsers,
+      VcPetsAbandoned
     },
     data: {
         title: 'TESTE'
@@ -31,3 +32,4 @@ new Vue({
 
 
 });
+

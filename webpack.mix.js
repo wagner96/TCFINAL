@@ -1,8 +1,8 @@
 let mix = require('laravel-mix');
 
-var elixir = require('laravel-elixir');
-
-require('laravel-elixir-vueify');
+// var elixir = require('laravel-elixir');
+//
+// require('laravel-elixir-vueify');
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management

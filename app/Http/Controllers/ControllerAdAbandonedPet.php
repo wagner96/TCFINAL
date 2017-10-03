@@ -3,6 +3,7 @@
 namespace TC\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use TC\Models\AdPetAbandoned;
 use TC\Models\Pet;
 use TC\Models\PhotosPet;
@@ -11,7 +12,6 @@ use TC\Models\PhotosPet;
 class ControllerAdAbandonedPet extends Controller
 {
 
-    //
     public function index()
     {
         return view('admin.advertisings.allAdAbandoned');
@@ -22,12 +22,13 @@ class ControllerAdAbandonedPet extends Controller
         return view('admin.advertisings.createAdAbandoned');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
+    public function listAd(){
+        $adPets = DB::table('users')
+            ->join('pets', 'users.id', '=', 'pets.fkUser')
+            ->join('ad_pet_abandoneds', 'pets.id','=','ad_pet_abandoneds.fkPet' )
+            ->paginate(6);
+        return \Response::json($adPets);
+    }
     public function store(Request $request)
     {
 
@@ -60,14 +61,9 @@ class ControllerAdAbandonedPet extends Controller
                 unset($photos_pet);
             }
         }
+        return redirect()->route('admin.advertising.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $user = User::find($id);
@@ -77,59 +73,23 @@ class ControllerAdAbandonedPet extends Controller
         return view('show', array('user' => $user));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
-        //
+return $id;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, $id)
     {
-        //
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function post_upload(Request $request)
-    {
-
-
-        $image = $request->file('file');
-        $imageName = time() . $image->getClientOriginalName();
-        $image->move(public_path('images'), $imageName);
-
-        $photo = new PhotosPet();
-        $photo->url = $imageName;
-        // $photo->save();
-
-
-        return response()->json(['success' => $imageName]);
 
     }
+
 
 }
