@@ -8,16 +8,14 @@ Route::get('logout', 'UserController@logout');
 
 //
 
-Route::group(['prefix' => 'admin', 'middleware' => 'auth.checkrole', 'as' => 'admin.'], function() {
+Route::group(['prefix' => 'admin', 'middleware' => 'auth.checkrole', 'as' => 'admin.'], function () {
     Route::get('users/createUser', 'UserController@create');
     Route::post('users/store', ['as' => 'users.store', 'uses' => 'UserController@store']);
     Route::get('users/edit/{id}', ['as' => 'users.edit', 'uses' => 'UserController@edit']);
 
 
-
     Route::get('users/', ['as' => 'users.index', 'uses' => 'UserController@index']);
     Route::get('users/listUsers', ['as' => 'users.listUsers', 'uses' => 'UserController@listUsers']);
-
 
 
     Route::post('users/update/{id}', ['as' => 'users.update', 'uses' => 'UserController@update']);
@@ -32,10 +30,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.checkrole', 'as' => 'ad
 
     Route::get('advertisings/createAdAbandoned', 'ControllerAdAbandonedPet@create');
     Route::post('advertisings/createAdAbandoned/store', ['as' => 'advertisings.createAdAbandoned.store', 'uses' => 'ControllerAdAbandonedPet@store']);
-    Route::post('advertisings/createAdAbandoned/edit', ['as' => 'advertisings.createAdAbandoned.edit', 'uses' => 'ControllerAdAbandonedPet@edit']);
+    Route::get('advertisings/createAdAbandoned/edit/{id}', ['as' => 'advertisings.createAdAbandoned.edit', 'uses' => 'ControllerAdAbandonedPet@edit']);
+    Route::get('advertisings/createAdAbandoned/destroy/{id}', ['as' => 'advertisings.createAdAbandoned.edit', 'uses' => 'ControllerAdAbandonedPet@edit']);
 
 });
-
 
 
 Auth::routes();

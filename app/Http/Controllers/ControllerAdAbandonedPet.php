@@ -22,13 +22,15 @@ class ControllerAdAbandonedPet extends Controller
         return view('admin.advertisings.createAdAbandoned');
     }
 
-    public function listAd(){
+    public function listAd()
+    {
         $adPets = DB::table('users')
             ->join('pets', 'users.id', '=', 'pets.fkUser')
-            ->join('ad_pet_abandoneds', 'pets.id','=','ad_pet_abandoneds.fkPet' )
+            ->join('ad_pet_abandoneds', 'pets.id', '=', 'ad_pet_abandoneds.fkPet')
             ->paginate(6);
         return \Response::json($adPets);
     }
+
     public function store(Request $request)
     {
 
@@ -76,7 +78,16 @@ class ControllerAdAbandonedPet extends Controller
 
     public function edit($id)
     {
-return $id;
+        //    select * from pets inner join ad_pet_abandoneds on pets.id = ad_pet_abandoneds.fkPet and pets.id = 100
+        $dataPet = DB::table('pets')
+            ->join('ad_pet_abandoneds', 'pets.id', '=', 'ad_pet_abandoneds.fkPet')
+            ->where('pets.id', '=', $id)
+            ->get();
+
+
+        dd($dataPet);
+
+        //return view('admin.users.editUser', compact('user'));
     }
 
 

@@ -54,7 +54,7 @@
                 <div class="input-group">
                     <span class="input-group-addon" id="basic-addon1" style="font-size: 10px"><i
                             class="glyphicon glyphicon-user"></i></span>
-                    <input type="text" class="form-control" v-model="pesq" placeholder="Digite o nome...">
+                    <input type="text" class="form-control" v-model="pesq" placeholder="Digite o nome do animal...">
                 </div>
 
             </div>
@@ -65,8 +65,8 @@
             <thead>
             <tr>
                 <th>Nome do Animal</th>
+                <th>Espécie</th>
                 <th>Nome do Anunciante</th>
-                <!--<th>Cidade</th>-->
                 <!--<th>Tipo</th>-->
                 <th>Ação</th>
             </tr>
@@ -75,18 +75,19 @@
 
             <tr v-for="pet in ad_Pets">
                 <td>{{pet.name_pet}}</td>
+                <td v-if="pet.species_pet == 'dog'">Cachorro</td>
+                <td v-if="pet.species_pet == 'cat'">Gato
+                <td v-if="pet.species_pet != 'cat' && pet.species_pet != 'dog'">Outros</td>
                 <td>{{pet.name}}</td>
-                <!--<td>{{pet.city}}</td>-->
                 <!--<td>{{pet.role}}</td>-->
 
                 <td align="center">
-                    <a v-bind:href="'advertisings/edit/'+ pet.fkPet" class="btn btn-primary"><span class="fa fa-pencil-square-o"> Editar</span></a>
+                    <a class="btn btn-success"><span class="fa fa-eye fa-lg"></span></a>
+                    <a v-bind:href="'advertisings/createAdAbandoned/edit/'+ pet.fkPet" class="btn btn-primary"><span class="fa fa-pencil-square-o fa-lg"></span></a>
 
-                    <a v-if="pet.active_user == 1" v-bind:href="'users/active/'+pet.id" class="btn btn-danger"><span
-                            class="fa fa-lock"> </span></a>
+                    <a v-bind:href="'advertisings/createAdAbandoned/destroy/'+ pet.id" class="btn btn-danger"><span class="fa fa-trash fa-lg"></span></a>
 
-                    <a v-if="pet.active_user == 0" v-bind:href="'users/desactive/'+pet.id" class="btn btn-success"><span
-                            class="fa fa-unlock"> </span></a>
+
 
 
                 </td>
