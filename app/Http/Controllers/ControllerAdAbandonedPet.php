@@ -4,6 +4,7 @@ namespace TC\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use TC\Models\AdPetAbandoned;
 use TC\Models\Pet;
 use TC\Models\PhotosPet;
@@ -99,6 +100,21 @@ class ControllerAdAbandonedPet extends Controller
 
     public function destroy($id)
     {
+
+        $dataPet = DB::table('pets')
+            ->where('pets.id', '=', $id)
+            ->join('ad_pet_abandoneds', 'pets.id', '=', 'ad_pet_abandoneds.fkPet')
+            ->join('photos_pets', 'pets.id', '=', 'photos_pets.fkPet')
+            ->get();
+        $dataPhoto = DB::table('photos_pets')
+            ->select('url')
+            ->where('fkPet','=', $id)
+            ->get();
+
+
+        foreach ($dataPhoto as $url){
+            File::delete($url);
+        }
 
     }
 

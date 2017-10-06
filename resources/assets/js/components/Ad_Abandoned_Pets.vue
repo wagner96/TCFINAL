@@ -85,7 +85,7 @@
                     <a class="btn btn-success"><span class="fa fa-eye fa-lg"></span></a>
                     <a v-bind:href="'advertisings/createAdAbandoned/edit/'+ pet.fkPet" class="btn btn-primary"><span class="fa fa-pencil-square-o fa-lg"></span></a>
 
-                    <a v-bind:href="'advertisings/createAdAbandoned/destroy/'+ pet.id" class="btn btn-danger"><span class="fa fa-trash fa-lg"></span></a>
+                    <a v-bind:href="'advertisings/createAdAbandoned/destroy/'+ pet.fkPet" class="btn btn-danger"><span class="fa fa-trash fa-lg"></span></a>
 
 
 

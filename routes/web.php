@@ -31,7 +31,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.checkrole', 'as' => 'ad
     Route::get('advertisings/createAdAbandoned', 'ControllerAdAbandonedPet@create');
     Route::post('advertisings/createAdAbandoned/store', ['as' => 'advertisings.createAdAbandoned.store', 'uses' => 'ControllerAdAbandonedPet@store']);
     Route::get('advertisings/createAdAbandoned/edit/{id}', ['as' => 'advertisings.createAdAbandoned.edit', 'uses' => 'ControllerAdAbandonedPet@edit']);
-    Route::get('advertisings/createAdAbandoned/destroy/{id}', ['as' => 'advertisings.createAdAbandoned.edit', 'uses' => 'ControllerAdAbandonedPet@edit']);
+    Route::get('advertisings/createAdAbandoned/destroy/{id}', ['as' => 'advertisings.createAdAbandoned.destroy', 'uses' => 'ControllerAdAbandonedPet@destroy']);
 
 });
 
