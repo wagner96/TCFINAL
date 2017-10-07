@@ -12,7 +12,16 @@ class PhotosPet extends Model implements Transformable
 
     protected $fillable = [
         'id',
-        'fkPet',
-        'url'];
+        'pet_id',
+        'url',
+        'updated_at',
+        'created_at'
+    ];
+
+    public function Pet()
+    {
+        return $this->belongsTo(Pet::class);
+    }
+
 
 }

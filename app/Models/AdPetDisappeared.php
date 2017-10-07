@@ -12,9 +12,15 @@ class AdPetDisappeared extends Model implements Transformable
 
     protected $fillable = [
         'id',
-        'fkPet',
+        'pet_id',
         'reward',
         'where',
-        'when'];
+        'when',
+        'updated_at',
+        'created_at'];
 
+    public function Pet()
+    {
+        return $this->hasOne(Pet::class);
+    }
 }

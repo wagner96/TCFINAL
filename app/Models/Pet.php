@@ -12,7 +12,7 @@ class Pet extends Model implements Transformable
 
     protected $fillable = [
         'id',
-        'fkUser',
+        'user_id',
         'name_pet',
         'age_pet',
         'proportion_pet',
@@ -20,7 +20,30 @@ class Pet extends Model implements Transformable
         'breed_pet',
         'movie_pet',
         'city_pet',
-        'state_pet'       
+        'state_pet',
+        'active_pet',
+        'updated_at',
+        'created_at'
     ];
+
+    public function User()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function AdPetAbandoned()
+    {
+        return $this->hasOne(AdPetAbandoned::class);
+    }
+
+    public function AdPetDisappeared()
+    {
+        return $this->hasOne(AdPetDisappeared::class);
+    }
+
+    public function PhotosPet()
+    {
+        return $this->hasMany(PhotosPet::class);
+    }
 
 }

@@ -44598,25 +44598,32 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })])])]), _vm._v(" "), _c('table', {
     staticClass: "table table-bordered table-striped"
   }, [_vm._m(1), _vm._v(" "), _c('tbody', _vm._l((_vm.ad_Pets), function(pet) {
-    return _c('tr', [_c('td', [_vm._v(_vm._s(pet.name_pet))]), _vm._v(" "), (pet.species_pet == 'dog') ? _c('td', [_vm._v("Cachorro")]) : _vm._e(), _vm._v(" "), (pet.species_pet == 'cat') ? _c('td', [_vm._v("Gato\n            ")]) : _vm._e(), (pet.species_pet != 'cat' && pet.species_pet != 'dog') ? _c('td', [_vm._v("Outros")]) : _vm._e(), _vm._v(" "), _c('td', [_vm._v(_vm._s(pet.name))]), _vm._v(" "), _c('td', {
+    return _c('tr', [_c('td', [_vm._v(_vm._s(pet.name_pet))]), _vm._v(" "), (pet.species_pet == 'dog') ? _c('td', [_vm._v("Cachorro")]) : _vm._e(), _vm._v(" "), (pet.species_pet == 'cat') ? _c('td', [_vm._v("Gato\n            ")]) : _vm._e(), (pet.species_pet != 'cat' && pet.species_pet != 'dog') ? _c('td', [_vm._v("Outros")]) : _vm._e(), _vm._v(" "), _c('td', [_vm._v(_vm._s(pet.user.name))]), _vm._v(" "), _c('td', {
       attrs: {
         "align": "center"
       }
     }, [_vm._m(2, true), _vm._v(" "), _c('a', {
       staticClass: "btn btn-primary",
       attrs: {
-        "href": 'advertisings/createAdAbandoned/edit/' + pet.fkPet
+        "href": 'advertisings/edit/' + pet.id
       }
     }, [_c('span', {
       staticClass: "fa fa-pencil-square-o fa-lg"
-    })]), _vm._v(" "), _c('a', {
+    })]), _vm._v(" "), (pet.active_pet == 1) ? _c('a', {
       staticClass: "btn btn-danger",
       attrs: {
-        "href": 'advertisings/createAdAbandoned/destroy/' + pet.fkPet
+        "href": 'advertisings/active/' + pet.id
       }
     }, [_c('span', {
-      staticClass: "fa fa-trash fa-lg"
-    })])])])
+      staticClass: "fa fa-lock"
+    })]) : _vm._e(), _vm._v(" "), (pet.active_pet == 0) ? _c('a', {
+      staticClass: "btn btn-success",
+      attrs: {
+        "href": 'advertisings/desactive/' + pet.id
+      }
+    }, [_c('span', {
+      staticClass: "fa fa-unlock"
+    })]) : _vm._e()])])
   }))]), _vm._v(" "), _c('div', {
     staticClass: "text-center"
   }, [_c('vc-pagination', {

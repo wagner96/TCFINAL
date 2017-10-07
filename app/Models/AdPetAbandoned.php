@@ -12,7 +12,15 @@ class AdPetAbandoned extends Model implements Transformable
 
     protected $fillable = [
         'id',
-        'fkPet',
-        'personality_pet'];
+        'pet_id',
+        'personality_pet',
+        'updated_at',
+        'created_at'
+    ];
+
+    public function Pet()
+    {
+        return $this->hasOne(Pet::class);
+    }
 
 }

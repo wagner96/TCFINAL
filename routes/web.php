@@ -8,6 +8,11 @@ Route::get('logout', 'UserController@logout');
 
 //
 
+Route::get('test', function(){
+   $repository = app()->make('TC\Repositories\PetRepository');
+   return $repository->with(['AdPetAbandoned','PhotosPet', 'User'])->find(100);
+});
+
 Route::group(['prefix' => 'admin', 'middleware' => 'auth.checkrole', 'as' => 'admin.'], function () {
     Route::get('users/createUser', 'UserController@create');
     Route::post('users/store', ['as' => 'users.store', 'uses' => 'UserController@store']);
@@ -29,10 +34,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.checkrole', 'as' => 'ad
 
 
     Route::get('advertisings/createAdAbandoned', 'ControllerAdAbandonedPet@create');
-    Route::post('advertisings/createAdAbandoned/store', ['as' => 'advertisings.createAdAbandoned.store', 'uses' => 'ControllerAdAbandonedPet@store']);
-    Route::get('advertisings/createAdAbandoned/edit/{id}', ['as' => 'advertisings.createAdAbandoned.edit', 'uses' => 'ControllerAdAbandonedPet@edit']);
-    Route::get('advertisings/createAdAbandoned/destroy/{id}', ['as' => 'advertisings.createAdAbandoned.destroy', 'uses' => 'ControllerAdAbandonedPet@destroy']);
+    Route::post('advertisings/store', ['as' => 'advertisings.store', 'uses' => 'ControllerAdAbandonedPet@store']);
+    Route::get('advertisings/edit/{id}', ['as' => 'advertisings.edit', 'uses' => 'ControllerAdAbandonedPet@edit']);
+    Route::post('advertisings/update/{id}', ['as' => 'advertisings.update', 'uses' => 'ControllerAdAbandonedPet@update']);
 
+    Route::get('advertisings/destroy/{id}', ['as' => 'advertisings.createAdAbandoned.destroy', 'uses' => 'ControllerAdAbandonedPet@destroy']);
+    Route::get('advertisings/active/{id}', ['as' => 'advertisings.createAdAbandoned.active', 'uses' => 'ControllerAdAbandonedPet@active']);
+    Route::get('advertisings/desactive/{id}', ['as' => 'advertisings.createAdAbandoned.desactive', 'uses' => 'ControllerAdAbandonedPet@desactive']);
 });
 
 

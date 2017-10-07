@@ -10,5 +10,6 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  */
 interface PhotosPetRepository extends RepositoryInterface
 {
-    
+    public function getByIdAndDeliveryman($id, $idDeliveryman);
+
 }

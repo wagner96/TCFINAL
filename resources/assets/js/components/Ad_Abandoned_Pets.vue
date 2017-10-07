@@ -78,14 +78,18 @@
                 <td v-if="pet.species_pet == 'dog'">Cachorro</td>
                 <td v-if="pet.species_pet == 'cat'">Gato
                 <td v-if="pet.species_pet != 'cat' && pet.species_pet != 'dog'">Outros</td>
-                <td>{{pet.name}}</td>
+                <td>{{pet.user.name}}</td>
                 <!--<td>{{pet.role}}</td>-->
 
                 <td align="center">
                     <a class="btn btn-success"><span class="fa fa-eye fa-lg"></span></a>
-                    <a v-bind:href="'advertisings/createAdAbandoned/edit/'+ pet.fkPet" class="btn btn-primary"><span class="fa fa-pencil-square-o fa-lg"></span></a>
+                    <a v-bind:href="'advertisings/edit/'+ pet.id" class="btn btn-primary"><span class="fa fa-pencil-square-o fa-lg"></span></a>
 
-                    <a v-bind:href="'advertisings/createAdAbandoned/destroy/'+ pet.fkPet" class="btn btn-danger"><span class="fa fa-trash fa-lg"></span></a>
+                    <a v-if="pet.active_pet == 1" v-bind:href="'advertisings/active/'+pet.id" class="btn btn-danger"><span
+                            class="fa fa-lock"> </span></a>
+
+                    <a v-if="pet.active_pet == 0" v-bind:href="'advertisings/desactive/'+pet.id" class="btn btn-success"><span
+                            class="fa fa-unlock"> </span></a>
 
 
 

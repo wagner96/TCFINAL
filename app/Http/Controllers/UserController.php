@@ -57,6 +57,7 @@ class UserController extends Controller
             'role' => 'required'
         ]);
         $data = $request->all();
+
         $data['password'] = bcrypt($data['password']);
         $this->repository->create($data);
 
@@ -76,7 +77,6 @@ class UserController extends Controller
     {
 
         $user = $this->repository->find($id);
-
         return view('admin.users.editUser', compact('user'));
     }
 
