@@ -3,7 +3,7 @@
 @section('content')
     @include('errors._check')
 
-    {{Form::open(array('route'=>'admin.advertisings.createAdAbandoned.store','files' => 'true',  'name'=>'form', 'data-toggle'=>'validator', 'id'=>'form'))}}
+    {{Form::open(array('route'=>'admin.adverts.abandoned.store','files' => 'true',  'name'=>'form', 'data-toggle'=>'validator', 'id'=>'form'))}}
     <div class="container">
         <div class="form-horizontal">
             <h1>Adoção de Animal</h1>
@@ -144,7 +144,7 @@
 
     {{--<div class="row">--}}
     {{--<div class="col-md-12">--}}
-    {{--{!! Form::open([ 'route' => [ 'admin.advertisings.createAdAbandoned.post_upload' ], 'files' => true, 'enctype' => 'multipart/form-data', 'class' => 'dropzone', 'id' => 'image-upload' ]) !!}--}}
+    {{--{!! Form::open([ 'route' => [ 'admin.advertising.createAdAbandoned.post_upload' ], 'files' => true, 'enctype' => 'multipart/form-data', 'class' => 'dropzone', 'id' => 'image-upload' ]) !!}--}}
 
     {{--{!! Form::close() !!}--}}
     {{--</div>--}}
