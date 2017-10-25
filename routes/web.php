@@ -28,6 +28,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.checkrole', 'as' => 'ad
     Route::get('users/listUsers', ['as' => 'users.listUsers', 'uses' => 'UserController@listUsers']);
 
 
+
     Route::post('users/update/{id}', ['as' => 'users.update', 'uses' => 'UserController@update']);
     Route::get('users/active/{id}', ['as' => 'users.active', 'uses' => 'UserController@active']);
     Route::get('users/desactive/{id}', ['as' => 'users.desactive', 'uses' => 'UserController@desactive']);
@@ -67,5 +68,7 @@ Auth::routes();
 
 Route::get('/',['as'=> 'homeController.index','uses' => 'HomeController@index']);
 
+Route::get('/abandonados',['as'=> 'controllerAdAbandonedPet.listIndex','uses' => 'ControllerAdAbandonedPet@listIndex']);
+Route::get('animal/{id}', ['as' => 'controllerAdAbandonedPet.show', 'uses' => 'ControllerAdAbandonedPet@show']);
 
 

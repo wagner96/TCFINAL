@@ -30,9 +30,20 @@ class ControllerAdAbandonedPet extends Controller
         return view('admin.adverts.abandoned.createAdAbandoned');
     }
 
+    public function listIndex()
+    {
+        $pets = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])
+            ->where('active_pet', '=', '1')
+            ->orderByDesc('id')
+            ->paginate(8);
+        return view('petsAbandoned', compact('pets'));
+    }
+
     public function listAd()
     {
-        $adPets = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])->paginate(6);
+        $adPets = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])
+            ->orderByDesc('id')
+            ->paginate(6);
 
         return \Response::json($adPets);
     }
@@ -79,11 +90,9 @@ class ControllerAdAbandonedPet extends Controller
 
     public function show($id)
     {
-        $user = User::find($id);
-        //echo "<pre>";
-        //  print_r($user);
-        //echo "</pre>";
-        return view('show', array('user' => $user));
+        $pet = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])
+            ->find($id);
+        return view('showPet', compact('pet'));
     }
 
 

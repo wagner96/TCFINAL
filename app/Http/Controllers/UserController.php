@@ -4,6 +4,7 @@ namespace TC\Http\Controllers;
 
 use Auth;
 use Hash;
+use Illuminate\Http\Request;
 use TC\Http\Requests\AdminUserRequest;
 use TC\Models\User;
 use TC\Repositories\UserRepository;
@@ -24,10 +25,16 @@ class UserController extends Controller
         return view('admin.users.allUsers');
     }
 
-    public function listUsers()
+    public function listUsers(Request $request)
     {
-        // $users = DB::table('users')->select('id', 'name', 'city', 'role', 'active_user')->get();
-        $users = User::paginate(6);
+        $pesq = $request->pesq;
+        if ($pesq){
+            $users = User::where('name', 'like', '% $pesq %')
+                ->paginate(6);
+        }
+        else{
+            $users = User::paginate(6);
+        }
         return \Response::json($users);
     }
 

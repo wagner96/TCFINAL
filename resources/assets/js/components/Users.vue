@@ -1,7 +1,6 @@
 <script>
     import VcPagination from './Pagination.vue'
     import Modal from './Modal';
-
     export default {
         components:
             {
@@ -32,9 +31,7 @@
             },
             selectUser(user) {
                 this.clickedUser = user;
-
             }
-
         },
         mounted() {
             //  this.list = JSON.parse(this.users)

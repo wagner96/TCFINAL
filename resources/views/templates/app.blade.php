@@ -23,12 +23,11 @@
     <!--DROPZONE-->
 
 
-
     <![endif]-->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse  navbar-fixed-top" >
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -48,16 +47,28 @@
 
                 @if(Auth::user())
                     @if(Auth::user()->role == 'admin')
-                        <li><a href="{{ url('admin/users') }}">Usuários</a></li>
-                        <li><a href="{{ url('admin/adverts/abandoned') }}">Animais Abandonados</a></li>
-                        <li><a href="{{ url('admin/adverts/disappeared') }}">Animais Desaparecidos</a></li>
+                        <li class="dropdown">
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">Administração <b
+                                        class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ url('admin/users') }}">Usuários</a></li>
+                                <li><a href="{{ url('admin/adverts/abandoned') }}">Animais Abandonados</a></li>
+                                <li><a href="{{ url('admin/adverts/disappeared') }}">Animais Desaparecidos</a></li>
+                            </ul>
 
+                        </li>
                     @endif
                 @endif
             </ul>
-
             <ul class="nav navbar-nav navbar-right">
-                @if(auth()->guest())
+                <li><a href="{{url('/')}}"><b>Página inicial</b></a></li>
+                <li><a href="{{url('/abandonados')}}"><b>Amigos Abandonados</b></a></li>
+                <li><a href="{{url('/')}}"><b>Amigos Desaparecidos</b></a></li>
+                <li><a href="{{url('/')}}"><b>Contato</b></a></li>
+                <li><a href="{{url('/')}}"><b>Quem Somos</b></a></li>
+
+
+            @if(auth()->guest())
                     @if(!Request::is('auth/login'))
                         <li><a href="{{ url('/user/login') }}">Login</a></li>
                     @endif
@@ -80,6 +91,7 @@
 
 <div class="container">
     <div id="app">
+        <br><br>
         @yield('content')
     </div>
 </div>
@@ -107,14 +119,14 @@
 <script>
     function ocultarMostrar(selectObject) {
         var x = selectObject.value;
-        if(x === 'ong'){
+        if (x === 'ong') {
             document.getElementById('bairro').style.display = '';
             document.getElementById('complemento').style.display = '';
             document.getElementById('rdSocial').style.display = '';
             document.getElementById('acoes').style.display = '';
             document.getElementById('sexo').style.display = 'none';
         }
-        else{
+        else {
             document.getElementById('bairro').style.display = 'none';
             document.getElementById('complemento').style.display = 'none';
             document.getElementById('rdSocial').style.display = 'none';
