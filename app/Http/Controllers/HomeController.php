@@ -3,6 +3,9 @@
 namespace TC\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Response;
+use TC\Models\Pet;
+use TC\Repositories\PetRepository;
 
 class HomeController extends Controller
 {
@@ -11,18 +14,21 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(PetRepository $repository)
     {
+        $this->repository = $repository;
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        return view('home');
+        $pets = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])->paginate(8);
+        return view('index', compact('pets'));
+    }
+
+    public function listAbandoned()
+    {
+        $adPets = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])->paginate(6);
+        return \Response::json($adPets);
     }
 }

@@ -2,16 +2,11 @@
 
 namespace TC\Http\Controllers;
 
-use Illuminate\Http\Request;
-use TC\Models\User;
-use TC\Http\Controllers\Controller;
-use TC\Repositories\UserRepository;
-use TC\Http\Requests\AdminUserRequest;
-use Illuminate\Validation\Validator;
-use Illuminate\Support\Facades\Session;
-use Hash;
 use Auth;
-use Illuminate\Support\Facades\DB;
+use Hash;
+use TC\Http\Requests\AdminUserRequest;
+use TC\Models\User;
+use TC\Repositories\UserRepository;
 
 class UserController extends Controller
 {
@@ -26,19 +21,12 @@ class UserController extends Controller
     public function index()
     {
 
-        //$users = DB::table('users')->select('id', 'name', 'city', 'role', 'active_user')->get();
-
-        //$users = DB::table('users')->get();
-        //c
-
-        //  return view('admin.users.allUsers')->with(compact('users'));
-
         return view('admin.users.allUsers');
     }
 
     public function listUsers()
     {
-       // $users = DB::table('users')->select('id', 'name', 'city', 'role', 'active_user')->get();
+        // $users = DB::table('users')->select('id', 'name', 'city', 'role', 'active_user')->get();
         $users = User::paginate(6);
         return \Response::json($users);
     }
@@ -51,15 +39,20 @@ class UserController extends Controller
     public function store(AdminUserRequest $request)
     {
 
-        $this->validate($request, ['name' => 'required',
+        $this->validate($request, [
+            'name' => 'required|Alpha',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required',
-            'role' => 'required'
+            'role' => 'required',
+            'city' => 'Alpha',
         ]);
         $data = $request->all();
-
+        if ($data['role'] == 'ong'){
+            $data['breed'] = null;
+        }
         $data['password'] = bcrypt($data['password']);
-        $this->repository->create($data);
+        $conf = $this->repository->create($data);
+        session()->flash('flash_message', 'Usuário registrado!!!');
 
         return redirect()->route('admin.users.index');
     }
@@ -82,11 +75,17 @@ class UserController extends Controller
 
     public function update(AdminUserRequest $request, $id)
     {
-        $this->validate($request, ['name' => 'required',
-            'email' => 'required|email|max:255|',
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email|max:255',
         ]);
         $data = $request->all();
+        if ($data['role'] == 'ong'){
+            $data['breed'] = null;
+        }
+
         $this->repository->update($data, $id);
+        session()->flash('flash_message', 'Usuário editado!!!');
 
         return redirect()->route('admin.users.index');
     }
@@ -100,6 +99,8 @@ class UserController extends Controller
     {
         $teste = array('active_user' => 0);
         $this->repository->update($teste, $id);
+        session()->flash('flash_message', 'Usuário desativado!!!');
+
         return redirect()->route('admin.users.index');
     }
 
@@ -107,6 +108,8 @@ class UserController extends Controller
     {
         $teste = array('active_user' => 1);
         $this->repository->update($teste, $id);
+        session()->flash('flash_message', 'Usuário ativado!!!');
+
         return redirect()->route('admin.users.index');
     }
 

@@ -24,6 +24,8 @@
                         <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
                         {{Form::text('name_pet','', array('placeholder' => 'Nome do animal','class' => 'form-control', 'required'))}}
                     </div>
+                    <div class="help-block with-errors"></div>
+
                 </div>
             </div>
             <div class="form-group">
@@ -31,7 +33,7 @@
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                        {{Form::number('age_pet','', array('class' => 'form-control'))}}
+                        {{Form::number('age_pet','', array('class' => 'form-control','min' => '1', 'max' =>'15'))}}
                     </div>
                 </div>
             </div>
@@ -40,7 +42,7 @@
                 <div class="col-md-4 selectContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                        {{Form::select('proportion_pet', ['nda'=>'Não informar', 'small'=>'Pequeno', 'medium'=>'Médio', 'big'=>'Grande'],null, ['class' => 'form-control'])}}
+                        {{Form::select('proportion_pet', ['nda'=>'Não informar', 'small'=>'Pequeno', 'medium'=>'Médio', 'big'=>'Grande'],null, ['class' => 'form-control', 'required'])}}
                     </div>
                 </div>
             </div>
@@ -94,7 +96,7 @@
                         'SC'=>'Santa Catarina',
                         'SP'=>'São Paulo',
                         'SE'=>'Sergipe',
-                        'TO'=>'Tocantins'),null, ['class' => 'form-control'])}}
+                        'TO'=>'Tocantins'),null, ['class' => 'form-control', 'required'])}}
                     </div>
                 </div>
             </div>
@@ -104,8 +106,11 @@
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                        {{Form::text('city_pet','', array('placeholder' => 'Cidade','class' => 'form-control'))}}
+                        {{Form::text('city_pet','', array('placeholder' => 'Cidade','class' => 'form-control', 'required'))}}
                     </div>
+                    <div class="help-block with-errors"></div>
+
+
                 </div>
             </div>
             <div class="form-group">
@@ -113,8 +118,10 @@
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                        {{Form::textarea('personality_pet','', array('placeholder'=>'Personalidade do animal','class' => 'form-control', 'cols'=>'5','rows'=>'5' ))}}
+                        {{Form::textarea('personality_pet','', array('placeholder'=>'Personalidade do animal','class' => 'form-control', 'cols'=>'5','rows'=>'5', 'required'))}}
                     </div>
+                    <div class="help-block with-errors"></div>
+
                 </div>
             </div>
 
@@ -144,7 +151,7 @@
 
     {{--<div class="row">--}}
     {{--<div class="col-md-12">--}}
-    {{--{!! Form::open([ 'route' => [ 'admin.advertising.createAdAbandoned.post_upload' ], 'files' => true, 'enctype' => 'multipart/form-data', 'class' => 'dropzone', 'id' => 'image-upload' ]) !!}--}}
+    {{--{!! Form::open([ 'route' => [ 'admin.adverts.createAdAbandoned.post_upload' ], 'files' => true, 'enctype' => 'multipart/form-data', 'class' => 'dropzone', 'id' => 'image-upload' ]) !!}--}}
 
     {{--{!! Form::close() !!}--}}
     {{--</div>--}}

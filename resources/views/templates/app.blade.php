@@ -10,7 +10,6 @@
 
     <link href="{{URL::asset('css/app.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
     <!-- Fonts -->
     <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
 
@@ -38,9 +37,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <img class="logo pull-left" src="{{URL::asset('img/logotipo-wagner.png')}}"
+            <img class="logo pull-left" href="{{ url('/') }}" src="{{URL::asset('img/logotipo-wagner.png')}}"
                  style="max-width:100px; margin-top: 2px;" width="70" height="50">
-            <a class="navbar-brand" href="{{ url('admin/users') }}">Adote um amigo</a>
+            <a class="navbar-brand" href="{{ url('/') }}">Adote um amigo</a>
 
         </div>
 
@@ -50,7 +49,8 @@
                 @if(Auth::user())
                     @if(Auth::user()->role == 'admin')
                         <li><a href="{{ url('admin/users') }}">Usuários</a></li>
-                        <li><a href="{{ url('admin/advertisings') }}">Animais Abandonados</a></li>
+                        <li><a href="{{ url('admin/adverts/abandoned') }}">Animais Abandonados</a></li>
+                        <li><a href="{{ url('admin/adverts/disappeared') }}">Animais Desaparecidos</a></li>
 
                     @endif
                 @endif
@@ -105,31 +105,22 @@
 
 
 <script>
-    function ocultarMostrar(chk) {
-        var mostrar = 'none';
-        var mostrar2 = 'none'
-        if (chk.checked)
-            mostrar = '';
-        document.getElementById('txt').style.display = mostrar;
-        document.getElementById('txt2').style.display = mostrar;
-        document.getElementById('txt3').style.display = mostrar;
-        document.getElementById('txt4').style.display = mostrar;
-        document.getElementById('txtSexo').style.display = mostrar2;
-
-    }
-    function ocultarMostrar2(chk) {
-        var mostrar = '';
-        var mostrar2 = ''
-        if (chk.checked)
-            mostrar = 'none';
-        document.getElementById('txt').style.display = mostrar;
-        document.getElementById('txt2').style.display = mostrar;
-        document.getElementById('txt3').style.display = mostrar;
-        document.getElementById('txt4').style.display = mostrar;
-        document.getElementById('txtSexo').style.display = mostrar2;
-
-
-
+    function ocultarMostrar(selectObject) {
+        var x = selectObject.value;
+        if(x === 'ong'){
+            document.getElementById('bairro').style.display = '';
+            document.getElementById('complemento').style.display = '';
+            document.getElementById('rdSocial').style.display = '';
+            document.getElementById('acoes').style.display = '';
+            document.getElementById('sexo').style.display = 'none';
+        }
+        else{
+            document.getElementById('bairro').style.display = 'none';
+            document.getElementById('complemento').style.display = 'none';
+            document.getElementById('rdSocial').style.display = 'none';
+            document.getElementById('acoes').style.display = 'none';
+            document.getElementById('sexo').style.display = '';
+        }
     }
 </script>
 @yield('post-script')

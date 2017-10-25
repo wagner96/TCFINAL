@@ -22,20 +22,16 @@ class ControllerAdAbandonedPet extends Controller
 
     public function index()
     {
-        return view('admin.advertisings.allAdAbandoned');
+        return view('admin.adverts.abandoned.allAdAbandoned');
     }
 
     public function create()
     {
-        return view('admin.advertisings.createAdAbandoned');
+        return view('admin.adverts.abandoned.createAdAbandoned');
     }
 
     public function listAd()
     {
-//        $adPets = DB::table('users')
-//            ->join('pets', 'users.id', '=', 'pets.fkUser')
-//            ->join('ad_pet_abandoneds', 'pets.id', '=', 'ad_pet_abandoneds.fkPet')
-//            ->paginate(6);
         $adPets = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])->paginate(6);
 
         return \Response::json($adPets);
@@ -43,6 +39,16 @@ class ControllerAdAbandonedPet extends Controller
 
     public function store(Request $request)
     {
+        $request['user'] = auth()->user()->id;
+        $this->validate($request, [
+            'name_pet' => 'required|Alpha',
+            'age_pet' => 'AlphaNum|min:0|max:15',
+            'movie_pet' => '',
+            'city_pet' => 'required|Alpha',
+            'personality_pet' => 'required',
+            'photos' => 'mimes:jpeg,bmp,png,jpg,gif',
+            'user' => 'required',
+        ]);
         $pet = new Pet();
 
         $data = $request->all();
@@ -60,14 +66,15 @@ class ControllerAdAbandonedPet extends Controller
                 $photos_pet = new PhotosPet();
                 $photo_name = time() . $photo->getClientOriginalName();
                 $photo->move('images/Pets Abandoned', $photo_name);
-                $photos_pet->fkPet = $fk_pet;
+                $photos_pet->pet_id = $fk_pet;
                 $photos_pet->url = 'images/Pets Abandoned/' . $photo_name;
                 $photos_pet->save();
                 unset($photos_pet);
             }
         }
+        session()->flash('flash_message', 'Anúncio salvo!!!');
 
-        return redirect()->route('admin.advertising.index');
+        return redirect()->route('admin.adverts.abandoned.index');
     }
 
     public function show($id)
@@ -84,16 +91,32 @@ class ControllerAdAbandonedPet extends Controller
     {
         $dataPet = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])->find($id);
 
-        return view('admin.advertisings.editAdAbandoned', compact('dataPet'));
+        return view('admin.adverts.abandoned.editAdAbandoned', compact('dataPet'));
     }
 
     public function update(Request $request, $id)
     {
-//        $data = $request->all();
-//        $data = request()->except(['_token']);
-//        $test =
-//        Pet::with(['AdPetAbandoned'])->update($data, $id);
-//        return view('admin.advertisings.allAdAbandoned');
+        $this->validate($request, [
+            'name_pet' => 'required|Alpha',
+            'age_pet' => 'AlphaNum|min:0|max:15',
+            'movie_pet' => '',
+            'city_pet' => 'required|Alpha',
+            'personality_pet' => 'required',
+            'photos' => 'mimes:jpeg,bmp,png,jpg,gif',
+        ]);
+        $data = $request->all();
+        $personality_pet = $request->get('personality_pet');
+
+        $this->repository->update($data, $id);
+
+        DB::table('ad_pet_abandoned')
+            ->where('pet_id', $id)
+            ->update(['personality_pet' => $personality_pet]);
+
+        session()->flash('flash_message', 'Anúncio foi editado com sucesso!!!');
+
+        return redirect()->route('admin.adverts.abandoned.index');
+
 
     }
 
@@ -101,11 +124,11 @@ class ControllerAdAbandonedPet extends Controller
     public function destroy($id)
     {
 //
-//        $dataPet = DB::table('pets')
-//            ->where('pets.id', '=', $id)
-//            ->join('ad_pet_abandoneds', 'pets.id', '=', 'ad_pet_abandoneds.fkPet')
-//            ->join('photos_pets', 'pets.id', '=', 'photos_pets.fkPet')
-//            ->get();
+        $dataPet = DB::table('pets')
+            ->where('pets.id', '=', $id)
+            ->join('ad_pet_abandoned', 'pets.id', '=', 'ad_pet_abandoned.fkPet')
+            ->join('photos_pets', 'pets.id', '=', 'photos_pets.fkPet')
+            ->get();
 //        $dataPhoto = DB::table('photos_pets')
 //            ->select('url')
 //            ->where('fkPet','=', $id)
@@ -123,8 +146,9 @@ class ControllerAdAbandonedPet extends Controller
         $test = DB::table('pets')
             ->where('id', $id)
             ->update(['active_pet' => 0]);
+        session()->flash('flash_message', 'Anúncio desativado!!!');
 
-        return redirect()->route('admin.advertising.index');
+        return redirect()->route('admin.adverts.abandoned.index');
     }
 
     public function desactive($id)
@@ -132,7 +156,9 @@ class ControllerAdAbandonedPet extends Controller
         DB::table('pets')
             ->where('id', $id)
             ->update(['active_pet' => 1]);
-        return redirect()->route('admin.advertising.index');
+        session()->flash('flash_message', 'Anúncio ativado!!!');
+
+        return redirect()->route('admin.adverts.abandoned.index');
     }
 
 }

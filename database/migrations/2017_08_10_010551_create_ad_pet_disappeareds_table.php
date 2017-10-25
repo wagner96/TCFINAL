@@ -13,7 +13,7 @@ class CreateAdPetDisappearedsTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('ad_pet_disappeareds', function(Blueprint $table) {
+		Schema::create('ad_pet_disappeared', function(Blueprint $table) {
             $table->increments('id');
 
             $table->timestamps();
@@ -27,7 +27,7 @@ class CreateAdPetDisappearedsTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::drop('ad_pet_disappeareds');
+		Schema::drop('ad_pet_disappeared');
 	}
 
 }

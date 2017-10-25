@@ -10,6 +10,7 @@ class AdPetAbandoned extends Model implements Transformable
 {
     use TransformableTrait;
 
+    protected $table = "ad_pet_abandoned";
     protected $fillable = [
         'id',
         'pet_id',

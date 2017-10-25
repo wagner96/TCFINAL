@@ -3,7 +3,7 @@
 @section('content')
     @include('errors._check')
 
-    {{Form::model($dataPet, array('route'=> array('admin.advertising.abandoned.update', $dataPet->id)))}}
+    {{Form::model($dataPet, array('route'=> array('admin.adverts.abandoned.update', $dataPet->id)))}}
 
     <div class="container">
         <div class="form-horizontal">
@@ -33,7 +33,7 @@
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                        {{Form::number('age_pet',null, array('class' => 'form-control'))}}
+                        {{Form::number('age_pet',null, array('class' => 'form-control','min' => '1', 'max' =>'15'))}}
                     </div>
                 </div>
             </div>
@@ -42,7 +42,7 @@
                 <div class="col-md-4 selectContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                        {{Form::select('proportion_pet', ['nda'=>'Não informar', 'small'=>'Pequeno', 'medium'=>'Médio', 'big'=>'Grande'],null, ['class' => 'form-control'])}}
+                        {{Form::select('proportion_pet', ['nda'=>'Não informar', 'small'=>'Pequeno', 'medium'=>'Médio', 'big'=>'Grande'],null, ['class' => 'form-control', 'required'])}}
                     </div>
                 </div>
             </div>
@@ -96,7 +96,7 @@
                         'SC'=>'Santa Catarina',
                         'SP'=>'São Paulo',
                         'SE'=>'Sergipe',
-                        'TO'=>'Tocantins'),null, ['class' => 'form-control'])}}
+                        'TO'=>'Tocantins'),null, ['class' => 'form-control', 'required'])}}
                     </div>
                 </div>
             </div>
@@ -106,7 +106,7 @@
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                        {{Form::text('city_pet',null, array('placeholder' => 'Cidade','class' => 'form-control'))}}
+                        {{Form::text('city_pet',null, array('placeholder' => 'Cidade','class' => 'form-control', 'required'))}}
                     </div>
                 </div>
             </div>
@@ -116,7 +116,7 @@
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                        {{Form::textarea('personality_pet',$dataPet->AdPetAbandoned->personality_pet, array('placeholder'=>'Personalidade do animal','class' => 'form-control', 'cols'=>'5','rows'=>'5' ))}}
+                        {{Form::textarea('personality_pet',$dataPet->AdPetAbandoned->personality_pet, array('placeholder'=>'Personalidade do animal','class' => 'form-control', 'cols'=>'5','rows'=>'5', 'required' ))}}
                     </div>
                 </div>
             </div>
@@ -136,7 +136,7 @@
 
                     {{Form::submit('Salvar', ['class'=>'btn btn-primary'])}}
                     {{Form::close()}}
-                    <a href="{{URL::asset('admin/advertising/abandoned/')}}" class="btn btn-danger">Cancelar</a>
+                    <a href="{{URL::asset('admin/adverts/abandoned/')}}" class="btn btn-danger">Cancelar</a>
 
                 </div>
             </div>
@@ -148,7 +148,7 @@
 
     {{--<div class="row">--}}
     {{--<div class="col-md-12">--}}
-    {{--{!! Form::open([ 'route' => [ 'admin.advertising.createAdAbandoned.post_upload' ], 'files' => true, 'enctype' => 'multipart/form-data', 'class' => 'dropzone', 'id' => 'image-upload' ]) !!}--}}
+    {{--{!! Form::open([ 'route' => [ 'admin.adverts.createAdAbandoned.post_upload' ], 'files' => true, 'enctype' => 'multipart/form-data', 'class' => 'dropzone', 'id' => 'image-upload' ]) !!}--}}
 
     {{--{!! Form::close() !!}--}}
     {{--</div>--}}

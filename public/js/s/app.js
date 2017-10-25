@@ -1189,9 +1189,9 @@ var Component = __webpack_require__(2)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "C:\\laragon\\www\\TC\\resources\\assets\\js\\components\\pagination.vue"
+Component.options.__file = "C:\\laragon\\www\\TC\\resources\\assets\\js\\components\\Pagination.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] pagination.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] Pagination.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (false) {(function () {
@@ -44013,9 +44013,9 @@ var Component = __webpack_require__(2)(
   /* moduleIdentifier (server only) */
   null
 )
-Component.options.__file = "C:\\laragon\\www\\TC\\resources\\assets\\js\\components\\users.vue"
+Component.options.__file = "C:\\laragon\\www\\TC\\resources\\assets\\js\\components\\Users.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] users.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] Users.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (false) {(function () {
@@ -44052,8 +44052,8 @@ var update = __webpack_require__(10)("70abc572", content, false);
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js?sourceMap!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-e4a66316\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./users.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js?sourceMap!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-e4a66316\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./users.vue");
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js?sourceMap!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-e4a66316\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Users.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js?sourceMap!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-e4a66316\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Users.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -44186,8 +44186,8 @@ var update = __webpack_require__(10)("4ece0556", content, false);
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js?sourceMap!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-bd18cf06\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./pagination.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js?sourceMap!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-bd18cf06\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./pagination.vue");
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js?sourceMap!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-bd18cf06\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Pagination.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js?sourceMap!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-bd18cf06\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Pagination.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -44531,7 +44531,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         navigate: function navigate(page) {
             var _this = this;
 
-            this.$http.get('/admin/advertisings/listAd?page=' + page).then(function (req) {
+            this.$http.get('/admin/adverts/listAd?page=' + page).then(function (req) {
                 _this.ad_Pets = req.data.data;
                 _this.pagination = req.data;
             });
@@ -44542,7 +44542,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this2 = this;
 
         //  this.list = JSON.parse(this.users)
-        this.$http.get('/admin/advertisings/listAd').then(function (req) {
+        this.$http.get('/admin/adverts/listAd').then(function (req) {
             _this2.ad_Pets = req.data.data;
             _this2.pagination = req.data;
         });
@@ -44605,14 +44605,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._m(2, true), _vm._v(" "), _c('a', {
       staticClass: "btn btn-primary",
       attrs: {
-        "href": 'advertisings/createAdAbandoned/edit/' + pet.fkPet
+        "href": 'adverts/createAdAbandoned/edit/' + pet.fkPet
       }
     }, [_c('span', {
       staticClass: "fa fa-pencil-square-o fa-lg"
     })]), _vm._v(" "), _c('a', {
       staticClass: "btn btn-danger",
       attrs: {
-        "href": 'advertisings/createAdAbandoned/destroy/' + pet.fkPet
+        "href": 'adverts/createAdAbandoned/destroy/' + pet.fkPet
       }
     }, [_c('span', {
       staticClass: "fa fa-trash fa-lg"

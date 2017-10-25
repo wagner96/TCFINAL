@@ -3,7 +3,7 @@
 @section('content')
     @include('errors._check')
 
-    {{Form::model($dataPet, array('route'=> array('admin.advertising.abandoned.update', $dataPet->id)))}}
+    {{Form::model($dataPet, array('route'=> array('adverts', $dataPet->id)))}}
 
     <div class="container">
         <div class="form-horizontal">
@@ -136,7 +136,7 @@
 
                     {{Form::submit('Salvar', ['class'=>'btn btn-primary'])}}
                     {{Form::close()}}
-                    <a href="{{URL::asset('admin/advertising/abandoned/')}}" class="btn btn-danger">Cancelar</a>
+                    <a href="{{URL::asset('adverts')}}" class="btn btn-danger">Cancelar</a>
 
                 </div>
             </div>
@@ -148,7 +148,7 @@
 
     {{--<div class="row">--}}
     {{--<div class="col-md-12">--}}
-    {{--{!! Form::open([ 'route' => [ 'admin.advertising.createAdAbandoned.post_upload' ], 'files' => true, 'enctype' => 'multipart/form-data', 'class' => 'dropzone', 'id' => 'image-upload' ]) !!}--}}
+    {{--{!! Form::open([ 'route' => [ 'admin.advertising.createAdAadvertsst_upload' ], 'files' => true, 'enctype' => 'multipart/form-data', 'class' => 'dropzone', 'id' => 'image-upload' ]) !!}--}}
 
     {{--{!! Form::close() !!}--}}
     {{--</div>--}}

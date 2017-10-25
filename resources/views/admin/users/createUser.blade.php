@@ -10,28 +10,32 @@
 <div class="container">
     <div class="form-horizontal">
         <h1>Cadastro de Usuário</h1>
+
         <div class="form-group">
-            {{ Form::label('type_user', 'Tipo de usuário',array('class'=>'col-md-4 control-label'))}}
-            <div class="col-md-4 inputGroupContainer">
-                <div class="input-group radio">
-                    <span class="input-group-addon"></span>
-                    <input type="radio"  name="radios" onclick="ocultarMostrar(this)">
-                    {{ Form::label('ong', 'ONG')}}
-                </div>
-                <div class="input-group radio">
-                    <span class="input-group-addon"></span>
-                    <input type="radio" name="radios" onclick="ocultarMostrar2(this)" checked>
-                    {{ Form::label('pessoa', 'Pessoa Física')}}
+
+            {{ Form::label('hierarchical_level', 'Nível Hierárquico ',array('class'=>'col-md-4 control-label'))}}
+            <div class="col-md-4 selectContainer">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+
+                    {{--<select name="role" id="role" class="form-control" onchange="ocultarMostrar(this)">--}}
+                        {{--<option value="user">Pessoa Física</option>--}}
+                        {{--<option value="admin">Administrador</option>--}}
+                        {{--<option value="ong">ONG</option>--}}
+                    {{--</select>--}}
+
+
+                    {{Form::select('role', ['user'=>'Pessoa Física', 'admin'=>'Administrador', 'ong'=>'ONG'],null, ['class' => 'form-control', 'onchange'=>'ocultarMostrar(this)'])}}
                 </div>
             </div>
         </div>
-        <div class="form-group">
+               <div class="form-group">
             {{ Form::label('name', 'Nome',array('class'=>'col-md-4 control-label'))}}
             <div class="col-md-4 inputGroupContainer">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                     {{Form::text('name','', array('placeholder' => 'Nome','class' => 'form-control', 'required'))}}
-                </div> 
+                </div>
                 <div class="help-block with-errors"></div>
 
             </div>
@@ -42,13 +46,13 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
                     {{Form::email('email','', array('placeholder' => 'exemplo@email.com','class' => 'form-control', 'data-error'=>'E-mail inválido!!!', 'required'))}}
-                </div> 
+                </div>
                 <div class="help-block with-errors"></div>
 
             </div>
-        </div>  
+        </div>
 
-        <div class="form-group" id="txtSexo">
+        <div class="form-group" id="sexo">
 
             {{ Form::label('breed', 'Sexo',array('class'=>'col-md-4 control-label'))}}
             <div class="col-md-4 selectContainer">
@@ -57,7 +61,7 @@
                     {{Form::select('breed', ['Masculino'=>'Masculino', 'Feminino'=>'Feminino'],null, ['class' => 'form-control'])}}
                 </div>
             </div>
-        </div>  
+        </div>
         <div class="form-group">
 
             {{ Form::label('password', 'Senha',array('class'=>'col-md-4 control-label'))}}
@@ -75,7 +79,7 @@
             {{ Form::label('password2', 'Confirmar Senha',array('class'=>'col-md-4 control-label'))}}
             <div class="col-md-4 inputGroupContainer">
                 <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>  
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                     {{Form::password('password2',array('class' => 'form-control', 'data-match'=>'#password','placeholder'=>'Confirme sua Senha...', 'data-match-error'=>'Atenção! As senhas não estão iguais.', 'required'))}}
                 </div>
                 <div class="help-block with-errors"></div>
@@ -88,9 +92,9 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
                     {{Form::text('phone','', array('placeholder' => '(00)0 0000-0000','class' => 'form-control'))}}
-                </div>  
-            </div>  
-        </div>  
+                </div>
+            </div>
+        </div>
         <div class="form-group">
 
             {{ Form::label('state', 'Estado',array('class'=>'col-md-4 control-label'))}}
@@ -134,7 +138,7 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
                     {{Form::text('cep','', array('placeholder' => '000000-000','class' => 'form-control'))}}
-                </div>  
+                </div>
             </div>
         </div>
         <div class="form-group">
@@ -143,11 +147,12 @@
             <div class="col-md-4 inputGroupContainer">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                    {{Form::text('city','', array('placeholder' => 'Cidade','class' => 'form-control'))}}
+                    {{Form::text('city','', array('placeholder' => 'Cidade','class' => 'form-control', 'required'))}}
                 </div>
+                <div class="help-block with-errors"></div>
             </div>
         </div>
-        <div class="form-group" id="txt" style="display:none">
+        <div class="form-group" id="bairro" style="display:none">
             {{ Form::label('district', 'Bairro',array('class'=>'col-md-4 control-label'))}}
             <div class="col-md-4 inputGroupContainer">
                 <div class="input-group">
@@ -158,7 +163,7 @@
             </div>
         </div>
         <div class="form-group">
-            <div id="txt2" style="display:none">
+            <div id="complemento" style="display:none">
                 {{ Form::label('complement', 'Complemento',array('class'=>'col-md-4 control-label'))}}
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
@@ -168,7 +173,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-group" id="txt3" style="display:none">
+        <div class="form-group" id="rdSocial" style="display:none">
             {{ Form::label('social_network', 'Link Facebook',array('class'=>'col-md-4 control-label'))}}
             <div class="col-md-4 inputGroupContainer">
                 <div class="input-group">
@@ -183,17 +188,7 @@
             <div class="col-md-4 inputGroupContainer">
                 <div class="input-group date" id="datetimepicker1">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                    {{Form::text('birth_date','', array('placeholder' => 'Data Nascimento','class' => 'form-control'))}}
-                </div>  
-            </div>
-        </div>
-        <div class="form-group">
-
-            {{ Form::label('hierarchical_level', 'Nível Hierárquico ',array('class'=>'col-md-4 control-label'))}}
-            <div class="col-md-4 selectContainer">
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                    {{Form::select('role', ['user'=>'Pessoa Física', 'admin'=>'Administrador', 'ong'=>'ONG'],null, ['class' => 'form-control'])}}
+                    {{Form::text('birth_date','', array('placeholder' => 'Data Nascimento','class' => 'form-control','data-format' => 'dd/MM/yyyy',))}}
                 </div>
             </div>
         </div>
@@ -208,7 +203,7 @@
             </div>
         </div>
         <div class="form-group">
-            <div id="txt4" style="display:none">
+            <div id="acoes" style="display:none">
                 {{ Form::label('description_actions', 'Descrição das ações',array('class'=>'col-md-4 control-label'))}}
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">

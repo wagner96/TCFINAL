@@ -1,5 +1,5 @@
 <script>
-    import VcPagination from './pagination.vue'
+    import VcPagination from './Pagination.vue'
 
     export default {
         components:
@@ -17,7 +17,7 @@
         },
         methods: {
             navigate(page) {
-                this.$http.get('/admin/advertisings/listAd?page='+page).then((req) => {
+                this.$http.get('/admin/adverts/abandoned/listAd?page='+page).then((req) => {
                     this.ad_Pets = req.data.data
                     this.pagination = req.data
                 })
@@ -26,7 +26,7 @@
 
         mounted() {
             //  this.list = JSON.parse(this.users)
-            this.$http.get('/admin/advertisings/listAd').then((req) => {
+            this.$http.get('/admin/adverts/abandoned/listAd').then((req) => {
                 this.ad_Pets = req.data.data
                 this.pagination = req.data
             })
@@ -83,12 +83,12 @@
 
                 <td align="center">
                     <a class="btn btn-success"><span class="fa fa-eye fa-lg"></span></a>
-                    <a v-bind:href="'advertisings/edit/'+ pet.id" class="btn btn-primary"><span class="fa fa-pencil-square-o fa-lg"></span></a>
+                    <a v-bind:href="'abandoned/edit/'+ pet.id" class="btn btn-primary"><span class="fa fa-pencil-square-o fa-lg"></span></a>
 
-                    <a v-if="pet.active_pet == 1" v-bind:href="'advertisings/active/'+pet.id" class="btn btn-danger"><span
+                    <a v-if="pet.active_pet == 1" v-bind:href="'abandoned/active/'+pet.id" class="btn btn-danger"><span
                             class="fa fa-lock"> </span></a>
 
-                    <a v-if="pet.active_pet == 0" v-bind:href="'advertisings/desactive/'+pet.id" class="btn btn-success"><span
+                    <a v-if="pet.active_pet == 0" v-bind:href="'abandoned/desactive/'+pet.id" class="btn btn-success"><span
                             class="fa fa-unlock"> </span></a>
 
 
