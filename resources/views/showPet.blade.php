@@ -5,7 +5,7 @@
 
 
 
-    <h1>{{$pet->name_pet}}</h1>
+    <h1 s>{{$pet->name_pet}}</h1>
     @include('errors.alerts')
 
 

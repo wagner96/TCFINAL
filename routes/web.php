@@ -1,6 +1,7 @@
 <?php
 use TC\Models\AdPetAbandoned;
-use TC\Models\Pet;
+use TC\Models\User;
+
 use TC\Models\PhotosPet;
 use TC\Repositories\PetRepository;
 //Route::post('login', ['as' =>'login', 'uses' => 'Auth\AuthController@getLogin']);
@@ -12,7 +13,7 @@ Route::get('logout', 'UserController@logout');
 //
 
 Route::get('test', function(){
-    $adPets = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])->get();
+    $adPets = User::get();
     dd($adPets);
 });
 
@@ -65,10 +66,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.checkrole', 'as' => 'ad
 
 
 Auth::routes();
-
+// INDEX
 Route::get('/',['as'=> 'homeController.index','uses' => 'HomeController@index']);
-
+//ANIMAIS ABANDONADOS
 Route::get('/abandonados',['as'=> 'controllerAdAbandonedPet.listIndex','uses' => 'ControllerAdAbandonedPet@listIndex']);
 Route::get('animal/{id}', ['as' => 'controllerAdAbandonedPet.show', 'uses' => 'ControllerAdAbandonedPet@show']);
+
+// REGISTRAR USUÁRIO
+Route::get('/registrar', 'UserController@create');
+Route::post('/store', ['as' => 'users.store', 'uses' => 'UserController@store']);
 
 

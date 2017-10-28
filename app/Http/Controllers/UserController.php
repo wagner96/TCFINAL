@@ -19,28 +19,32 @@ class UserController extends Controller
         $this->repository = $repository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->pesq;
+        $users = $this->listUsers($search);
 
-        return view('admin.users.allUsers');
+        return view('admin.users.allUsers', compact('users'));
     }
 
-    public function listUsers(Request $request)
+    public function listUsers($search)
     {
-        $pesq = $request->pesq;
-        if ($pesq){
-            $users = User::where('name', 'like', '% $pesq %')
+        if ($search != null) {
+            $users = User::where('name', 'like', '%' . $search . '%')
+                ->orWhere('email', 'like', '%'. $search .'%')
+                ->paginate(6);
+        } else {
+            $users = User::orderByDesc('id')
                 ->paginate(6);
         }
-        else{
-            $users = User::paginate(6);
-        }
-        return \Response::json($users);
+        return $users;
     }
 
     public function create()
     {
+        $vrf_user = auth()->user();
         return view('admin.users.createUser');
+
     }
 
     public function store(AdminUserRequest $request)
@@ -54,7 +58,7 @@ class UserController extends Controller
             'city' => 'Alpha',
         ]);
         $data = $request->all();
-        if ($data['role'] == 'ong'){
+        if ($data['role'] == 'ong') {
             $data['breed'] = null;
         }
         $data['password'] = bcrypt($data['password']);
@@ -87,7 +91,7 @@ class UserController extends Controller
             'email' => 'required|email|max:255',
         ]);
         $data = $request->all();
-        if ($data['role'] == 'ong'){
+        if ($data['role'] == 'ong') {
             $data['breed'] = null;
         }
 
@@ -128,7 +132,7 @@ class UserController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect('/login');
+        return redirect('/');
     }
 
 }

@@ -1,3 +1,14 @@
+$(document).ready(function(){
+
+    //Esconde preloader
+    $(window).load(function(){
+        $('#preloader').fadeOut(2000);
+    });
+
+});
+
+
+
 $( document ).ready(function(){
 
     $(document).ready(function ($) {

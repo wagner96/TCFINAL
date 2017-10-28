@@ -20,9 +20,12 @@ class ControllerAdAbandonedPet extends Controller
         $this->repository = $repository;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.adverts.abandoned.allAdAbandoned');
+        $search = $request->pesq;
+        $pets = $this->listAd($search);
+
+        return view('admin.adverts.abandoned.allAdAbandoned',compact('pets'));
     }
 
     public function create()
@@ -39,13 +42,21 @@ class ControllerAdAbandonedPet extends Controller
         return view('petsAbandoned', compact('pets'));
     }
 
-    public function listAd()
+    public function listAd($search)
     {
-        $adPets = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])
+        if ($search != null) {
+            $pets = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])
+                ->where('name_pet', 'like', '%' . $search . '%')
+                ->orWhere('name', 'like', '%' . $search . '%')
+                ->paginate(6);;
+        }
+        else{
+            $pets = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])
             ->orderByDesc('id')
             ->paginate(6);
+        }
 
-        return \Response::json($adPets);
+        return $pets;
     }
 
     public function store(Request $request)
@@ -57,7 +68,7 @@ class ControllerAdAbandonedPet extends Controller
             'movie_pet' => '',
             'city_pet' => 'required|Alpha',
             'personality_pet' => 'required',
-            'photos' => 'mimes:jpeg,bmp,png,jpg,gif',
+            'photos' => 'max:8',
             'user' => 'required',
         ]);
         $pet = new Pet();

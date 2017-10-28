@@ -32,7 +32,7 @@
                             <b>{{$pet->state_pet}}</b></p>
                     </div>
                     <div class="card-footer">
-                        <a href="#" class="btn btn-success"><i class="fa fa-paw" aria-hidden="true"></i> Adote me!</a>
+                        <a href="#" class="btn btn-primary"><i class="fa fa-paw" aria-hidden="true"></i> Adote me!</a>
                     </div>
                 </div>
             </div>

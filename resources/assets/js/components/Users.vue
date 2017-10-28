@@ -1,28 +1,22 @@
 <script>
-    import VcPagination from './Pagination.vue'
     import Modal from './Modal';
+
     export default {
+        props: ['users'],
         components:
             {
-                VcPagination,
                 Modal
             },
         data() {
             return {
                 pesq: '',
-                pagination: {},
-                users: [],
+                list: [],
                 showModal: false,
                 clickedUser: ''
             }
         },
         methods: {
-            navigate(page) {
-                this.$http.get('/admin/users/listUsers?page=' + page).then((req) => {
-                    this.users = req.data.data
-                    this.pagination = req.data
-                })
-            },
+
             openModal() {
                 this.showModal = true;
             },
@@ -34,11 +28,8 @@
             }
         },
         mounted() {
-            //  this.list = JSON.parse(this.users)
-            this.$http.get('/admin/users/listUsers').then((req) => {
-                this.users = req.data.data
-                this.pagination = req.data
-            })
+            this.list = JSON.parse(this.users)
+
         }
         ,
         computed: {
@@ -80,7 +71,7 @@
             </thead>
             <tbody>
 
-            <tr v-for="u in users">
+            <tr v-for="u in list">
                 <td>{{u.id}}</td>
                 <td>{{u.name}}</td>
                 <td>{{u.city}}</td>
@@ -105,9 +96,7 @@
 
             </tbody>
         </table>
-        <div class="text-center">
-            <vc-pagination :source="pagination" @navigate="navigate"></vc-pagination>
-        </div>
+
 
         <modal v-if="showModal">
             <h3 slot="header" class="modal-title">
@@ -132,7 +121,8 @@
                         <p>Contato: <b>{{clickedUser.phone}}</b></p>
                         <p>Cidade: <b>{{clickedUser.city}}</b></p>
                         <p v-if="clickedUser.role == 'ong'">Complemento: <b>{{clickedUser.complement}}</b></p>
-                        <p v-if="clickedUser.role == 'ong'">Descrição das Ações:<b>{{clickedUser.description_actions}}</b></p>
+                        <p v-if="clickedUser.role == 'ong'">
+                            Descrição das Ações:<b>{{clickedUser.description_actions}}</b></p>
                         <p>Cadastro criado em: <b>{{clickedUser.created_at}}</b></p>
 
                     </div>
