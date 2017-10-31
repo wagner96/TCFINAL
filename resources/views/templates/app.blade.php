@@ -16,7 +16,6 @@
     <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
 
 
-
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -40,8 +39,7 @@
 
 <body>
 
-<nav class="navbar navbar-inverse  navbar-fixed-top">
-
+<nav class="navbar navbar-inverse  navbar-fixed-top" style="background-color: #FF6704;">
     <div class="container-fluid">
 
         <div class="navbar-header">
@@ -62,7 +60,7 @@
 
                  style="max-width:100px; margin-top: 2px;" width="70" height="50">
 
-            <a class="navbar-brand" href="{{ url('/') }}">Adote um amigo</a>
+            <a class="navbar-brand" href="{{ url('/') }}" style="color:#000000;">Adote um amigo</a>
 
 
         </div>
@@ -76,13 +74,13 @@
                 @if(Auth::user())
                     @if(Auth::user()->role == 'admin')
                         <li class="dropdown">
-                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">Administração <b
+                            <a data-toggle="dropdown" class="dropdown-toggle" style="color:#ffffff;">Administração <b
                                         class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="{{ url('admin/users') }}">Usuários</a></li>
-                               <li><a href="{{ url('admin/adverts/abandoned') }}">Animais Abandonados</a></li>
+                                <li><a href="{{ url('admin/adverts/abandoned') }}">Animais Abandonados</a></li>
                                 <li><a href="{{ url('admin/adverts/disappeared') }}">Animais Desaparecidos</a></li>
-                           </ul>
+                            </ul>
                         </li>
 
                     @endif
@@ -93,28 +91,28 @@
 
             <ul class="nav navbar-nav navbar-right">
 
-                <li><a href="{{url('/')}}"><b>Página inicial</b></a></li>
+                <li><a href="{{url('/')}}" style="color:#000000;"><b>Página inicial</b></a></li>
 
-                <li><a href="{{url('/abandonados')}}"><b>Amigos Abandonados</b></a></li>
+                <li><a href="{{url('/abandonados')}}" style="color:#000000;"><b>Amigos para adoção</b></a></li>
 
-                <li><a href="{{url('/')}}"><b>Amigos Desaparecidos</b></a></li>
+                <li><a href="{{url('/')}}" style="color:#000000;"><b>Amigos desaparecidos</b></a></li>
 
-                <li><a href="{{url('/')}}"><b>Contato</b></a></li>
+                <li><a href="{{url('/')}}" style="color:#000000;"><b>Contato</b></a></li>
 
-                <li><a href="{{url('/')}}"><b>Quem Somos</b></a></li>
+                <li><a href="{{url('/')}}" style="color:#000000;"><b>Quem Somos</b></a></li>
 
 
                 @if(auth()->guest())
 
                     @if(!Request::is('auth/login'))
 
-                        <li><a href="{{ url('/user/login') }}">Entrar</a></li>
+                        <li><a href="{{ url('/user/login') }}" style="color:#000000;">Entrar</a></li>
 
                     @endif
 
                     @if(!Request::is('auth/register'))
 
-                        <li><a href="{{ url('/auth/register') }}">Registrar</a></li>
+                        <li><a href="{{ url('/auth/register') }}" style="color:#000000;">Registrar</a></li>
 
                     @endif
 
@@ -122,13 +120,13 @@
 
                     <li class="dropdown">
 
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" style="color:#ffffff"
 
                            aria-expanded="false">{{ auth()->user()->name }} <span class="caret"></span></a>
 
                         <ul class="dropdown-menu" role="menu">
 
-                            <li><a href="{{ url('/logout') }}">Sair</a></li>
+                            <li><a href="{{ url('/logout') }}" style="color:#FF0000;"><span class="fa fa-times"> Sair</span></a></li>
 
                         </ul>
 
@@ -141,7 +139,6 @@
         </div>
 
     </div>
-
 </nav>
 
 

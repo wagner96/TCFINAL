@@ -51,8 +51,8 @@ class UserController extends Controller
     {
 
         $this->validate($request, [
-            'name' => 'required|Alpha',
-            'email' => 'required|email|max:255|unique:users',
+            'name' => 'required|alpha_spaces',
+            'email' => 'required|max:255|unique:users',
             'password' => 'required',
             'role' => 'required',
             'city' => 'Alpha',
@@ -88,7 +88,7 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required|email|max:255',
+            'email' => 'required|max:255',
         ]);
         $data = $request->all();
         if ($data['role'] == 'ong') {

@@ -67,7 +67,6 @@
                 <th>Nome do Animal</th>
                 <th>Espécie</th>
                 <th>Nome do Anunciante</th>
-                <!--<th>Tipo</th>-->
                 <th>Ação</th>
             </tr>
             </thead>

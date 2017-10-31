@@ -7,14 +7,14 @@
 require('./bootstrap');
 
 require('./jquery.bootstrap.wizard.min');
-window.Vue = require('vue');
-import VueResource from 'vue-resource'
-
-Vue.use(VueResource)
-import VcUsers from './components/Users.vue'
-import VcPetsAbandoned from './components/Ad_Abandoned_Pets.vue'
-import Modal from './components/Modal.vue'
-import Index from './components/Index.vue'
+// window.Vue = require('vue');
+// import VueResource from 'vue-resource'
+//
+// Vue.use(VueResource)
+// import VcUsers from './components/Users.vue'
+// import VcPetsAbandoned from './components/Ad_Abandoned_Pets.vue'
+// import Modal from './components/Modal.vue'
+// import Index from './components/Index.vue'
 
 
 /**
@@ -23,20 +23,20 @@ import Index from './components/Index.vue'
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-
-new Vue({
-    el: '#app',
-
-    components: {
-        VcUsers,
-        VcPetsAbandoned,
-        Modal,
-        Index
-    },
-    data: {
-        title: 'TESTE'
-    }
-
-
-});
-
+//
+// new Vue({
+//     el: '#app',
+//
+//     components: {
+//         VcUsers,
+//         VcPetsAbandoned,
+//         Modal,
+//         Index
+//     },
+//     data: {
+//         title: 'TESTE'
+//     }
+//
+//
+// });
+//

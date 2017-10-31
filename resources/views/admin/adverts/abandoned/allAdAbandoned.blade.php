@@ -10,13 +10,13 @@
         <div class="container">
             <div class="row">
 
-                {{Form::open(array('route'=>'admin.users.index', 'method'=>'GET', 'name'=>'form', 'data-toggle'=>'validator'))}}
+                {{Form::open(array('route'=>'admin.adverts.abandoned.index', 'method'=>'GET', 'name'=>'form', 'data-toggle'=>'validator'))}}
 
                 <div class="col-sm-6 col-sm-offset-3">
 
                     <div class="input-group stylish-input-group">
 
-                        <input type="text" class="form-control" name="pesq" placeholder="Pesquisar por Nome ou E-mail">
+                        <input type="text" class="form-control" name="pesq" placeholder="Pesquisar pelo nome do animal">
                         <span class="input-group-addon">
                         <button type="submit">
                             <span class="glyphicon glyphicon-search"></span>
@@ -35,33 +35,33 @@
         <table class="table table-bordered table-striped">
             <thead>
             <tr>
-                <th>Nome</th>
-                <th>E-mail</th>
-                <th>Cidade</th>
-                <th>Tipo</th>
+                <th>Nome do Animal</th>
+                <th>Espécie</th>
+                <th>Nome do Anunciante</th>
                 <th>Opções</th>
             </tr>
             </thead>
             <tbody>
-            @foreach($users as $user)
+            @foreach($pets as $pet)
                 <tr>
 
-                    <td>{{$user->name}}</td>
-                    <td>{{$user->email}}</td>
-                    <td>{{$user->city}}</td>
-                    <td>{{$user->role}}</td>
+                    <td>{{$pet->name_pet}}</td>
+                    <td>{{$pet->species_pet}}</td>
+                    <td>{{$pet->user->name}}</td>
 
                     <td align="center">
-                        <a class="btn btn-success" data-toggle="modal" data-target="#exampleModalLong{{$user->id}}"><span
+                        <a class="btn btn-success" data-toggle="modal"
+                           data-target="#exampleModalLong{{$pet->id}}"><span
                                     class="fa fa-eye fa-lg"></span></a>
 
                         <!-- Modal -->
-                        <div class="modal fade" id="exampleModalLong{{$user->id}}" tabindex="-1" role="dialog"
+                        <div class="modal fade" id="exampleModalLong{{$pet->id}}" tabindex="-1" role="dialog"
                              aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLongTitle"><b>{{$user->name}}</b></h5>
+                                        <h5 class="modal-title" id="exampleModalLongTitle"><b>{{$pet->name_pet}}</b>
+                                        </h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -69,54 +69,57 @@
                                     <div class="modal-body">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <p>Nome: <b>{{$user->name}}</b></p>
-                                                @if($user->role != 'ong')
-                                                    <p>Sexo: <b>{{$user->breed}}</b></p>
+                                                <p>Nome do animal: <b>{{$pet->name_pet}}</b></p>
+                                                <p>Anunciante: <b>{{$pet->user->name}}</b></p>
+                                                <p>Contato: <b>{{$pet->user->phone}}</b></p>
+                                                <p>Tamanho do animal: <b>{{$pet->proportion_spet}}</b></p>
+                                                <p>Cidade: <b>{{$pet->city_pet}}</b></p>
+                                                @if ($pet->AdPetAbandoned)
+                                                    <p>Personalidade do animal:
+                                                        <b>{{$pet->AdPetAbandoned->personality_pet}}</b></p>
                                                 @endif
-                                                <p>Estado: <b>{{$user->state}}</b></p>
-
-                                                @if($user->role === 'ong')
-                                                    <p>Bairro: <b>{{$user->district}}</b></p>
-                                                    <p>Facebook: <b>{{$user->social_network}}</b></p>
-                                                    <p>Início das Atividades: <b>{{$user->birth_date}}</b></p>
-                                                    <p>Data de Nascimento: <b>{{$user->birth_date}}</b></p>
-                                                @endif
-                                                <p>Tipo de usuário: <b>{{$user->role}}</b></p>
 
                                             </div>
                                             <div class="col-md-6">
-                                                <p>E-mail: <b>{{$user->email}}</b></p>
-                                                <p>Contato: <b>{{$user->phone}}</b></p>
-                                                <p>Cidade: <b>{{$user->city}}</b></p>
-                                                @if($user->role === 'ong')
-                                                    <p>Complemento:
-                                                        <b>{{$user->complement}}</b>
-                                                    </p>
-                                                    <p>
-                                                        Descrição das Ações:<b>{{$user->description_actions}}</b></p>
-                                                @endif
-                                                <p>Cadastro criado em: <b>{{$user->created_at}}</b></p>
-
+                                                <p>Espécie: <b>{{$pet->species_pet}}</b></p>
+                                                <p>E-mail: <b>{{$pet->user->email}}</b></p>
+                                                <p>Idade do animal: <b>{{$pet->age_pet}}</b></p>
+                                                <p>Sexo do animal: <b>{{$pet->breed_pet}}</b></p>
+                                                <p>Estado: <b>{{$pet->state_pet}}</b></p>
+                                                <p>Anúncio criado em: <b>{{$pet->created_at}}</b></p>
                                             </div>
-                                        </div>
-                                    </div>
 
+                                        </div>
+
+                                        @if ($pet->PhotosPet != "[]")
+                                            @foreach($pet->PhotosPet as $photo)
+                                                <img style="max-width: 150px; min-width: 150px;max-height: 150px; min-height: 150px"
+                                                     class="img-thumbnail" alt="" src="{{URL::asset($photo->url)}}">
+                                                @break
+                                            @endforeach
+                                        @endif
+                                    </div>
                                     <div class="modal-footer">
-                                        <button aling="center" type="button" class="btn btn-secondary" data-dismiss="modal">Fechar
+                                        <button type="button" class="btn btn-danger"
+                                                data-dismiss="modal">Fechar
                                         </button>
+                                            <button type="button" class="btn btn-primary">
+                                                     <a  href="{{url('/animal/'.$pet->id)}}" style="color: #ffffff">Ver anúncio</a>
+                                            </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
 
-                        <a href="{{url('admin/users/edit/'.$user->id)}}" class="btn btn-primary"><span
+                        <a href="{{url('admin/adverts/abandoned/edit/'.$pet->id)}}" class="btn btn-primary"><span
                                     class="fa fa-pencil-square-o fa-lg"></span></a>
-                        @if($user->active_user === 1)
-                            <a href="{{url('admin/users/active/'.$user->id)}}" class="btn btn-danger"><span
+                        @if($pet->active_pet === 1)
+                            <a href="{{url('admin/adverts/abandoned/active/'.$pet->id)}}" class="btn btn-danger"><span
                                         class="fa fa-lock fa-lg"> </span></a>
                         @else
-                            <a href="{{url('admin/users/desactive/'.$user->id)}}" class="btn btn-success"><span
+                            <a href="{{url('admin/adverts/abandoned/desactive/'.$pet->id)}}"
+                               class="btn btn-success"><span
                                         class="fa fa-unlock fa-lg"> </span></a>
                         @endif
 
@@ -131,8 +134,7 @@
 
 
         <div align="center">
-            {!! $users->render() !!}
+            {!!  $pets->render() !!}
         </div>
-    {{--<vc-pets-abandoned></vc-pets-abandoned>--}}
-
+    </div>
 @stop

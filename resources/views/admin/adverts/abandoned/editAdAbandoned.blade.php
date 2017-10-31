@@ -15,7 +15,7 @@
                 <div class="col-md-4 selectContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                        {{Form::select('species_pet', ['dog'=>'Cachorro', 'cat'=>'Gato', 'other'=>'Outros'],null, ['class' => 'form-control'])}}
+                        {{Form::select('species_pet', ['Cachorro'=>'Cachorro', 'Gato'=>'Gato', 'Outros'=>'Outros'],null, ['class' => 'form-control'])}}
                     </div>
                 </div>
             </div>
@@ -42,7 +42,7 @@
                 <div class="col-md-4 selectContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                        {{Form::select('proportion_pet', ['nda'=>'Não informar', 'small'=>'Pequeno', 'medium'=>'Médio', 'big'=>'Grande'],null, ['class' => 'form-control', 'required'])}}
+                        {{Form::select('proportion_pet', ['Não informado'=>'Não informar', 'Pequeno'=>'Pequeno', 'Médio'=>'Médio', 'Grande'=>'Grande'],null, ['class' => 'form-control', 'required'])}}
                     </div>
                 </div>
             </div>
@@ -51,7 +51,7 @@
                 <div class="col-md-4 selectContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                        {{Form::select('breed_pet', ['nda'=>'Não informar', 'male'=>'Macho', 'female'=>'Fêmea'],null, ['class' => 'form-control'])}}
+                        {{Form::select('breed_pet', ['Não informado'=>'Não informar', 'Macho'=>'Macho', 'Fêmea'=>'Fêmea'],null, ['class' => 'form-control'])}}
                     </div>
                 </div>
             </div>

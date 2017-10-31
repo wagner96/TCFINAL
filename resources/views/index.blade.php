@@ -4,9 +4,12 @@
 
 
 
-
-    <h1>Index</h1>
-    @include('errors.alerts')
+<br>
+    <ol class="breadcrumb  breadcrumb-arrow">
+        <li class="breadcrumb-item ">
+            <a href="">Página inicial</a>
+        </li> @include('errors.alerts')
+    </ol>
 
     <div class="row text-center">
 
