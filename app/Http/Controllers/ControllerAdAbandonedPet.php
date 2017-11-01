@@ -24,11 +24,16 @@ class ControllerAdAbandonedPet extends Controller
     public function index(Request $request)
     {
         $search = $request->pesq;
+
         $pets = $this->searchPetsAdmin($search);
 
         return view('admin.adverts.abandoned.allAdAbandoned', compact('pets'));
     }
+//Enviar email para adotante
 
+public function sendEmail(Request $request){
+
+}
 //Filtro admin
     public function searchPetsAdmin($search)
     {
@@ -55,7 +60,13 @@ class ControllerAdAbandonedPet extends Controller
     public function listIndex(Request $request)
     {
         $search = $request->pesq;
+
         $pets = $this->searchPetsUsers($search);
+
+        if ($search != ''){
+            $pets = $this->searchPetsUsers($search);
+            return view('petsAbandoned', compact('pets'));
+        }
         if($request->order != null || $request->specie != null || $request->state_pet != null){
             $pets = $this->filter($request);
             if ($pets == null){

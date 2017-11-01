@@ -68,9 +68,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.checkrole', 'as' => 'ad
 Auth::routes();
 // INDEX
 Route::get('/',['as'=> 'homeController.index','uses' => 'HomeController@index']);
-//ANIMAIS ABANDONADOS
+//ANIMAIS PARA ADOÇÃO
 Route::get('/abandonados',['as'=> 'controllerAdAbandonedPet.listIndex','uses' => 'ControllerAdAbandonedPet@listIndex']);
 Route::get('animal/{id}', ['as' => 'controllerAdAbandonedPet.show', 'uses' => 'ControllerAdAbandonedPet@show']);
+//ENVIAR EMAIL PARA ANUNCIANTE
+Route::post('adverts/abandoned/sendEmail', ['as' => 'adverts.abandoned.sendEmail', 'uses' => 'ControllerAdAbandonedPet@sendEmail']);
 
 // REGISTRAR USUÁRIO
 Route::get('/registrar', 'UserController@create');

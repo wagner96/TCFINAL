@@ -3,98 +3,150 @@
 @section('content')
 
 
+    <br>
+    <div class="container">
+        <ol class="breadcrumb  breadcrumb-arrow">
+            <li><a href="/">Página inicial</a></li>
+            <li><a href="javascript:window.history.go(-1)">Amigos para adoção</a></li>
+            <li class="active"><span>{{$pet->name_pet}}</span></li>
+        </ol>
+    </div>
+    <br>
 
-
-    <h1>{{$pet->name_pet}}</h1>
     @include('errors.alerts')
 
     <div class="container">
-        <div id="main_area">
-            <!-- Slider -->
-            <div class="row">
-                <div class="col-xs-12" id="slider">
-                    <!-- Top part of the slider -->
-                    <div class="row">
-                        <div class="col-sm-8" id="carousel-bounding-box">
-                            <div class="carousel slide" id="myCarousel">
-                                <!-- Carousel items -->
-                                <div class="carousel-inner">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="carousel slide article-slide " id="article-photo-carousel">
 
-                                    @if ($pet->PhotosPet != "[]")
-                                        <?php $i = 0 ?>
-                                        @foreach($pet->PhotosPet as $photo)
-                                            <h1>{{$i++}}</h1>
-                                            <img style="max-width: 200px; min-width: 200px;max-height: 200px; min-height: 200px" class="img-thumbnail" alt="" src="{{$photo->url}}">
-                                        @endforeach
-                                    @else
-                                        <div class="active item" data-slide-number="0">
-                                             <img style="max-width: 200px; min-width: 200px;max-height: 200px; min-height: 200px" class="img-thumbnail" alt="" src="{{URL::asset('img/sem imagem.png')}}">
-                                        </div>
-                                    @endif
+                    <div class="carousel-inner cont-slider">
+                        @if ($pet->PhotosPet != "[]")
+                            <?php $i = 0 ?>
+                            @foreach($pet->PhotosPet as $photo)
+                                @if ($i === 0)
+                                    <div class="item active">
+                                        <img class="img-responsive" style="width: 600px; height: 400px;"
+                                             alt="" src="{{URL::asset($photo->url)}}">
+                                    </div>
+                                @else
+                                    <div class="item">
+                                        <img class="img-responsive" style="width: 600px; height: 400px;"
+                                             alt="" src="{{URL::asset($photo->url)}}">
+                                    </div>
+                                @endif
 
-                                    <div class="active item" data-slide-number="0">
+                                <?php $i++ ?>
 
-                                        <img src="http://placehold.it/770x300&text=one"></div>
-
-                                    <div class="item" data-slide-number="1">
-                                        <img src="http://placehold.it/770x300&text=two"></div>
-
-                                    <div class="item" data-slide-number="2">
-                                        <img src="http://placehold.it/770x300&text=three"></div>
-
-                                    <div class="item" data-slide-number="3">
-                                        <img src="http://placehold.it/770x300&text=four"></div>
-
-                                    <div class="item" data-slide-number="4">
-                                        <img src="http://placehold.it/770x300&text=five"></div>
-
-                                    <div class="item" data-slide-number="5">
-                                        <img src="http://placehold.it/770x300&text=six"></div>
-                                </div><!-- Carousel nav -->
-                                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                                    <span class="glyphicon glyphicon-chevron-left"></span>
-                                </a>
-                                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                                    <span class="glyphicon glyphicon-chevron-right"></span>
-                                </a>
+                            @endforeach
+                        @else
+                            <div class="item active">
+                                <img class="img-responsive"
+                                     style="max-width: 600px; min-width: 600px;max-height: 400px; min-height: 400px"
+                                     alt="" src="{{URL::asset('img/sem imagem.png')}}">
                             </div>
-                        </div>
+                        @endif
 
 
                     </div>
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+
+
+                        @if ($pet->PhotosPet != "[]")
+                            <?php $i = 0?>
+                            @foreach($pet->PhotosPet as $photo)
+                                @if ($i === 0)
+                                    <li class="active" data-slide-to="{{$i}}" data-target="#article-photo-carousel">
+                                        <?php $i++?>
+                                        <img class="img-responsive" alt="" src="{{URL::asset($photo->url)}}">
+                                    </li>
+                                @else
+                                    <li class="" data-slide-to="{{$i}}" data-target="#article-photo-carousel">
+                                        <?php $i++?>
+                                        <img class="img-responsive" alt="" src="{{URL::asset($photo->url)}}">
+                                    </li>
+                                @endif
+                            @endforeach
+                        @else
+                            <li class="active" data-slide-to="0" data-target="#article-photo-carousel">
+
+                                <img alt="" class="img-responsive" src="{{URL::asset('img/sem imagem.png')}}">
+                            </li>
+                        @endif
+                    </ol>
                 </div>
-            </div><!--/Slider-->
+                <br>
 
-            <div class="row hidden-xs" id="slider-thumbs">
-                <!-- Bottom switcher of slider -->
-                <ul class="hide-bullets">
-                    <li class="col-sm-2">
-                        <a class="thumbnail" id="carousel-selector-0"><img
-                                    src="http://placehold.it/170x100&text=one"></a>
-                    </li>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-danger">
+                    <div class="panel-body">
+                        <p><span class="fa fa-paw"></span> Nome do amigo: <b>{{$pet->name_pet}}</b></p>
+                        @if($pet->age_pet != null)
+                            <p><span class="fa fa-calendar"></span> Idade do amigo: <b>{{$pet->age_pet}}</b></p>
+                        @endif
+                        <p><span class="fa fa-arrows-alt"></span> Tamanho: <b>{{$pet->proportion_pet}}</b></p>
+                        <p><span class="fa fa-github"></span> Espécie: <b>{{$pet->species_pet}}</b></p>
+                        <p><span class="fa fa-intersex"></span> Sexo: <b>{{$pet->breed_pet}}</b></p>
+                        @if($pet->movie_pet != null)
+                            <p class="fa fa-youtube-play fa-lg"></p><a href="{{$pet->movie_pet}}" target="_blank"> Ver
+                                vídeo</a>
+                        @endif
+                        <p><span class="fa fa-pinterest"></span> Personalidade do amigo:
+                            <b>{{$pet->AdPetAbandoned->personality_pet}}</b></p>
+                        <p><span class="fa fa-map-marker"></span> Localização: <b>{{$pet->city_pet}}</b> -
+                            <b>{{$pet->state_pet}}</b></p>
+                        <p><span class="fa fa-clock-o"></span> Postado em:
+                            <b>{{Carbon\Carbon::parse($pet->created_at)->format('d/m/Y  H:i')}}</b></p>
 
-                    <li class="col-sm-2">
-                        <a class="thumbnail" id="carousel-selector-1"><img
-                                    src="http://placehold.it/170x100&text=two"></a>
-                    </li>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <h4 align="center">Contato</h4>
+                        <p><span class="fa fa-user-circle-o"></span> Anuciante: <b>{{$pet->user->name}}</b></p>
+                        <p><span class="fa fa-envelope"></span> E-mail: <b>{{$pet->user->email}}</b></p>
+                        <p><span class="fa fa-phone-square"></span> Telefone: <b>{{$pet->user->phone}}</b></p>
+                        <meta name="_token" content="{{ csrf_token() }}" />
+                        {{Form::open(array('route'=>'adverts.abandoned.sendEmail',  'name'=>'sendEmail','id'=>'sendEmail','data-toggle'=>'validator', 'id'=>'form'))}}
 
-                    <li class="col-sm-2">
-                        <a class="thumbnail" id="carousel-selector-2"><img src="http://placehold.it/170x100&text=three"></a>
-                    </li>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" placeholder="Nome e sobrenome" size="30" required>
+                                <div class="help-block with-errors"></div>
 
-                    <li class="col-sm-2">
-                        <a class="thumbnail" id="carousel-selector-3"><img src="http://placehold.it/170x100&text=four"></a>
-                    </li>
+                            </div>
+                            <div class="form-group">
+                                <textarea id="msg" name="msg"  cols="29" rows="4"  required></textarea>
+                                <div class="help-block with-errors"></div>
 
-                    <li class="col-sm-2">
-                        <a class="thumbnail" id="carousel-selector-4"><img src="http://placehold.it/170x100&text=five"></a>
-                    </li>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" name="phone" id="phone"  size="30" placeholder="Telefone" required>
+                                <div class="help-block with-errors"></div>
 
-                    <li class="col-sm-2">
-                        <a class="thumbnail" id="carousel-selector-5"><img
-                                    src="http://placehold.it/170x100&text=six"></a>
-                    </li>
-                </ul>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="email" placeholder="E-mail"  size="30" required>
+                                <div class="help-block with-errors"></div>
+
+                            </div>
+                            <div class="form-group" align="center">
+                                <button type="submit" value="Entrar em contato" class="btn btn-success">
+                                    <i class="fa fa-send-o"><b> Entar em contato</b></i>
+                                </button>
+                            </div>
+                        </div>
+                        {{Form::close()}}
+                    </div>
+                </div>
             </div>
         </div>
     </div>

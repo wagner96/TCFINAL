@@ -1,15 +1,14 @@
-$(document).ready(function(){
+$(document).ready(function () {
 
     //Esconde preloader
-    $(window).load(function(){
+    $(window).load(function () {
         $('#preloader').fadeOut(2000);
     });
 
 });
 
 
-
-$( document ).ready(function(){
+$(document).ready(function () {
 
     $(document).ready(function ($) {
         $("#phone").mask("(99)9 9999-9999");
@@ -28,13 +27,15 @@ $( document ).ready(function(){
     //     };
     //     date_input.datepicker(options);
     // });
-    $(document).ready(function() {
-        $('#rootwizard').bootstrapWizard({onTabShow: function(tab, navigation, index) {
-            var $total = navigation.find('li').length;
-            var $current = index+1;
-            var $percent = ($current/$total) * 100;
-            $('#rootwizard .progress-bar').css({width:$percent+'%'});
-        }});
+    $(document).ready(function () {
+        $('#rootwizard').bootstrapWizard({
+            onTabShow: function (tab, navigation, index) {
+                var $total = navigation.find('li').length;
+                var $current = index + 1;
+                var $percent = ($current / $total) * 100;
+                $('#rootwizard .progress-bar').css({width: $percent + '%'});
+            }
+        });
     });
     // function sub() {
     //     document.getElementById('form').submit();
@@ -46,25 +47,37 @@ $( document ).ready(function(){
     // //     acceptedFiles: ".jpeg,.jpg,.png,.gif"
     // // };
 });
-jQuery(document).ready(function($) {
+$('.carousel').carousel({
+    interval: 3500
+});
+$(function(){
 
-    $('#myCarousel').carousel({
-        interval: 3000
-    });
+    $('#sendEmail').on('submit',function(e){
+        $.ajaxSetup({
+            header:$('meta[name="_token"]').attr('content')
+        })
+        e.preventDefault(e);
 
-    $('#carousel-text').html($('#slide-content-0').html());
+        $.ajax({
 
-    //Handles the carousel thumbnails
-    $('[id^=carousel-selector-]').click( function(){
-        var id = this.id.substr(this.id.lastIndexOf("-") + 1);
-        var id = parseInt(id);
-        $('#myCarousel').carousel(id);
-    });
+            type:"POST",
+            url:host+'/adverts/abandoned/sendEmail',
+            data:$(this).serialize(),
+            dataType: 'json',
+            success: function(data){
+                console.log(data);
+            },
+            error: function(data){
 
-
-    // When the carousel slides, auto update the text
-    $('#myCarousel').on('slid.bs.carousel', function (e) {
-        var id = $('.item.active').data('slide-number');
-        $('#carousel-text').html($('#slide-content-'+id).html());
+            }
+        })
     });
 });
+
+
+// $(document).ready(function() {
+//     $('#getRequest').click(function(){
+//         alert($(this).text());
+//     });
+//
+// });

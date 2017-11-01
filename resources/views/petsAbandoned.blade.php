@@ -15,70 +15,70 @@
     <br>
     @include('errors.alerts')
     {{Form::open(array('route'=>'controllerAdAbandonedPet.listIndex', 'method'=>'GET', 'name'=>'form', 'data-toggle'=>'validator'))}}
-        <div class="col-lg-3">
-            <div class="input-group stylish-input-group form-group">
+    <div class="col-lg-3">
+        <div class="input-group stylish-input-group form-group">
 
-                <input type="text" class="form-control" name="pesq" placeholder="Digite o nome do amigo">
-                <span class="input-group-addon">
-                        <button type="submit">
+            <input type="text" class="form-control" name="pesq" placeholder="Digite o nome do amigo">
+            <span class="input-group-addon">
+                        <button type="submit" id="getRequest" style="color: #00CC00">
                             <span class="glyphicon glyphicon-search"></span>
                         </button>
 
                     </span>
-            </div>
-
-            <div class="form-group">
-                <select class="form-control" id="order" name="order" onchange="this.form.submit()">
-                    <option value="null">Filtrar por ordem</option>
-                    <option value="last">Últimos</option>
-                    <option value="first">Primeiros</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <select class="form-control" id="specie" name="specie" onchange="this.form.submit()">
-                    <option value="null">Todos amigos para adoção</option>
-                    <option value="dog">Cachorros para adoção</option>
-                    <option value="cat">Gatos para adoção</option>
-                    <option value="other">Outros animais para adoção</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <select class="form-control" id="state_pet" name="state_pet" onchange="this.form.submit()">
-                    <option value="null">Filtrar por estado</option>
-                    <option value="AC">Acre</option>
-                    <option value="AL">Alagoas</option>
-                    <option value="AP">Amapá</option>
-                    <option value="AM">Amazonas</option>
-                    <option value="BA">Bahia</option>
-                    <option value="CE">Ceará</option>
-                    <option value="DF">Distrito Federal</option>
-                    <option value="ES">Espírito Santo</option>
-                    <option value="GO">Goiás</option>
-                    <option value="MA">Maranhão</option>
-                    <option value="MT">Mato Grosso</option>
-                    <option value="MS">Mato Grosso do Sul</option>
-                    <option value="MG">Minas Gerais</option>
-                    <option value="PA">Pará</option>
-                    <option value="PB">Paraíba</option>
-                    <option value="PR">Paraná</option>
-                    <option value="PE">Pernambuco</option>
-                    <option value="PI">Piauí</option>
-                    <option value="RJ">Rio de Janeiro</option>
-                    <option value="RN">Rio Grande do Norte</option>
-                    <option value="RS">Rio Grande do Sul</option>
-                    <option value="RO">Rondônia</option>
-                    <option value="RR">Roraima</option>
-                    <option value="SC">Santa Catarina</option>
-                    <option value="SP">São Paulo</option>
-                    <option value="SE">Sergipe</option>
-                    <option value="TO">Tocantins</option>
-                </select>
-            </div>
-            <div align="center">
-                <a href="/abandonados" class="btn btn-danger">Limpar filtros</a>
-            </div>
-            <br>
         </div>
+
+        <div class="form-group">
+            <select class="form-control" id="order" name="order" onchange="this.form.submit()">
+                <option value="null">Filtrar por ordem</option>
+                <option value="last">Últimos</option>
+                <option value="first">Primeiros</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <select class="form-control" id="specie" name="specie" onchange="this.form.submit()">
+                <option value="null">Todos amigos para adoção</option>
+                <option value="dog">Cachorros para adoção</option>
+                <option value="cat">Gatos para adoção</option>
+                <option value="other">Outros animais para adoção</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <select class="form-control" id="state_pet" name="state_pet" onchange="this.form.submit()">
+                <option value="null">Filtrar por estado</option>
+                <option value="AC">Acre</option>
+                <option value="AL">Alagoas</option>
+                <option value="AP">Amapá</option>
+                <option value="AM">Amazonas</option>
+                <option value="BA">Bahia</option>
+                <option value="CE">Ceará</option>
+                <option value="DF">Distrito Federal</option>
+                <option value="ES">Espírito Santo</option>
+                <option value="GO">Goiás</option>
+                <option value="MA">Maranhão</option>
+                <option value="MT">Mato Grosso</option>
+                <option value="MS">Mato Grosso do Sul</option>
+                <option value="MG">Minas Gerais</option>
+                <option value="PA">Pará</option>
+                <option value="PB">Paraíba</option>
+                <option value="PR">Paraná</option>
+                <option value="PE">Pernambuco</option>
+                <option value="PI">Piauí</option>
+                <option value="RJ">Rio de Janeiro</option>
+                <option value="RN">Rio Grande do Norte</option>
+                <option value="RS">Rio Grande do Sul</option>
+                <option value="RO">Rondônia</option>
+                <option value="RR">Roraima</option>
+                <option value="SC">Santa Catarina</option>
+                <option value="SP">São Paulo</option>
+                <option value="SE">Sergipe</option>
+                <option value="TO">Tocantins</option>
+            </select>
+        </div>
+        <div align="center">
+            <a href="/abandonados" class="btn btn-danger">Limpar filtros</a>
+        </div>
+        <br>
+    </div>
     {{Form::close()}}
 
     <div class="col-md-9">
@@ -110,7 +110,9 @@
                                 <b>{{$pet->state_pet}}</b></p>
                         </div>
                         <div class="card-footer">
-                            <a href="{{url('/animal/'.$pet->id)}}" class="btn btn-primary"><i class="fa fa-paw" aria-hidden="true"></i> Adote
+                            <a href="{{url('/animal/'.$pet->id)}}" class="btn btn-primary"><i class="fa fa-paw"
+                                                                                              aria-hidden="true"></i>
+                                Adote
                                 me!</a>
                         </div>
                     </div>
@@ -120,7 +122,7 @@
                 {{--@break--}}
 
             @endforeach
-            <div align="center">
+            <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12" align="center">
                 {!! $pets->render() !!}
             </div>
         </div>
