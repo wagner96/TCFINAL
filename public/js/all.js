@@ -48,32 +48,14 @@ $(document).ready(function () {
     // // };
 });
 $('.carousel').carousel({
-    interval: 3500
+    interval: 2500
 });
-$(function(){
 
-    $('#sendEmail').on('submit',function(e){
-        $.ajaxSetup({
-            header:$('meta[name="_token"]').attr('content')
-        })
-        e.preventDefault(e);
-
-        $.ajax({
-
-            type:"POST",
-            url:host+'/adverts/abandoned/sendEmail',
-            data:$(this).serialize(),
-            dataType: 'json',
-            success: function(data){
-                console.log(data);
-            },
-            error: function(data){
-
-            }
-        })
+$(function() {
+    $('#sendEmail').ajaxForm(function() {
+        alert("Thank you for your comment!");
     });
 });
-
 
 // $(document).ready(function() {
 //     $('#getRequest').click(function(){

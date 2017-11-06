@@ -66,11 +66,17 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.checkrole', 'as' => 'ad
 
 
 Auth::routes();
+
+
+
 // INDEX
 Route::get('/',['as'=> 'homeController.index','uses' => 'HomeController@index']);
+
 //ANIMAIS PARA ADOÇÃO
 Route::get('/abandonados',['as'=> 'controllerAdAbandonedPet.listIndex','uses' => 'ControllerAdAbandonedPet@listIndex']);
+
 Route::get('animal/{id}', ['as' => 'controllerAdAbandonedPet.show', 'uses' => 'ControllerAdAbandonedPet@show']);
+
 //ENVIAR EMAIL PARA ANUNCIANTE
 Route::post('adverts/abandoned/sendEmail', ['as' => 'adverts.abandoned.sendEmail', 'uses' => 'ControllerAdAbandonedPet@sendEmail']);
 
@@ -78,4 +84,6 @@ Route::post('adverts/abandoned/sendEmail', ['as' => 'adverts.abandoned.sendEmail
 Route::get('/registrar', 'UserController@create');
 Route::post('/store', ['as' => 'users.store', 'uses' => 'UserController@store']);
 
-
+//CONTATO
+Route::get('/contato', ['as'=>'homeController.contact', 'uses' =>'HomeController@contact']);
+Route::post('contact/sendEmail', ['as' => 'contact.sendEmailContact', 'uses' => 'HomeController@sendEmailContact']);

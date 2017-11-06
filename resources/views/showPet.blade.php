@@ -13,9 +13,9 @@
     </div>
     <br>
 
-    @include('errors.alerts')
 
     <div class="container">
+        @include('errors.alerts')
         <div class="row">
             <div class="col-md-6">
                 <div class="carousel slide article-slide " id="article-photo-carousel">
@@ -113,11 +113,16 @@
                         <p><span class="fa fa-envelope"></span> E-mail: <b>{{$pet->user->email}}</b></p>
                         <p><span class="fa fa-phone-square"></span> Telefone: <b>{{$pet->user->phone}}</b></p>
                         <meta name="_token" content="{{ csrf_token() }}" />
-                        {{Form::open(array('route'=>'adverts.abandoned.sendEmail',  'name'=>'sendEmail','id'=>'sendEmail','data-toggle'=>'validator', 'id'=>'form'))}}
+
+
+                        {{Form::open(array('route'=>'adverts.abandoned.sendEmail','name'=>'sendEmail','id'=>'sendEmail','data-toggle'=>'validator'))}}
+                        <input type="hidden" name="email_user" id="email_user" value="{{$pet->user->email}}">
+                        <input type="hidden" name="name_pet" id="name_pet" value="{{$pet->name_pet}}">
+                        <input type="hidden" name="id_pet" id="id_pet" value="{{$pet->id}}">
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input type="text" placeholder="Nome e sobrenome" size="30" required>
+                                <input type="text" name="name" id="name" placeholder="Nome e sobrenome" size="30" required>
                                 <div class="help-block with-errors"></div>
 
                             </div>
@@ -134,12 +139,12 @@
 
                             </div>
                             <div class="form-group">
-                                <input type="email" id="email" placeholder="E-mail"  size="30" required>
+                                <input type="email" id="email" name="email" placeholder="E-mail"  size="30" required>
                                 <div class="help-block with-errors"></div>
 
                             </div>
                             <div class="form-group" align="center">
-                                <button type="submit" value="Entrar em contato" class="btn btn-success">
+                                <button type="submit" name="submit" value="Entrar em contato" class="btn btn-success">
                                     <i class="fa fa-send-o"><b> Entar em contato</b></i>
                                 </button>
                             </div>

@@ -10,7 +10,6 @@
 
     <link href="{{URL::asset('css/app.css')}}" rel="stylesheet">
     <link href="{{URL::asset('css/all.css')}}" rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Fonts -->
     <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
@@ -97,7 +96,7 @@
 
                 <li><a href="{{url('/')}}" style="color:#000000;"><b>Amigos desaparecidos</b></a></li>
 
-                <li><a href="{{url('/')}}" style="color:#000000;"><b>Contato</b></a></li>
+                <li><a href="{{url('/contato')}}" style="color:#000000;"><b>Contato</b></a></li>
 
                 <li><a href="{{url('/')}}" style="color:#000000;"><b>Quem Somos</b></a></li>
 
@@ -106,7 +105,7 @@
 
                     @if(!Request::is('auth/login'))
 
-                        <li><a href="{{ url('/user/login') }}" style="color:#000000;">Entrar</a></li>
+                        <li><a href="{{ url('/login') }}" style="color:#000000;">Entrar</a></li>
 
                     @endif
 
@@ -126,7 +125,13 @@
 
                         <ul class="dropdown-menu" role="menu">
 
-                            <li><a href="{{ url('/logout') }}" style="color:#FF0000;"><span class="fa fa-times"> Sair</span></a></li>
+                            <li><a href="{{ url('/') }}" style=""><span class="fa fa-user-md"></span> Meu perfil</a>
+                            </li>
+                            <li><a href="{{ url('/') }}" style=""><span class="fa fa-bars"> Meus anúncios</span></a>
+                            </li>
+                            <li><a href="{{ url('/logout') }}" style="color:#FF0000;"><span class="fa fa-times"></span>
+                                    Sair</a></li>
+
 
                         </ul>
 
@@ -145,9 +150,12 @@
 <div class="container">
 
     <div id="app">
-
         <br><br>
-
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button class="btn btn-success"><span class="fa fa-plus"></span> <b>Anúncie</b></button>
+            </div>
+        </div>
         @yield('content')
 
     </div>
