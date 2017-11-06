@@ -3,8 +3,8 @@
 namespace TC\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Response;
 use Mail;
+use Response;
 use TC\Models\Pet;
 use TC\Models\User;
 use TC\Repositories\PetRepository;
@@ -26,6 +26,18 @@ class HomeController extends Controller
     {
         $pets = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])->paginate(8);
         return view('index', compact('pets'));
+    }
+
+    public function myProfile(){
+        try{
+            $id_user = auth()->user()->id;
+            $user = User::find($id_user);
+        }
+        catch (\Exception $e){
+            session()->flash('flash_error', 'Você não esta logado!!!');
+            return $this->index();
+        }
+        return view('myProfile', compact('user'));
     }
 
     public function contact()

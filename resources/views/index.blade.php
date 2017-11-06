@@ -4,15 +4,17 @@
 
 
 
-<br>
-    <ol class="breadcrumb  breadcrumb-arrow">
-        <li class="breadcrumb-item ">
-            <a href="">Página inicial</a>
-        </li> @include('errors.alerts')
-    </ol>
+    <br>
+    <div class="container">
 
+        <ol class="breadcrumb  breadcrumb-arrow">
+            <li class="breadcrumb-item ">
+                <a href="">Página inicial</a>
+            </li>
+        </ol>
+        @include('errors.alerts')
+    </div>
     <div class="row text-center">
-
         @foreach($pets as $pet)
 
             <div class="col-lg-3 col-md-6 mb-4">

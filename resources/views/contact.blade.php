@@ -70,6 +70,7 @@
                     </fieldset>
                 {{Form::close()}}
             </div>
+
         </div>
     </div>
 

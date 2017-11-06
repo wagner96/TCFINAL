@@ -1,9 +1,7 @@
 <?php
-use TC\Models\AdPetAbandoned;
+
 use TC\Models\User;
 
-use TC\Models\PhotosPet;
-use TC\Repositories\PetRepository;
 //Route::post('login', ['as' =>'login', 'uses' => 'Auth\AuthController@getLogin']);
 Route::get('user/login', 'UserController@login');
 //Route::resource('/', 'UserController');
@@ -12,10 +10,11 @@ Route::get('logout', 'UserController@logout');
 
 //
 
-Route::get('test', function(){
+Route::get('test', function () {
     $adPets = User::get();
     dd($adPets);
 });
+
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth.checkrole', 'as' => 'admin.'], function () {
 
@@ -27,7 +26,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.checkrole', 'as' => 'ad
 
     Route::get('users/', ['as' => 'users.index', 'uses' => 'UserController@index']);
     Route::get('users/listUsers', ['as' => 'users.listUsers', 'uses' => 'UserController@listUsers']);
-
 
 
     Route::post('users/update/{id}', ['as' => 'users.update', 'uses' => 'UserController@update']);
@@ -68,12 +66,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.checkrole', 'as' => 'ad
 Auth::routes();
 
 
-
 // INDEX
-Route::get('/',['as'=> 'homeController.index','uses' => 'HomeController@index']);
+Route::get('/', ['as' => 'homeController.index', 'uses' => 'HomeController@index']);
 
 //ANIMAIS PARA ADOÇÃO
-Route::get('/abandonados',['as'=> 'controllerAdAbandonedPet.listIndex','uses' => 'ControllerAdAbandonedPet@listIndex']);
+Route::get('/abandonados', ['as' => 'controllerAdAbandonedPet.listIndex', 'uses' => 'ControllerAdAbandonedPet@listIndex']);
 
 Route::get('animal/{id}', ['as' => 'controllerAdAbandonedPet.show', 'uses' => 'ControllerAdAbandonedPet@show']);
 
@@ -85,5 +82,8 @@ Route::get('/registrar', 'UserController@create');
 Route::post('/store', ['as' => 'users.store', 'uses' => 'UserController@store']);
 
 //CONTATO
-Route::get('/contato', ['as'=>'homeController.contact', 'uses' =>'HomeController@contact']);
+Route::get('/contato', ['as' => 'homeController.contact', 'uses' => 'HomeController@contact']);
 Route::post('contact/sendEmail', ['as' => 'contact.sendEmailContact', 'uses' => 'HomeController@sendEmailContact']);
+
+//MEU PERFIL
+Route::get('/meu_perfil', ['as' => 'homeController.myProfile', 'uses' => 'HomeController@myProfile']);

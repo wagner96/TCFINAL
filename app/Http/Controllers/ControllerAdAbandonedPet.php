@@ -31,6 +31,11 @@ class ControllerAdAbandonedPet extends Controller
         return view('admin.adverts.abandoned.allAdAbandoned', compact('pets'));
     }
 
+    public function removeAccent($string)
+    {
+        return preg_replace(array("/(á|à|ã|â|ä)/", "/(Á|À|Ã|Â|Ä)/", "/(é|è|ê|ë)/", "/(É|È|Ê|Ë)/", "/(í|ì|î|ï)/", "/(Í|Ì|Î|Ï)/", "/(ó|ò|õ|ô|ö)/", "/(Ó|Ò|Õ|Ô|Ö)/", "/(ú|ù|û|ü)/", "/(Ú|Ù|Û|Ü)/", "/(ñ)/", "/(Ñ)/"), explode(" ", "a A e E i I o O u U n N"), $string);
+    }
+
 //Enviar email para adotante
 
     public function sendEmail(Request $request)
@@ -198,7 +203,8 @@ class ControllerAdAbandonedPet extends Controller
                 $i = 0;
                 foreach ($photos as $photo) {
                     $photos_pet = new PhotosPet();
-                    $photo_name = time() . $photo->getClientOriginalName();
+                    $s_photo = $this->removeAccent($photo->getClientOriginalName());
+                    $photo_name = time() . $s_photo;
                     $photo->move('images/Pets Abandoned', $photo_name);
                     $photos_pet->pet_id = $fk_pet;
                     $photos_pet->url = 'images/Pets Abandoned/' . $photo_name;
@@ -215,9 +221,9 @@ class ControllerAdAbandonedPet extends Controller
 
     public function show($id)
     {
-        try{
-        $pet = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])
-            ->find($id);
+        try {
+            $pet = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])
+                ->find($id);
         } catch (\Exception $e) {
             session()->flash('flash_error', 'Erro ao pesquisar!!!');
         }
@@ -227,8 +233,8 @@ class ControllerAdAbandonedPet extends Controller
 
     public function edit($id)
     {
-        try{
-        $dataPet = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])->find($id);
+        try {
+            $dataPet = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])->find($id);
         } catch (\Exception $e) {
             session()->flash('flash_error', 'Erro ao pesquisar!!!');
         }
@@ -237,25 +243,25 @@ class ControllerAdAbandonedPet extends Controller
 
     public function update(Request $request, $id)
     {
-        try{
-        $this->validate($request, [
-            'name_pet' => 'required|alpha_spaces',
-            'age_pet' => 'AlphaNum|min:0|max:15',
-            'movie_pet' => '',
-            'city_pet' => 'required|alpha_spaces',
-            'personality_pet' => 'required',
-            'photos' => 'mimes:jpeg,bmp,png,jpg,gif',
-        ]);
-        $data = $request->all();
-        $personality_pet = $request->get('personality_pet');
+        try {
+            $this->validate($request, [
+                'name_pet' => 'required|alpha_spaces',
+                'age_pet' => 'AlphaNum|min:0|max:15',
+                'movie_pet' => '',
+                'city_pet' => 'required|alpha_spaces',
+                'personality_pet' => 'required',
+                'photos' => 'mimes:jpeg,bmp,png,jpg,gif',
+            ]);
+            $data = $request->all();
+            $personality_pet = $request->get('personality_pet');
 
-        $this->repository->update($data, $id);
+            $this->repository->update($data, $id);
 
-        DB::table('ad_pet_abandoned')
-            ->where('pet_id', $id)
-            ->update(['personality_pet' => $personality_pet]);
+            DB::table('ad_pet_abandoned')
+                ->where('pet_id', $id)
+                ->update(['personality_pet' => $personality_pet]);
 
-        session()->flash('flash_message', 'Anúncio foi editado com sucesso!!!');
+            session()->flash('flash_message', 'Anúncio foi editado com sucesso!!!');
         } catch (\Exception $e) {
             session()->flash('flash_error', 'Erro ao editar!!!');
         }
@@ -287,11 +293,11 @@ class ControllerAdAbandonedPet extends Controller
 
     public function active($id)
     {
-        try{
-        $test = DB::table('pets')
-            ->where('id', $id)
-            ->update(['active_pet' => 0]);
-        session()->flash('flash_message', 'Anúncio desativado!!!');
+        try {
+            $test = DB::table('pets')
+                ->where('id', $id)
+                ->update(['active_pet' => 0]);
+            session()->flash('flash_message', 'Anúncio desativado!!!');
         } catch (\Exception $e) {
             session()->flash('flash_error', 'Erro ao ativar!!!');
         }
@@ -300,11 +306,11 @@ class ControllerAdAbandonedPet extends Controller
 
     public function desactive($id)
     {
-        try{
-        DB::table('pets')
-            ->where('id', $id)
-            ->update(['active_pet' => 1]);
-        session()->flash('flash_message', 'Anúncio ativado!!!');
+        try {
+            DB::table('pets')
+                ->where('id', $id)
+                ->update(['active_pet' => 1]);
+            session()->flash('flash_message', 'Anúncio ativado!!!');
         } catch (\Exception $e) {
             session()->flash('flash_error', 'Erro ao desativar!!!');
         }
