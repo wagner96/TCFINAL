@@ -86,4 +86,13 @@ Route::get('/contato', ['as' => 'homeController.contact', 'uses' => 'HomeControl
 Route::post('contact/sendEmail', ['as' => 'contact.sendEmailContact', 'uses' => 'HomeController@sendEmailContact']);
 
 //MEU PERFIL
-Route::get('/meu_perfil', ['as' => 'homeController.myProfile', 'uses' => 'HomeController@myProfile']);
+Route::get('/meu_perfil', ['as' => 'myProfile', 'uses' => 'HomeController@myProfile']);
+// ATUALIZAR INFORMAÇÕES DO MEU PERFIL
+Route::post('/updateForUsers/{id}', ['as' => 'user.updateForUsers', 'uses' => 'UserController@updateForUsers']);
+
+// MEUS AMIGOS PARA ADOÇÃO
+Route::get('/meus_amigos_p_adoção', ['as' => 'myPetsForAdoption', 'uses' => 'ControllerAdAbandonedPet@myPetsForAdoption']);
+// DELETE
+Route::get('/delete/myPetForAdoption/{id}', ['as' => 'myPetsForAdoption.deleteMyPetForAdoption', 'uses' => 'ControllerAdAbandonedPet@deleteMyPetForAdoption']);
+
+

@@ -56,6 +56,10 @@ $(function() {
         alert("Thank you for your comment!");
     });
 });
+setTimeout(function() {
+    $('#teste').fadeOut('fast');
+}, 4000);
+
 
 // $(document).ready(function() {
 //     $('#getRequest').click(function(){

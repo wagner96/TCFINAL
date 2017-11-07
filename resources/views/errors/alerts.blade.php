@@ -12,12 +12,12 @@
 </div>
 
 @if (Session::has('flash_message'))
-    <div class="alert alert-info">
+    <div class="alert alert-info" id="teste">
         {{ Session::get('flash_message') }}
     </div>
 @endif
 @if (Session::has('flash_error'))
-    <div class="alert alert-danger">
+    <div class="alert alert-danger" id="teste">
         {{ Session::get('flash_error') }}
     </div>
 @endif

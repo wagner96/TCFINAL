@@ -175,6 +175,18 @@ class ControllerAdAbandonedPet extends Controller
         return $pets;
     }
 
+    public function validateMovie($url)
+    {
+        $regex_pattern = "/(youtube.com|youtu.be)\/(watch)?(\?v=)?(\S+)?/";
+        $match;
+        if (preg_match($regex_pattern, $url, $match)) {
+            $resp = true;
+        } else {
+            $resp = false;
+        }
+        return $resp;
+    }
+
     public function store(Request $request)
     {
         try {
@@ -191,9 +203,18 @@ class ControllerAdAbandonedPet extends Controller
             $pet = new Pet();
 
             $data = $request->all();
+
+            $validate_movie = $this->validateMovie($data['movie_pet']);
+
+            if ($validate_movie == false) {
+                session()->flash('flash_error', 'Link de vídeo inválido!!!');
+                return $this->create();
+            }
+
             $data['user_id'] = auth()->user()->id;
             $array_pet = $pet->create($data);
             $data = $request->all();
+
             $adAbandoned = new AdPetAbandoned();
             $data['pet_id'] = $array_pet['id'];
             $adAbandoned->create($data);
@@ -253,6 +274,12 @@ class ControllerAdAbandonedPet extends Controller
                 'photos' => 'mimes:jpeg,bmp,png,jpg,gif',
             ]);
             $data = $request->all();
+
+            $validate_movie = $this->validateMovie($data['movie_pet']);
+            if ($validate_movie == false) {
+                session()->flash('flash_error', 'Link de vídeo inválido!!!');
+                return $this->create();
+            }
             $personality_pet = $request->get('personality_pet');
 
             $this->repository->update($data, $id);
@@ -315,6 +342,74 @@ class ControllerAdAbandonedPet extends Controller
             session()->flash('flash_error', 'Erro ao desativar!!!');
         }
         return redirect()->route('admin.adverts.abandoned.index');
+    }
+
+    public function myPetsForAdoption(Request $request)
+    {
+        try {
+            $user_id = auth()->user()->id;
+        } catch (\Exception $e) {
+            session()->flash('flash_error', 'Você não esta logado!!!');
+            return redirect()->route('homeController.index');
+        }
+
+        try {
+            $pets = $this->searchMyPetsForAdoption($request->pesq, $user_id);
+
+        } catch (\Exception $e) {
+            session()->flash('flash_error', 'Erro ao buscar!!!');
+        }
+        return view('myPetsAbandoned', compact('pets'));
+    }
+
+    public function searchMyPetsForAdoption($pesq, $user_id)
+    {
+        if ($pesq != null) {
+            $pets = Pet::with(['AdPetAbandoned', 'PhotosPet'])
+                ->where('active_pet', '=', '1')
+                ->where('user_id', '=', $user_id)
+                ->where('name_pet', 'like', '%' . $pesq . '%')
+                ->orderByDesc('id')
+                ->paginate(6);
+        } else {
+            $pets = Pet::with(['AdPetAbandoned', 'PhotosPet'])
+                ->where('active_pet', '=', '1')
+                ->where('user_id', '=', $user_id)
+                ->orderByDesc('id')
+                ->paginate(6);
+        }
+        return $pets;
+    }
+
+    public function deleteMyPetForAdoption($id)
+    {
+        try {
+            $test = DB::table('pets')
+                ->where('id', $id)
+                ->update(['active_pet' => 0]);
+            session()->flash('flash_message', 'Anúncio excluido!!!');
+
+        } catch (\Exception $e) {
+            session()->flash('flash_error', 'Erro ao excluir!!!');
+        }
+        return redirect()->route('myPetsForAdoption');
+//        try {
+//            $user_id = auth()->user()->id;
+//        } catch (\Exception $e) {
+//            session()->flash('flash_error', 'Você não esta logado!!!');
+//            return redirect()->route('homeController.index');
+//        }
+//
+//        try {
+//            $pets = Pet::with(['AdPetAbandoned', 'PhotosPet'])
+//                ->where('active_pet', '=', '1')
+//                ->where('user_id', '=', $user_id)
+//                ->orderByDesc('id')
+//                ->paginate(6);
+//        } catch (\Exception $e) {
+//            session()->flash('flash_error', 'Erro ao buscar dados!!!');
+//        }
+//        return view('myPetsAbandoned', compact('pets'));
     }
 
 }

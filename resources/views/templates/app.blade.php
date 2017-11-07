@@ -125,9 +125,16 @@
 
                         <ul class="dropdown-menu" role="menu">
 
-                            <li><a href="{{ url('/meu_perfil') }}" style=""><span class="fa fa-user-md"></span> Meu perfil</a>
+                            <li><a href="{{ url('/meu_perfil') }}" style=""><span class="fa fa-user-md"></span> Meu
+                                    perfil</a>
                             </li>
-                            <li><a href="{{ url('/') }}" style=""><span class="fa fa-bars"> Meus anúncios</span></a>
+
+
+                            <li class="dropdown-submenu"><a style=""><span class="fa fa-bars"> Meus anúncios </span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a>Teste</a></li>
+                                    <li><a>Teste2</a></li>
+                                </ul>
                             </li>
                             <li><a href="{{ url('/logout') }}" style="color:#FF0000;"><span class="fa fa-times"></span>
                                     Sair</a></li>
@@ -153,7 +160,7 @@
         <br><br>
         <div class="row">
             <div class="col-md-12 text-right">
-                <button class="btn btn-info"><span class="fa fa-plus"></span> <b>Anúncie</b></button>
+                <button class="btn btn-success"><span class="fa fa-plus"></span> <b>Anúncie</b></button>
             </div>
         </div>
         @yield('content')
