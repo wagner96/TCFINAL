@@ -44,10 +44,10 @@
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"
-                                                   name="remember" {{ old('remember') ? 'checked' : '' }}> Lembre de mim
-                                        </label>
+                                        {{--<label>--}}
+                                        {{--<input type="checkbox"--}}
+                                        {{--name="remember" {{ old('remember') ? 'checked' : '' }}> Lembre de mim--}}
+                                        {{--</label>--}}
                                     </div>
                                 </div>
                             </div>
@@ -61,14 +61,20 @@
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         Esqueceu sua senha?
                                     </a>
-                                    <button class="btn btn-success">
-                                        <a href="{{ url('/users') }}" style="color: #ffffff"><b>
-                                            Registrar
-                                            </b></a>
-                                    </button>
+
                                 </div>
                             </div>
                         </form>
+                        <div class="form-group">
+                            <div class="col-md-2 col-md-offset-4 pull-right">
+
+                                <button class="btn btn-success">
+                                    <a href="{{ url('/registrar') }}" style="color: #ffffff"><b>
+                                            Registrar
+                                        </b></a>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

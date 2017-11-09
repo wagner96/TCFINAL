@@ -31,7 +31,7 @@ class ControllerAdAbandonedPet extends Controller
         return view('admin.adverts.abandoned.allAdAbandoned', compact('pets'));
     }
 
-    public function removeAccent($string)
+    public function removeCharacters($string)
     {
         return preg_replace(array("/(á|à|ã|â|ä)/", "/(Á|À|Ã|Â|Ä)/", "/(é|è|ê|ë)/", "/(É|È|Ê|Ë)/", "/(í|ì|î|ï)/", "/(Í|Ì|Î|Ï)/", "/(ó|ò|õ|ô|ö)/", "/(Ó|Ò|Õ|Ô|Ö)/", "/(ú|ù|û|ü)/", "/(Ú|Ù|Û|Ü)/", "/(ñ)/", "/(Ñ)/"), explode(" ", "a A e E i I o O u U n N"), $string);
     }
@@ -69,11 +69,13 @@ class ControllerAdAbandonedPet extends Controller
         if ($search != null) {
             $pets = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])
                 ->where('name_pet', 'like', '%' . $search . '%')
-                ->paginate(6);
+                ->paginate(6)
+                ->appends('pesq', request('pesq'));
         } else {
             $pets = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])
                 ->orderByDesc('id')
-                ->paginate(6);
+                ->paginate(6)
+                ->appends('pesq', request('pesq'));
         }
 
         return $pets;
@@ -84,88 +86,62 @@ class ControllerAdAbandonedPet extends Controller
         return view('admin.adverts.abandoned.createAdAbandoned');
     }
 
-// Index all pets users
+
+    // Index all pets users
     public function listIndex(Request $request)
     {
         try {
-            $search = $request->pesq;
 
-            $pets = $this->searchPetsUsers($search);
+            $order_pet = $request->order;
+            $specie_pet = $request->specie;
+            $state_pet = $request->state_pet;
+            $pesq_pet = $request->pesq;
 
-            if ($search != '') {
-                $pets = $this->searchPetsUsers($search);
-                return view('petsAbandoned', compact('pets'));
-            }
-            if ($request->order != null || $request->specie != null || $request->state_pet != null) {
-                $pets = $this->filter($request);
-                if ($pets == null) {
-                    $pets = $this->searchPetsUsers($search);
-                }
+
+            $pets = $this->filter($request);
+            if (($order_pet == '' ) and ($specie_pet == '') and ($state_pet == '') and ($pesq_pet == '')) {
+                $pets = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])
+                    ->where('active_pet', '=', '1')
+                    ->orderByDesc('id')
+                    ->paginate(6);
             }
         } catch (\Exception $e) {
             session()->flash('flash_error', 'Erro ao pesquisar!!!');
         }
-
         return view('petsAbandoned', compact('pets'));
     }
 
-//Filtro users
-    public function searchPetsUsers($search)
-    {
 
-        if ($search != null) {
-            $pets = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])
-                ->where('active_pet', '=', '1')
-                ->where('name_pet', 'like', '%' . $search . '%')
-                ->paginate(6);
-        } else {
-            $pets = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])
-                ->where('active_pet', '=', '1')
-                ->orderByDesc('id')
-                ->paginate(6);
-        }
-
-        return $pets;
-    }
-
-    //Filtro para gatos, chachorros, etc
+    //Filtro e pesquisa para gatos, chachorros, etc
     public function filter(Request $request)
     {
 
         try {
             $order_pet = $request->order;
             $specie_pet = $request->specie;
+            if ($specie_pet == "null") {
+                $specie_pet = null;
+            }
             $state_pet = $request->state_pet;
+            if ($state_pet == "null") {
+                $state_pet = null;
+            }
+            $pesq_pet = $request->pesq;
 
-            if ($order_pet == 'last') {
+            if (($order_pet == "last" || $order_pet == 'null' || $order_pet == '')) {
                 $pets = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])
                     ->where('active_pet', '=', '1')
+                    ->where('name_pet', 'like', '%' . $pesq_pet . '%')
+                    ->where('species_pet', 'like', '%' . $specie_pet . '%')
+                    ->where('state_pet', 'like', '%' . $state_pet . '%')
                     ->orderByDesc('id')
-                    ->paginate(6);
-            } else if ($order_pet == 'first') {
+                    ->get();
+            } else {
                 $pets = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])
                     ->where('active_pet', '=', '1')
-                    ->paginate(6);
-            } else if ($specie_pet == 'dog') {
-                $pets = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])
-                    ->where('active_pet', '=', '1')
-                    ->where('species_pet', '=', 'Cachorro')
-                    ->paginate(6);
-            } else if ($specie_pet == 'cat') {
-                $pets = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])
-                    ->where('active_pet', '=', '1')
-                    ->where('species_pet', '=', 'Gato')
-                    ->paginate(6);
-            } else if ($specie_pet == 'other') {
-                $pets = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])
-                    ->where('active_pet', '=', '1')
-                    ->where('species_pet', '=', 'Outros')
-                    ->paginate(6);
-            } else if ($state_pet != null) {
-                $pets = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])
-                    ->where('active_pet', '=', '1')
-                    ->where('state_pet', "=", $state_pet)
-                    ->orderByDesc('id')
+                    ->where('name_pet', 'like', '%' . $pesq_pet . '%')
+                    ->where('species_pet', 'like', '%' . $specie_pet . '%')
+                    ->where('state_pet', 'like', '%' . $state_pet . '%')
                     ->paginate(6);
             }
         } catch (\Exception $e) {
@@ -224,7 +200,7 @@ class ControllerAdAbandonedPet extends Controller
                 $i = 0;
                 foreach ($photos as $photo) {
                     $photos_pet = new PhotosPet();
-                    $s_photo = $this->removeAccent($photo->getClientOriginalName());
+                    $s_photo = $this->removeCharacters($photo->getClientOriginalName());
                     $photo_name = time() . $s_photo;
                     $photo->move('images/Pets Abandoned', $photo_name);
                     $photos_pet->pet_id = $fk_pet;
@@ -370,13 +346,15 @@ class ControllerAdAbandonedPet extends Controller
                 ->where('user_id', '=', $user_id)
                 ->where('name_pet', 'like', '%' . $pesq . '%')
                 ->orderByDesc('id')
-                ->paginate(6);
+                ->paginate(6)
+                ->appends('pesq', request('pesq'));
         } else {
             $pets = Pet::with(['AdPetAbandoned', 'PhotosPet'])
                 ->where('active_pet', '=', '1')
                 ->where('user_id', '=', $user_id)
                 ->orderByDesc('id')
-                ->paginate(6);
+                ->paginate(6)
+                ->appends('pesq', request('pesq'));
         }
         return $pets;
     }

@@ -59,7 +59,7 @@
 
                  style="max-width:100px; margin-top: 2px;" width="70" height="50">
 
-            <a class="navbar-brand" href="{{ url('/') }}" style="color:#000000;">Adote um amigo</a>
+            <a class="navbar-brand" href="{{ url('/') }}" style="color:#000000;"><b>Adote um amigo</b></a>
 
 
         </div>
@@ -111,7 +111,7 @@
 
                     @if(!Request::is('auth/register'))
 
-                        <li><a href="{{ url('/auth/register') }}" style="color:#000000;">Registrar</a></li>
+                        <li><a href="{{ url('/registrar') }}" style="color:#000000;">Registrar</a></li>
 
                     @endif
 
@@ -123,21 +123,18 @@
 
                            aria-expanded="false">{{ auth()->user()->name }} <span class="caret"></span></a>
 
-                        <ul class="dropdown-menu" role="menu">
-
-                            <li><a href="{{ url('/meu_perfil') }}" style=""><span class="fa fa-user-md"></span> Meu
-                                    perfil</a>
+                        <ul class="dropdown-menu" role="menu" >
+                            <li><a href="{{ url('/meu_perfil') }}" style="color: #000000"><span class="fa fa-user-md"></span> Meu perfil</a>
                             </li>
 
-
-                            <li class="dropdown-submenu"><a style=""><span class="fa fa-bars"> Meus anúncios </span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a>Teste</a></li>
-                                    <li><a>Teste2</a></li>
-                                </ul>
+                            <li><a href="{{url('/meus_amigos_p_adoção')}}" style="color: #000000"><span class="fa fa-paw"></span> Meus amigos para adoção </a>
                             </li>
-                            <li><a href="{{ url('/logout') }}" style="color:#FF0000;"><span class="fa fa-times"></span>
-                                    Sair</a></li>
+
+                            <li><a href="{{url('/meus_amigos_p_adoção')}}" style="color: #000000"><span class="fa fa-paw"></span> Meus amigos desaparecidos </a>
+                            </li>
+
+                            <li><a href="{{ url('/logout') }}" style="color:#FF0000;"><span class="fa fa-times"></span><b>
+                                    Sair</b></a></li>
 
 
                         </ul>
@@ -160,7 +157,7 @@
         <br><br>
         <div class="row">
             <div class="col-md-12 text-right">
-                <button class="btn btn-success"><span class="fa fa-plus"></span> <b>Anúncie</b></button>
+                <button class="btn btn-success"><span class="fa fa-plus"></span> <b>Anuncie</b></button>
             </div>
         </div>
         @yield('content')

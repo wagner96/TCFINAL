@@ -78,8 +78,8 @@ Route::get('animal/{id}', ['as' => 'controllerAdAbandonedPet.show', 'uses' => 'C
 Route::post('adverts/abandoned/sendEmail', ['as' => 'adverts.abandoned.sendEmail', 'uses' => 'ControllerAdAbandonedPet@sendEmail']);
 
 // REGISTRAR USUÁRIO
-Route::get('/registrar', 'UserController@create');
-Route::post('/store', ['as' => 'users.store', 'uses' => 'UserController@store']);
+Route::get('/registrar', ['as' =>'users.registrar', 'uses' => 'UserController@create']);
+Route::post('/salvar', ['as' => 'users.storeUser', 'uses' => 'UserController@storeUser']);
 
 //CONTATO
 Route::get('/contato', ['as' => 'homeController.contact', 'uses' => 'HomeController@contact']);

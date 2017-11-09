@@ -16,65 +16,411 @@
     @include('errors.alerts')
     {{Form::open(array('route'=>'controllerAdAbandonedPet.listIndex', 'method'=>'GET', 'name'=>'form', 'data-toggle'=>'validator'))}}
     <div class="col-lg-3">
-        <div class="input-group stylish-input-group form-group">
+        <div class="form-group">
+            <input name="pesq" placeholder="Digite o nome do amigo" type="text" class="form-control"
+            <?php
+                try {
+                    echo "value=" . $_GET['pesq'] . "";
+                } catch (Exception $e) {
+                }
 
-            <input type="text" class="form-control" name="pesq" placeholder="Digite o nome do amigo">
-            <span class="input-group-addon">
-                        <button type="submit" id="getRequest" style="color: #00CC00">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button>
+                ?>>
 
-                    </span>
         </div>
 
         <div class="form-group">
-            <select class="form-control" id="order" name="order" onchange="this.form.submit()">
+            <select class="form-control" id="order" name="order">
                 <option value="null">Filtrar por ordem</option>
-                <option value="last">Últimos</option>
-                <option value="first">Primeiros</option>
+
+                <option value="last"
+                <?php
+                    try {
+                        if ($_GET['order'] == 'last') {
+                            echo "selected";
+                        }
+                    } catch (Exception $e) {
+                    }
+
+                    ?>
+                >Últimos
+                </option>
+                <option value="first"
+                <?php
+                    try {
+                        if ($_GET['order'] == 'first') {
+                            echo "selected";
+                        }
+                    } catch (Exception $e) {
+                    }
+
+                    ?>
+                >Primeiros
+                </option>
             </select>
         </div>
         <div class="form-group">
-            <select class="form-control" id="specie" name="specie" onchange="this.form.submit()">
-                <option value="null">Todos amigos para adoção</option>
-                <option value="dog">Cachorros para adoção</option>
-                <option value="cat">Gatos para adoção</option>
-                <option value="other">Outros animais para adoção</option>
+            <select class="form-control" id="specie" name="specie">
+                <option value="null"
+                <?php
+                    try {
+                        if ($_GET['specie'] == null) {
+                            echo "selected";
+                        }
+                    } catch (Exception $e) {
+                    }
+
+                    ?>>Todos amigos para adoção
+                </option>
+                <option value="Cachorro"
+                <?php
+                    try {
+                        if ($_GET['specie'] == 'Cachorro') {
+                            echo "selected";
+                        }
+                    } catch (Exception $e) {
+                    }
+
+                    ?>>Cachorros para adoção
+                </option>
+                <option value="Gato"
+                <?php
+                    try {
+                        if ($_GET['specie'] == 'Gato') {
+                            echo "selected";
+                        }
+                    } catch (Exception $e) {
+                    }
+
+                    ?>>Gatos para adoção
+                </option>
+                <option value="Outros"
+                <?php
+                    try {
+                        if ($_GET['specie'] == 'Outros') {
+                            echo "selected";
+                        }
+                    } catch (Exception $e) {
+                    }
+
+                    ?>>Outros animais para adoção
+                </option>
             </select>
         </div>
         <div class="form-group">
-            <select class="form-control" id="state_pet" name="state_pet" onchange="this.form.submit()">
-                <option value="null">Filtrar por estado</option>
-                <option value="AC">Acre</option>
-                <option value="AL">Alagoas</option>
-                <option value="AP">Amapá</option>
-                <option value="AM">Amazonas</option>
-                <option value="BA">Bahia</option>
-                <option value="CE">Ceará</option>
-                <option value="DF">Distrito Federal</option>
-                <option value="ES">Espírito Santo</option>
-                <option value="GO">Goiás</option>
-                <option value="MA">Maranhão</option>
-                <option value="MT">Mato Grosso</option>
-                <option value="MS">Mato Grosso do Sul</option>
-                <option value="MG">Minas Gerais</option>
-                <option value="PA">Pará</option>
-                <option value="PB">Paraíba</option>
-                <option value="PR">Paraná</option>
-                <option value="PE">Pernambuco</option>
-                <option value="PI">Piauí</option>
-                <option value="RJ">Rio de Janeiro</option>
-                <option value="RN">Rio Grande do Norte</option>
-                <option value="RS">Rio Grande do Sul</option>
-                <option value="RO">Rondônia</option>
-                <option value="RR">Roraima</option>
-                <option value="SC">Santa Catarina</option>
-                <option value="SP">São Paulo</option>
-                <option value="SE">Sergipe</option>
-                <option value="TO">Tocantins</option>
+            <select class="form-control" id="state_pet" name="state_pet">
+                <option value="null"
+                <?php
+                    try {
+                        if ($_GET['state_pet'] == 'null' || $_GET['state_pet'] == '') {
+                            echo "selected";
+                        }
+                    } catch (Exception $e) {
+                    }
+
+                    ?>>Todos estados
+                </option>
+                <option value="AC"
+                <?php
+                    try {
+                        if ($_GET['state_pet'] == 'AC') {
+                            echo "selected";
+                        }
+                    } catch (Exception $e) {
+                    }
+
+                    ?>>Acre
+                </option>
+                <option value="AL"
+                <?php
+                    try {
+                        if ($_GET['state_pet'] == 'AL') {
+                            echo "selected";
+                        }
+                    } catch (Exception $e) {
+                    }
+
+                    ?>>Alagoas
+                </option>
+                <option value="AP"
+                <?php
+                    try {
+                        if ($_GET['state_pet'] == 'AP') {
+                            echo "selected";
+                        }
+                    } catch (Exception $e) {
+                    }
+
+                    ?>>Amapá
+                </option>
+                <option value="AM"
+                <?php
+                    try {
+                        if ($_GET['state_pet'] == 'AM') {
+                            echo "selected";
+                        }
+                    } catch (Exception $e) {
+                    }
+
+                    ?>>Amazonas
+                </option>
+                <option value="BA"
+                <?php
+                    try {
+                        if ($_GET['state_pet'] == 'BA') {
+                            echo "selected";
+                        }
+                    } catch (Exception $e) {
+                    }
+
+                    ?>>Bahia
+                </option>
+                <option value="CE"
+                <?php
+                    try {
+                        if ($_GET['state_pet'] == 'CE') {
+                            echo "selected";
+                        }
+                    } catch (Exception $e) {
+                    }
+
+                    ?>>Ceará
+                </option>
+                <option value="DF"
+                <?php
+                    try {
+                        if ($_GET['state_pet'] == 'DF') {
+                            echo "selected";
+                        }
+                    } catch (Exception $e) {
+                    }
+
+                    ?>>Distrito Federal
+                </option>
+                <option value="ES" <?php
+                    try {
+                        if ($_GET['state_pet'] == 'ES') {
+                            echo "selected";
+                        }
+                    } catch (Exception $e) {
+                    }
+
+                    ?>>Espírito Santo
+                </option>
+                <option value="GO"
+                <?php
+                    try {
+                        if ($_GET['state_pet'] == 'GO') {
+                            echo "selected";
+                        }
+                    } catch (Exception $e) {
+                    }
+
+                    ?>>Goiás
+                </option>
+                <option value="MA"
+                <?php
+                    try {
+                        if ($_GET['state_pet'] == 'MA') {
+                            echo "selected";
+                        }
+                    } catch (Exception $e) {
+                    }
+
+                    ?>>Maranhão
+                </option>
+                <option value="MT"
+                <?php
+                    try {
+                        if ($_GET['state_pet'] == 'MT') {
+                            echo "selected";
+                        }
+                    } catch (Exception $e) {
+                    }
+
+                    ?>>Mato Grosso
+                </option>
+                <option value="MS"
+                <?php
+                    try {
+                        if ($_GET['state_pet'] == 'MS') {
+                            echo "selected";
+                        }
+                    } catch (Exception $e) {
+                    }
+
+                    ?>>Mato Grosso do Sul
+                </option>
+                <option value="MG"
+                <?php
+                    try {
+                        if ($_GET['state_pet'] == 'MG') {
+                            echo "selected";
+                        }
+                    } catch (Exception $e) {
+                    }
+
+                    ?>>Minas Gerais
+                </option>
+                <option value="PA"
+                <?php
+                    try {
+                        if ($_GET['state_pet'] == 'PA') {
+                            echo "selected";
+                        }
+                    } catch (Exception $e) {
+                    }
+
+                    ?>>Pará
+                </option>
+                <option value="PB"
+                <?php
+                    try {
+                        if ($_GET['state_pet'] == 'PB') {
+                            echo "selected";
+                        }
+                    } catch (Exception $e) {
+                    }
+
+                    ?>>Paraíba
+                </option>
+                <option value="PR"
+                <?php
+                    try {
+                        if ($_GET['state_pet'] == 'PR') {
+                            echo "selected";
+                        }
+                    } catch (Exception $e) {
+                    }
+
+                    ?>>Paraná
+                </option>
+                <option value="PE"
+                <?php
+                    try {
+                        if ($_GET['state_pet'] == 'PE') {
+                            echo "selected";
+                        }
+                    } catch (Exception $e) {
+                    }
+
+                    ?>>Pernambuco
+                </option>
+                <option value="PI"
+                <?php
+                    try {
+                        if ($_GET['state_pet'] == 'PI') {
+                            echo "selected";
+                        }
+                    } catch (Exception $e) {
+                    }
+
+                    ?>>Piauí
+                </option>
+                <option value="RJ"
+                <?php
+                    try {
+                        if ($_GET['state_pet'] == 'RJ') {
+                            echo "selected";
+                        }
+                    } catch (Exception $e) {
+                    }
+
+                    ?>>Rio de Janeiro
+                </option>
+                <option value="RN"
+                <?php
+                    try {
+                        if ($_GET['state_pet'] == 'RN') {
+                            echo "selected";
+                        }
+                    } catch (Exception $e) {
+                    }
+
+                    ?>>Rio Grande do Norte
+                </option>
+                <option value="RS"
+                <?php
+                    try {
+                        if ($_GET['state_pet'] == 'RS') {
+                            echo "selected";
+                        }
+                    } catch (Exception $e) {
+                    }
+
+                    ?>>Rio Grande do Sul
+                </option>
+                <option value="RO"
+                <?php
+                    try {
+                        if ($_GET['state_pet'] == 'RO') {
+                            echo "selected";
+                        }
+                    } catch (Exception $e) {
+                    }
+
+                    ?>>Rondônia
+                </option>
+                <option value="RR"
+                <?php
+                    try {
+                        if ($_GET['state_pet'] == 'RR') {
+                            echo "selected";
+                        }
+                    } catch (Exception $e) {
+                    }
+
+                    ?>>Roraima
+                </option>
+                <option value="SC"
+                <?php
+                    try {
+                        if ($_GET['state_pet'] == 'SC') {
+                            echo "selected";
+                        }
+                    } catch (Exception $e) {
+                    }
+
+                    ?>>Santa Catarina
+                </option>
+                <option value="SP"
+                <?php
+                    try {
+                        if ($_GET['state_pet'] == 'SP') {
+                            echo "selected";
+                        }
+                    } catch (Exception $e) {
+                    }
+
+                    ?>>São Paulo
+                </option>
+                <option value="SE"
+                <?php
+                    try {
+                        if ($_GET['state_pet'] == 'SE') {
+                            echo "selected";
+                        }
+                    } catch (Exception $e) {
+                    }
+
+                    ?>>Sergipe
+                </option>
+                <option value="TO"
+                <?php
+                    try {
+                        if ($_GET['state_pet'] == 'TO') {
+                            echo "selected";
+                        }
+                    } catch (Exception $e) {
+                    }
+
+                    ?>>Tocantins
+                </option>
             </select>
         </div>
         <div align="center">
+            <button type="submit" id="getRequest" class="btn btn-primary btn-circle">
+                <span class="glyphicon glyphicon-search"></span>
+            </button>
             <a href="/abandonados" class="btn btn-danger">Limpar filtros</a>
         </div>
         <br>
@@ -123,7 +469,14 @@
 
             @endforeach
             <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12" align="center">
-                {!! $pets->render() !!}
+
+                <?php
+                try {
+                    echo $pets->render();
+                } catch (\Exception $e) {
+
+                }
+                ?>
             </div>
         </div>
     </div>

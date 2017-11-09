@@ -139,7 +139,7 @@
                                         <h4 class="modal-title" id="exampleModalLabel">{{$pet->name_pet}}</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <p><b>Deseja realmente excluir seu anuncio?</b></p>
+                                        <p><b>Deseja realmente excluir este anuncio?</b></p>
                                     </div>
                                     <div class="modal-footer">
                                         <a href="{{url('/delete/myPetForAdoption/'.$pet->id)}}" class="btn btn-primary"><span

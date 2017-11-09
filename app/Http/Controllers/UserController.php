@@ -4,6 +4,7 @@ namespace TC\Http\Controllers;
 
 use Auth;
 use Hash;
+use Mail;
 use Illuminate\Http\Request;
 use TC\Http\Requests\AdminUserRequest;
 use TC\Models\User;
@@ -46,9 +47,16 @@ class UserController extends Controller
     public function create()
     {
         $vrf_user = auth()->user();
+
+        if ($vrf_user == null) {
+            return view('register_user');
+
+        }
         return view('admin.users.createUser');
 
     }
+
+    // Admin salva usuario
 
     public function store(AdminUserRequest $request)
     {
@@ -71,6 +79,37 @@ class UserController extends Controller
             session()->flash('flash_error', 'Erro ao registrar!!!');
         }
         return redirect()->route('admin.users.index');
+    }
+    // Salvar usuario
+    public function storeUser(AdminUserRequest $request)
+    {
+        try {
+            $this->validate($request, [
+                'name' => 'required|alpha_spaces',
+                'email' => 'required|max:255|unique:users',
+                'password' => 'required',
+                'role' => 'required',
+                'city' => 'Alpha',
+            ]);
+            $data = $request->all();
+            if ($data['role'] == 'ong') {
+                $data['breed'] = null;
+            }
+            $data['password'] = bcrypt($data['password']);
+            $conf = $this->repository->create($data);
+            $data['nameUser'] = $request->name;
+            $data['email'] = $request->email;
+            session()->flash('flash_message', 'Registro realizado com sucesso !!!');
+            Mail::send('emails.createUser', $data, function ($message) use ($data) {
+                $message->to($data['email'], '')
+                    ->subject('Adote um amigo');
+            });
+            session()->flash('flash_message', 'Registro realizado com sucesso !!!');
+        } catch (\Exception $e) {
+            session()->flash('flash_error', 'Erro ao registrar!!!');
+        }
+
+        return redirect()->route('users.registrar');
     }
 
 
@@ -153,10 +192,10 @@ class UserController extends Controller
 
     public function desactive($id)
     {
-        try{
-        $teste = array('active_user' => 1);
-        $this->repository->update($teste, $id);
-        session()->flash('flash_message', 'Usuário ativado!!!');
+        try {
+            $teste = array('active_user' => 1);
+            $this->repository->update($teste, $id);
+            session()->flash('flash_message', 'Usuário ativado!!!');
         } catch (\Exception $e) {
             session()->flash('flash_error', 'Erro ao ativar usuário!!!');
         }

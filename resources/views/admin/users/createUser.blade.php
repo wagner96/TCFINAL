@@ -63,7 +63,6 @@
             </div>
         </div>
         <div class="form-group">
-
             {{ Form::label('password', 'Senha',array('class'=>'col-md-4 control-label'))}}
             <div class="col-md-4 inputGroupContainer">
                 <div class="input-group">
@@ -75,7 +74,6 @@
             </div>
         </div>
         <div class="form-group">
-
             {{ Form::label('password2', 'Confirmar Senha',array('class'=>'col-md-4 control-label'))}}
             <div class="col-md-4 inputGroupContainer">
                 <div class="input-group">
