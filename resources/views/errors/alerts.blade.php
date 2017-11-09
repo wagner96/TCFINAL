@@ -12,12 +12,17 @@
 </div>
 
 @if (Session::has('flash_message'))
-    <div class="alert alert-info" id="teste">
+    <div class="alert alert-success" id="des">
         {{ Session::get('flash_message') }}
     </div>
 @endif
 @if (Session::has('flash_error'))
-    <div class="alert alert-danger" id="teste">
+    <div class="alert alert-danger" id="des">
         {{ Session::get('flash_error') }}
+    </div>
+@endif
+@if (Session::has('flash_log'))
+    <div class="alert alert-info" id="des2">
+        {{ Session::get('flash_log') }}
     </div>
 @endif

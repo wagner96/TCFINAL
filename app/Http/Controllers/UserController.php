@@ -4,8 +4,8 @@ namespace TC\Http\Controllers;
 
 use Auth;
 use Hash;
-use Mail;
 use Illuminate\Http\Request;
+use Mail;
 use TC\Http\Requests\AdminUserRequest;
 use TC\Models\User;
 use TC\Repositories\UserRepository;
@@ -80,6 +80,7 @@ class UserController extends Controller
         }
         return redirect()->route('admin.users.index');
     }
+
     // Salvar usuario
     public function storeUser(AdminUserRequest $request)
     {
@@ -155,13 +156,31 @@ class UserController extends Controller
         return redirect()->route('admin.users.index');
     }
 
-    public function updateForUsers(Request $request, $id)
+    public function updatePassword(Request $request, $id)
     {
         try {
+            if ($request->password == $request->password2) {
+                $data = $request->all();
+                $data['password'] = bcrypt($data['password']);
+                $this->repository->update($data, $id);
+                session()->flash('flash_message', 'Senha atualizada!!!');
+            }
+        }catch (\Exception $e){
+            session()->flash('flash_error', 'Erro ao atualizar senha!!!');
+        }
+        return redirect()->route('myProfile');
+    }
+
+    public function updateForUsers(Request $request, $id)
+    {
+
+        try {
+
             $this->validate($request, [
                 'name' => 'required',
                 'email' => 'required|max:255',
             ]);
+
             $data = $request->all();
             $this->repository->update($data, $id);
             session()->flash('flash_message', 'Informações editadas com sucesso !!!');

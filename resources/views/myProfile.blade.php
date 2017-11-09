@@ -75,7 +75,9 @@
                             perdidos</b></button>
                 </div>
                 <div class="form-group">
-                    <button class="col-lg-12 btn btn-default"><i class="fa fa-key fa-lg"></i> <b>Redefinir senha</b>
+                    <button type="button" data-toggle="modal" data-target="#newPassword"
+                            data-whatever="@mdo" class="col-lg-12 btn btn-default"><i class="fa fa-key fa-lg"></i> <b>Redefinir
+                            senha</b>
                     </button>
                 </div>
                 <div class="form-group">
@@ -276,10 +278,9 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="form-group">
-
-                    <div class="col-md-4 col-md-offset-3 pull-right">
+                    <div class="col-md-2 col-md-offset-3 pull-right">
+                        <br>
                         <button type="button" class="btn btn-primary" data-toggle="modal"
                                 data-target="#exampleModal"
                                 data-whatever="@mdo">Alterar
@@ -306,6 +307,52 @@
                             {{Form::submit('Salvar', ['class'=>'btn btn-primary'])}}
                             {{Form::close()}}
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{--Nova senha--}}
+
+            <div class="modal fade" id="newPassword" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="exampleModalLabel">Nova senha</h4>
+                        </div>
+                        <div class="modal-body reset">
+                            {{Form::model($user, array('route'=> array('user.updatePassword', $user->id),'name'=>'form', 'data-toggle'=>'validator'))}}
+                            <div class="form-group">
+                                {{ Form::label('password', 'Senha',array('class'=>'control-label'))}}
+                                <div class="inputGroupContainer">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                        {{Form::password('password',array('class' => 'form-control','placeholder'=>'Mínimo de seis (6) dígitos!!!','data-minlength'=>'6', 'required'))}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ Form::label('password2', 'Confirmar Senha',array('class'=>'control-label'))}}
+                                <div class="inputGroupContainer">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                        {{Form::password('password2',array('class' => 'form-control', 'data-match'=>'#password','placeholder'=>'Confirme sua Senha...', 'data-match-error'=>'Atenção! As senhas não estão iguais.', 'required'))}}
+                                    </div>
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            {{Form::submit('Salvar', ['class'=>'btn btn-primary'])}}
+                            <input class="btn btn-danger btnReset"  value="Cancelar" data-dismiss="modal"  type="reset">
+                            {{Form::close()}}
+
 
                         </div>
                     </div>

@@ -45,6 +45,15 @@ class HomeController extends Controller
         return view('contact');
     }
 
+    public function createAd()
+    {
+        $vrf_user = auth()->user();
+        if ($vrf_user == null){
+            session()->flash('flash_log', 'Para criar um anuncio você prescisa estar logado!!!');
+            return redirect('login');
+        }
+        return view('createAdvertising');
+    }
     public function sendEmailContact(Request $request)
     {
         try {
@@ -74,9 +83,4 @@ class HomeController extends Controller
 
     }
 
-    public function listAbandoned()
-    {
-        $adPets = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])->paginate(6);
-        return \Response::json($adPets);
-    }
 }

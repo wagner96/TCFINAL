@@ -9,6 +9,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Venha <b>Adotar um amigo!!!</b></div>
                     <div class="panel-body">
+                        @include('errors.alerts')
                         <form class="form-horizontal" method="POST" action="{{ route('login') }}">
                             {{ csrf_field() }}
 

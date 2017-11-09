@@ -123,18 +123,22 @@
 
                            aria-expanded="false">{{ auth()->user()->name }} <span class="caret"></span></a>
 
-                        <ul class="dropdown-menu" role="menu" >
-                            <li><a href="{{ url('/meu_perfil') }}" style="color: #000000"><span class="fa fa-user-md"></span> Meu perfil</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ url('/meu_perfil') }}" style="color: #000000"><span
+                                            class="fa fa-user-md"></span> Meu perfil</a>
                             </li>
 
-                            <li><a href="{{url('/meus_amigos_p_adoção')}}" style="color: #000000"><span class="fa fa-paw"></span> Meus amigos para adoção </a>
+                            <li><a href="{{url('/meus_amigos_p_adoção')}}" style="color: #000000"><span
+                                            class="fa fa-paw"></span> Meus amigos para adoção </a>
                             </li>
 
-                            <li><a href="{{url('/meus_amigos_p_adoção')}}" style="color: #000000"><span class="fa fa-paw"></span> Meus amigos desaparecidos </a>
+                            <li><a href="{{url('/meus_amigos_p_adoção')}}" style="color: #000000"><span
+                                            class="fa fa-paw"></span> Meus amigos desaparecidos </a>
                             </li>
 
-                            <li><a href="{{ url('/logout') }}" style="color:#FF0000;"><span class="fa fa-times"></span><b>
-                                    Sair</b></a></li>
+                            <li><a href="{{ url('/logout') }}" style="color:#FF0000;"><span
+                                            class="fa fa-times"></span><b>
+                                        Sair</b></a></li>
 
 
                         </ul>
@@ -157,7 +161,9 @@
         <br><br>
         <div class="row">
             <div class="col-md-12 text-right">
-                <button class="btn btn-success"><span class="fa fa-plus"></span> <b>Anuncie</b></button>
+                <a href="{{url('/novo_anuncio')}}">
+                    <button class="btn btn-success"><span class="fa fa-plus"></span> <b>Anuncie</b></button>
+                </a>
             </div>
         </div>
         @yield('content')
@@ -195,55 +201,19 @@
 
 <script src="{{URL::asset('js/jquery.mask.js')}}"></script>
 
-{{--<script src="{{URL::asset('js/dropzone.js')}}"></script>--}}
+<script src="{{URL::asset('js/dropzone.js')}}"></script>
 
-{{--<script src="{{URL::asset('css/dropzone.css')}}"></script>--}}
+<script src="{{URL::asset('css/dropzone.css')}}"></script>
 
 
 
 {{--DROPZONE--}}
 
-
 <script>
-
-    function ocultarMostrar(selectObject) {
-
-        var x = selectObject.value;
-
-        if (x === 'ong') {
-
-            document.getElementById('bairro').style.display = '';
-
-            document.getElementById('complemento').style.display = '';
-
-            document.getElementById('rdSocial').style.display = '';
-
-            document.getElementById('acoes').style.display = '';
-
-            document.getElementById('sexo').style.display = 'none';
-
-        }
-
-        else {
-
-            document.getElementById('bairro').style.display = 'none';
-
-            document.getElementById('complemento').style.display = 'none';
-
-            document.getElementById('rdSocial').style.display = 'none';
-
-            document.getElementById('acoes').style.display = 'none';
-
-            document.getElementById('sexo').style.display = '';
-
-        }
-
-    }
 
 </script>
 
 @yield('post-script')
 
 </body>
-
 </html>

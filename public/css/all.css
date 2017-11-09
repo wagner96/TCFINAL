@@ -17,11 +17,10 @@
     border: 0;
     background: transparent;
 }
-body{
+
+body {
     padding-top: 50px;
 }
-
-
 
 .breadcrumb-arrow {
     height: 36px;
@@ -30,33 +29,41 @@ body{
     list-style: none;
     background-color: #e6e9ed
 }
+
 .breadcrumb-arrow li:first-child a {
     border-radius: 4px 0 0 4px;
     -webkit-border-radius: 4px 0 0 4px;
     -moz-border-radius: 4px 0 0 4px
 }
+
 .breadcrumb-arrow li, .breadcrumb-arrow li a, .breadcrumb-arrow li span {
     display: inline-block;
     vertical-align: top
 }
+
 .breadcrumb-arrow li:not(:first-child) {
     margin-left: -5px
 }
-.breadcrumb-arrow li+li:before {
+
+.breadcrumb-arrow li + li:before {
     padding: 0;
     content: ""
 }
+
 .breadcrumb-arrow li span {
     padding: 0 10px
 }
+
 .breadcrumb-arrow li a, .breadcrumb-arrow li:not(:first-child) span {
     height: 36px;
     padding: 0 10px 0 25px;
     line-height: 36px
 }
+
 .breadcrumb-arrow li:first-child a {
     padding: 0 10px
 }
+
 .breadcrumb-arrow li a {
     position: relative;
     color: #fff;
@@ -64,9 +71,11 @@ body{
     background-color: #3bafda;
     border: 1px solid #3bafda
 }
+
 .breadcrumb-arrow li:first-child a {
     padding-left: 10px
 }
+
 .breadcrumb-arrow li a:after, .breadcrumb-arrow li a:before {
     position: absolute;
     top: -1px;
@@ -76,6 +85,7 @@ body{
     border-top: 18px solid transparent;
     border-bottom: 18px solid transparent
 }
+
 .breadcrumb-arrow li a:before {
     right: -10px;
     z-index: 3;
@@ -83,32 +93,39 @@ body{
     border-left-style: solid;
     border-left-width: 11px
 }
+
 .breadcrumb-arrow li a:after {
     right: -11px;
     z-index: 2;
     border-left: 11px solid #2494be
 }
+
 .breadcrumb-arrow li a:focus, .breadcrumb-arrow li a:hover {
     background-color: #4fc1e9;
     border: 1px solid #4fc1e9
 }
+
 .breadcrumb-arrow li a:focus:before, .breadcrumb-arrow li a:hover:before {
     border-left-color: #4fc1e9
 }
+
 .breadcrumb-arrow li a:active {
     background-color: #2494be;
     border: 1px solid #2494be
 }
+
 .breadcrumb-arrow li a:active:after, .breadcrumb-arrow li a:active:before {
     border-left-color: #2494be
 }
+
 .breadcrumb-arrow li span {
     color: #434a54
 }
+
 .hide-bullets {
-    list-style:none;
+    list-style: none;
     margin-left: -40px;
-    margin-top:20px;
+    margin-top: 20px;
 }
 
 /* Main carousel style */
@@ -123,6 +140,7 @@ body{
     margin-left: 5px;
     width: 100%;
 }
+
 /* Indicators list style */
 .article-slide .carousel-indicators li {
     border: medium none;
@@ -135,6 +153,7 @@ body{
     margin-top: 0;
     width: 20px;
 }
+
 /* Indicators images style */
 .article-slide .carousel-indicators img {
     border: 2px solid #FFFFFF;
@@ -143,14 +162,17 @@ body{
     left: 0;
     width: 20px;
 }
+
 /* Indicators active image style */
 .article-slide .carousel-indicators .active img {
     border: 2px solid #428BCA;
     opacity: 0.7;
 }
+
 .modal {
     text-align: center;
 }
+
 @media screen and (min-width: 768px) {
     .modal:before {
         display: inline-block;
@@ -159,11 +181,13 @@ body{
         height: 100%;
     }
 }
+
 .modal-dialog {
     display: inline-block;
     text-align: left;
     vertical-align: middle;
 }
+
 .btn-circle.btn-xl {
     width: 80px;
     height: 80px;
@@ -172,23 +196,79 @@ body{
     line-height: 1.33;
     border-radius: 35px;
 }
+
 @media (min-width: 768px) {
     .sidebar-nav .navbar .navbar-collapse {
         padding: 0;
         max-height: none;
     }
+
     .sidebar-nav .navbar ul {
         float: none;
     }
+
     .sidebar-nav .navbar ul:not {
         display: block;
     }
+
     .sidebar-nav .navbar li {
         float: none;
         display: block;
     }
+
     .sidebar-nav .navbar li a {
         padding-top: 12px;
         padding-bottom: 12px;
     }
+}
+
+
+#file {
+    color: green;
+    padding: 5px;
+    border: 1px dashed #123456;
+    background-color: #f9ffe5;
+}
+
+#img {
+    width: 17px;
+    border: none;
+    height: 17px;
+    margin-left: -20px;
+    margin-bottom: 191px;
+}
+
+.upload {
+    width: 100%;
+    height: 30px;
+}
+
+.previewBox {
+    text-align: center;
+    position: relative;
+    width: 150px;
+    height: 150px;
+
+    margin-right: 10px;
+    margin-bottom: 20px;
+    float: left;
+}
+
+.previewBox img {
+    height: 150px;
+    width: 150px;
+    padding: 5px;
+    border: 1px solid rgb(232, 222, 189);
+}
+
+.delete {
+    color: red;
+    font-weight: bold;
+    position: absolute;
+    top: 0;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #ccc;
 }

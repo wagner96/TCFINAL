@@ -88,11 +88,17 @@ Route::post('contact/sendEmail', ['as' => 'contact.sendEmailContact', 'uses' => 
 //MEU PERFIL
 Route::get('/meu_perfil', ['as' => 'myProfile', 'uses' => 'HomeController@myProfile']);
 // ATUALIZAR INFORMAÇÕES DO MEU PERFIL
-Route::post('/updateForUsers/{id}', ['as' => 'user.updateForUsers', 'uses' => 'UserController@updateForUsers']);
+Route::post('/updatePassword/{id}', ['as' => 'user.updatePassword', 'uses' => 'UserController@updatePassword']);
+// ATUALIZAR SENHA
 
+Route::post('/updateForUsers/{id}', ['as' => 'user.updateForUsers', 'uses' => 'UserController@updateForUsers']);
 // MEUS AMIGOS PARA ADOÇÃO
 Route::get('/meus_amigos_p_adoção', ['as' => 'myPetsForAdoption', 'uses' => 'ControllerAdAbandonedPet@myPetsForAdoption']);
 // DELETE
 Route::get('/delete/myPetForAdoption/{id}', ['as' => 'myPetsForAdoption.deleteMyPetForAdoption', 'uses' => 'ControllerAdAbandonedPet@deleteMyPetForAdoption']);
+
+// CRIAR ANÚNCIO
+Route::get('/novo_anuncio', ['as' => 'homeController.createAd', 'uses' => 'HomeController@createAd']);
+Route::post('/salvarApA', ['as' => 'abandoned.storePet', 'uses' => 'ControllerAdAbandonedPet@storePet']);
 
 

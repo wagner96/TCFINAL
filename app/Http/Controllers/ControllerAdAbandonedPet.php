@@ -8,6 +8,7 @@ use Mail;
 use TC\Models\AdPetAbandoned;
 use TC\Models\Pet;
 use TC\Models\PhotosPet;
+use TC\Models\User;
 use TC\Repositories\PetRepository;
 
 
@@ -99,7 +100,7 @@ class ControllerAdAbandonedPet extends Controller
 
 
             $pets = $this->filter($request);
-            if (($order_pet == '' ) and ($specie_pet == '') and ($state_pet == '') and ($pesq_pet == '')) {
+            if (($order_pet == '') and ($specie_pet == '') and ($state_pet == '') and ($pesq_pet == '')) {
                 $pets = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])
                     ->where('active_pet', '=', '1')
                     ->orderByDesc('id')
@@ -182,9 +183,11 @@ class ControllerAdAbandonedPet extends Controller
 
             $validate_movie = $this->validateMovie($data['movie_pet']);
 
-            if ($validate_movie == false) {
-                session()->flash('flash_error', 'Link de vídeo inválido!!!');
-                return $this->create();
+            if ($validate_movie != null) {
+                if ($validate_movie == false) {
+                    session()->flash('flash_error', 'Link de vídeo inválido!!!');
+                    return $this->create();
+                }
             }
 
             $data['user_id'] = auth()->user()->id;
@@ -193,6 +196,7 @@ class ControllerAdAbandonedPet extends Controller
 
             $adAbandoned = new AdPetAbandoned();
             $data['pet_id'] = $array_pet['id'];
+            $request['active_pet'] = 1;
             $adAbandoned->create($data);
             $fk_pet = $data['pet_id'];
             if ($request->hasFile('photos')) {
@@ -215,6 +219,81 @@ class ControllerAdAbandonedPet extends Controller
         }
         return redirect()->route('admin.adverts.abandoned.index');
     }
+
+
+//Users salva pet
+    public function storePet(Request $request)
+    {
+        try {
+            $request['user'] = auth()->user()->id;
+            $this->validate($request, [
+                'name_pet' => 'required|alpha_spaces',
+                'age_pet' => 'AlphaNum|min:0|max:15',
+                'movie_pet' => '',
+                'city_pet' => 'required|alpha_spaces',
+                'personality_pet' => 'required',
+                'photos' => 'max:8',
+                'user' => 'required',
+            ]);
+            $pet = new Pet();
+
+            $data = $request->all();
+            $validate_movie = $this->validateMovie($data['movie_pet']);
+
+            if ($validate_movie != null) {
+                if ($validate_movie == false) {
+                    session()->flash('flash_error', 'Link de vídeo inválido!!!');
+                    return view("createAdvertising");
+                }
+            }
+
+            $data['user_id'] = auth()->user()->id;
+            $request['active_pet'] = 0;
+            $array_pet = $pet->create($data);
+            $data = $request->all();
+
+            $adAbandoned = new AdPetAbandoned();
+            $data['pet_id'] = $array_pet['id'];
+
+            $email['name_pet'] = $array_pet['name_pet'];
+            $email['name_user'] = auth()->user()->name;
+            $adAbandoned->create($data);
+            $fk_pet = $data['pet_id'];
+            if ($request->hasFile('photos')) {
+                $photos = $request->photos;
+                $i = 0;
+                foreach ($photos as $photo) {
+                    $photos_pet = new PhotosPet();
+                    $s_photo = $this->removeCharacters($photo->getClientOriginalName());
+                    $photo_name = time() . $s_photo;
+                    $photo->move('images/Pets Abandoned', $photo_name);
+                    $photos_pet->pet_id = $fk_pet;
+                    $photos_pet->url = 'images/Pets Abandoned/' . $photo_name;
+                    $photos_pet->save();
+                    unset($photos_pet);
+                }
+            }
+            if (auth()->user()->role != 'admin') {
+                $users = User::where('role', '=', 'admin')
+                    ->select('email')
+                    ->get();
+                foreach ($users as $user) {
+                    $email['email_to'] = $user['email'];
+                    Mail::send('emails.newAd', $email, function ($message) use ($email) {
+
+                        $message->to($email['email_to'], '')
+                            ->subject('Adote um amigo (Contato)');
+
+                    });
+                }
+            }
+            session()->flash('flash_message', 'Anúncio salvo, em breve ele estara disponível para visualização!!!');
+        } catch (\Exception $e) {
+            session()->flash('flash_error', 'Erro ao salvar!!!');
+        }
+        return redirect()->route('homeController.createAd');
+    }
+
 
     public function show($id)
     {
