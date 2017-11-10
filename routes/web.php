@@ -10,10 +10,7 @@ Route::get('logout', 'UserController@logout');
 
 //
 
-Route::get('test', function () {
-    $adPets = User::get();
-    dd($adPets);
-});
+
 
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth.checkrole', 'as' => 'admin.'], function () {
@@ -49,17 +46,18 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.checkrole', 'as' => 'ad
 
 //Anuncios de Animais disaparecidos
 
-    Route::get('adverts/disappeared/', ['as' => 'adverts.disappeared.index', 'uses' => 'ControllerAdDisappearedPet@index']);
-    Route::get('adverts/disappeared/listAd', ['as' => 'adverts.disappeared.listAd', 'uses' => 'ControllerAdDisappearedPet@listAd']);
 
-    Route::get('adverts/disappeared/createAdAbandoned', 'ControllerAdAbandonedPet@create');
-    Route::post('adverts/disappeared/store', ['as' => 'adverts.disappeared.store', 'uses' => 'ControllerAdDisappearedPet@store']);
-    Route::get('adverts/disappeared/edit/{id}', ['as' => 'adverts.disappeared.edit', 'uses' => 'ControllerAdDisappearedPet@edit']);
-    Route::post('adverts/disappeared/update/{id}', ['as' => 'adverts.disappeared.update', 'uses' => 'ControllerAdDisappearedPet@update']);
+    Route::get('adverts/disappeared/', ['as' => 'adverts.disappeared.index', 'uses' => 'ControllerAdDisappereadPet@index']);
+    Route::get('adverts/disappeared/listAd', ['as' => 'adverts.disappeared.listAd', 'uses' => 'ControllerAdDisappereadPet@listAd']);
 
-    Route::get('adverts/disappeared/destroy/{id}', ['as' => 'adverts.disappeared.createAdAbandoned.destroy', 'uses' => 'ControllerAdDisappearedPet@destroy']);
-    Route::get('adverts/disappeared/active/{id}', ['as' => 'adverts.disappeared.createAdAbandoned.active', 'uses' => 'ControllerAdDisappearedPet@active']);
-    Route::get('adverts/disappeared/desactive/{id}', ['as' => 'adverts.disappeared.createAdAbandoned.desactive', 'uses' => 'ControllerAdDisappearedPet@desactive']);
+    Route::get('adverts/disappeared/createAdDisappereadPet', 'ControllerAdDisappereadPet@create');
+    Route::post('adverts/disappeared/store', ['as' => 'adverts.disappeared.store', 'uses' => 'ControllerAdDisappereadPet@store']);
+    Route::get('adverts/disappeared/edit/{id}', ['as' => 'adverts.disappeared.edit', 'uses' => 'ControllerAdDisappereadPet@edit']);
+    Route::post('adverts/disappeared/update/{id}', ['as' => 'adverts.disappeared.update', 'uses' => 'ControllerAdDisappereadPet@update']);
+
+    Route::get('adverts/disappeared/destroy/{id}', ['as' => 'adverts.disappeared.createAdAbandoned.destroy', 'uses' => 'ControllerAdDisappereadPet@destroy']);
+    Route::get('adverts/disappeared/active/{id}', ['as' => 'adverts.disappeared.createAdAbandoned.active', 'uses' => 'ControllerAdDisappereadPet@active']);
+    Route::get('adverts/disappeared/desactive/{id}', ['as' => 'adverts.disappeared.createAdAbandoned.desactive', 'uses' => 'ControllerAdDisappereadPet@desactive']);
 });
 
 
@@ -72,11 +70,14 @@ Route::get('/home', ['as' => 'homeController.index', 'uses' => 'HomeController@i
 
 //ANIMAIS PARA ADOÇÃO
 Route::get('/abandonados', ['as' => 'controllerAdAbandonedPet.listIndex', 'uses' => 'ControllerAdAbandonedPet@listIndex']);
-
-Route::get('animal/{id}', ['as' => 'controllerAdAbandonedPet.show', 'uses' => 'ControllerAdAbandonedPet@show']);
+Route::get('abandonados/animal/{id}', ['as' => 'controllerAdAbandonedPet.show', 'uses' => 'ControllerAdAbandonedPet@show']);
 
 //ENVIAR EMAIL PARA ANUNCIANTE
 Route::post('adverts/abandoned/sendEmail', ['as' => 'adverts.abandoned.sendEmail', 'uses' => 'ControllerAdAbandonedPet@sendEmail']);
+
+//ANIMAIS DESAPARECIDOS
+Route::get('/desaparecidos', ['as' => 'controllerAdDisappereadPet.listIndex', 'uses' => 'ControllerAdDisappereadPet@listIndex']);
+Route::get('desaparecidos/animal/{id}', ['as' => 'controllerAdDisappereadPet.show', 'uses' => 'ControllerAdDisappereadPet@show']);
 
 // REGISTRAR USUÁRIO
 Route::get('/registrar', ['as' =>'users.registrar', 'uses' => 'UserController@create']);

@@ -14,6 +14,7 @@ class Pet extends Model implements Transformable
         'id',
         'user_id',
         'name_pet',
+        'type',
         'age_pet',
         'proportion_pet',
         'species_pet',

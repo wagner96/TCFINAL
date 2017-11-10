@@ -1,8 +1,14 @@
-$('input.btnReset').on('click', function() {
+$('input.btnReset').on('click', function () {
 
 
     $('div.reset').find('input').val('');
 
+});
+$(document).ready(function () {
+    $('#dateTest').datepicker({
+        format: "dd/mm/yyyy",
+        language: "pt-BR"
+    });
 });
 $(document).ready(function () {
 
@@ -12,7 +18,9 @@ $(document).ready(function () {
     });
 
 });
-
+$(function() {
+    $("#reward").maskMoney({prefix:'R$ ', allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
+})
 
 $(document).ready(function () {
 
@@ -20,6 +28,7 @@ $(document).ready(function () {
         $("#phone").mask("(99)9 9999-9999");
         $("#cep").mask("99999-999");
         $("#birth_date").mask("99/99/9999");
+        $("#when").mask("99/99/9999");
 
     });
     // $(document).ready(function () {
@@ -93,15 +102,14 @@ setTimeout(function () {
     $('#des2').fadeOut('last');
 }, 8000);
 
-function preview_images()
-{
-    var total_file=document.getElementById("photos").files.length;
-    for(var i=0;i<total_file;i++)
-    {
-        $('#image_preview').append("<div class='col-md-3'><img class='img-responsive' src='"+URL.createObjectURL(event.target.files[i])+"'></div>");
+function preview_images() {
+    var total_file = document.getElementById("photos").files.length;
+    for (var i = 0; i < total_file; i++) {
+        $('#image_preview').append("<div class='col-md-3'><img class='img-responsive' src='" + URL.createObjectURL(event.target.files[i]) + "'></div>");
     }
 }
-$('#add_more').click(function() {
+
+$('#add_more').click(function () {
     "use strict";
     $(this).before($("<div/>", {
         id: 'filediv'
@@ -116,7 +124,7 @@ $('#add_more').click(function() {
     ));
 });
 
-$('#upload').click(function(e) {
+$('#upload').click(function (e) {
     "use strict";
     e.preventDefault();
 
@@ -139,7 +147,7 @@ deletePreview = function (ele, i) {
     }
 }
 
-$("#file").on('change', function() {
+$("#file").on('change', function () {
     "use strict";
 
     // create an empty array for the files to reside.
@@ -147,13 +155,13 @@ $("#file").on('change', function() {
 
     if (this.files.length >= 1) {
         $("[id^=previewImg]").remove();
-        $.each(this.files, function(i, img) {
+        $.each(this.files, function (i, img) {
             var reader = new FileReader(),
                 newElement = $("<div id='previewImg" + i + "' class='previewBox'><img /></div>"),
                 deleteBtn = $("<span class='delete' onClick='deletePreview(this, " + i + ")'>X</span>").prependTo(newElement),
                 preview = newElement.find("img");
 
-            reader.onloadend = function() {
+            reader.onloadend = function () {
                 preview.attr("src", reader.result);
                 preview.attr("alt", img.name);
             };
@@ -174,14 +182,13 @@ $("#file").on('change', function() {
         });
     }
 });
-function preview_images()
-{
-    var total_file=document.getElementById("photos").files.length;
-    for(var i=0;i<total_file;i++)
-    {
-        $('#image_preview').append("<div class='col-md-3 imagePreview' align='center'><img style=\"width: 100px; height: 100px;\" class='img-responsive'  src='"+URL.createObjectURL(event.target.files[i])+"'><span  class='remove'><a class='fa fa-trash fa-lg' style='color: #FF0000'></a></span></div>");
 
-        $(".remove").click(function(){
+function preview_images() {
+    var total_file = document.getElementById("photos").files.length;
+    for (var i = 0; i < total_file; i++) {
+        $('#image_preview').append("<div class='col-md-3 imagePreview' align='center'><img style=\"width: 100px; height: 100px;\" class='img-responsive'  src='" + URL.createObjectURL(event.target.files[i]) + "'><span  class='remove'><a class='fa fa-trash fa-lg' style='color: #FF0000'></a></span></div>");
+
+        $(".remove").click(function () {
             $('#photos').val('');
             $(this).parent(".imagePreview").remove();
         });

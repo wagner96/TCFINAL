@@ -94,7 +94,7 @@
 
                 <li><a href="{{url('/abandonados')}}" style="color:#FFFFFF;"><b>Amigos para adoção</b></a></li>
 
-                <li><a href="{{url('/')}}" style="color:#FFFFFF;"><b>Amigos desaparecidos</b></a></li>
+                <li><a href="{{url('/desaparecidos')}}" style="color:#FFFFFF;"><b>Amigos desaparecidos</b></a></li>
 
                 <li><a href="{{url('/contato')}}" style="color:#FFFFFF;"><b>Contato</b></a></li>
 
@@ -176,7 +176,7 @@
 <!-- Scripts -->
 
 <script src="{{asset('js/app.js')}}"></script>
-
+<script src="{{URL::asset('js/jquery.maskMoney.min.js')}}"></script>
 {{--<script src="{{URL::asset('js/jquery.min.js')}}"></script>--}}
 
 {{--<script src="{{URL::asset('js/bootstrap.min.js')}}"></script>--}}

@@ -9,7 +9,7 @@
             <li class="breadcrumb-item ">
                 <a href="/">Página inicial</a>
             </li>
-            <li class="active"><span>Amigos para adoção</span></li>
+            <li class="active"><span>Amigos desaparecidos</span></li>
         </ol>
     </div>
     <br>

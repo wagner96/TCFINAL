@@ -11,7 +11,6 @@ use TC\Models\PhotosPet;
 use TC\Models\User;
 use TC\Repositories\PetRepository;
 
-
 class ControllerAdAbandonedPet extends Controller
 {
 
@@ -69,11 +68,13 @@ class ControllerAdAbandonedPet extends Controller
     {
         if ($search != null) {
             $pets = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])
+                ->where('type', '=','abandoned')
                 ->where('name_pet', 'like', '%' . $search . '%')
                 ->paginate(6)
                 ->appends('pesq', request('pesq'));
         } else {
             $pets = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])
+                ->where('type', '=','abandoned')
                 ->orderByDesc('id')
                 ->paginate(6)
                 ->appends('pesq', request('pesq'));
@@ -102,6 +103,7 @@ class ControllerAdAbandonedPet extends Controller
             $pets = $this->filter($request);
             if (($order_pet == '') and ($specie_pet == '') and ($state_pet == '') and ($pesq_pet == '')) {
                 $pets = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])
+                    ->where('type', '=','abandoned')
                     ->where('active_pet', '=', '1')
                     ->orderByDesc('id')
                     ->paginate(6);
@@ -131,6 +133,7 @@ class ControllerAdAbandonedPet extends Controller
 
             if (($order_pet == "last" || $order_pet == 'null' || $order_pet == '')) {
                 $pets = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])
+                    ->where('type', '=','abandoned')
                     ->where('active_pet', '=', '1')
                     ->where('name_pet', 'like', '%' . $pesq_pet . '%')
                     ->where('species_pet', 'like', '%' . $specie_pet . '%')
@@ -139,6 +142,7 @@ class ControllerAdAbandonedPet extends Controller
                     ->get();
             } else {
                 $pets = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])
+                    ->where('type', '=','abandoned')
                     ->where('active_pet', '=', '1')
                     ->where('name_pet', 'like', '%' . $pesq_pet . '%')
                     ->where('species_pet', 'like', '%' . $specie_pet . '%')
@@ -189,6 +193,7 @@ class ControllerAdAbandonedPet extends Controller
                 }
             }
             $data['active_pet'] = 1;
+            $data['type'] = 'abandoned';
             $data['user_id'] = auth()->user()->id;
             $array_pet = $pet->create($data);
             $data = $request->all();
@@ -250,6 +255,7 @@ class ControllerAdAbandonedPet extends Controller
             if (auth()->user()->role == 'admin') {
                 $data['active_pet'] =1;
             }
+            $data['type'] = 'abandoned';
             $array_pet = $pet->create($data);
             $data = $request->all();
 
@@ -468,6 +474,7 @@ class ControllerAdAbandonedPet extends Controller
     {
         if ($pesq != null) {
             $pets = Pet::with(['AdPetAbandoned', 'PhotosPet'])
+                ->where('type','=', 'abandoned')
                 ->where('active_pet', '=', '1')
                 ->where('user_id', '=', $user_id)
                 ->where('name_pet', 'like', '%' . $pesq . '%')
@@ -476,6 +483,7 @@ class ControllerAdAbandonedPet extends Controller
                 ->appends('pesq', request('pesq'));
         } else {
             $pets = Pet::with(['AdPetAbandoned', 'PhotosPet'])
+                ->where('type','=', 'abandoned')
                 ->where('active_pet', '=', '1')
                 ->where('user_id', '=', $user_id)
                 ->orderByDesc('id')

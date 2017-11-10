@@ -14,7 +14,6 @@
     <br>
     {{Form::model($dataPet, array('route'=> array('admin.adverts.abandoned.update', $dataPet->id)))}}
 
-
     <div class="container">
         @include('errors.alerts')
         @include('errors.alerts')
