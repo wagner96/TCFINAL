@@ -52,7 +52,7 @@ class HomeController extends Controller
             session()->flash('flash_log', 'Para criar um anuncio você prescisa estar logado!!!');
             return redirect('login');
         }
-        return view('createAdvertising');
+        return view('createAdPetAban');
     }
     public function sendEmailContact(Request $request)
     {

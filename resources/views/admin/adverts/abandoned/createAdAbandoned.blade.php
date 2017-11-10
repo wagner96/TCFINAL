@@ -1,151 +1,25 @@
 @extends('templates.app')
 
 @section('content')
+
+    <br>
+    <div class="container" id="bread">
+        <ol class="breadcrumb  breadcrumb-arrow">
+            <li><a href="/">Página inicial</a></li>
+            <li><a style="color:#000000"><b>Administração</b></a></li>
+            <li><a href="/admin/adverts/abandoned">Animais para adoção</a></li>
+            <li class="active"><span>Novo anúncio</span></li>
+        </ol>
+    </div>
+
+    <br>
     @include('errors._check')
 
     {{Form::open(array('route'=>'admin.adverts.abandoned.store','files' => 'true',  'name'=>'form', 'data-toggle'=>'validator', 'id'=>'form'))}}
     <div class="container">
         @include('errors.alerts')
-        <div class="form-horizontal">
-            <h1>Adoção de Animal</h1>
+        @include('templates.createAdPetAban')
 
-            <div class="form-group">
-                <label for="name" class="col-md-4 control-label">Tipo de animal</label>
-                <div class="col-md-4 selectContainer">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                        {{Form::select('species_pet', ['Cachorro'=>'Cachorro', 'Gato'=>'Gato', 'Outros'=>'Outros'],null, ['class' => 'form-control'])}}
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="name" class="col-md-4 control-label">Nome do animal</label>
-                <div class="col-md-4 inputGroupContainer">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                        {{Form::text('name_pet','', array('placeholder' => 'Nome do animal','class' => 'form-control', 'required'))}}
-                    </div>
-                    <div class="help-block with-errors"></div>
-
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="name" class="col-md-4 control-label">Idade do animal</label>
-                <div class="col-md-4 inputGroupContainer">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                        {{Form::number('age_pet','', array('class' => 'form-control','min' => '1', 'max' =>'15'))}}
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="name" class="col-md-4 control-label">Tamanho do animal</label>
-                <div class="col-md-4 selectContainer">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                        {{Form::select('proportion_pet', ['Não informado'=>'Não informar', 'Pequeno'=>'Pequeno', 'Médio'=>'Médio', 'Grande'=>'Grande'],null, ['class' => 'form-control', 'required'])}}
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="name" class="col-md-4 control-label">Sexo do animal</label>
-                <div class="col-md-4 selectContainer">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                        {{Form::select('breed_pet', ['Não informado'=>'Não informar', 'Macho'=>'Macho', 'Fêmea'=>'Fêmea'],null, ['class' => 'form-control'])}}
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="name" class="col-md-4 control-label">Link de vídeo</label>
-                <div class="col-md-4 inputGroupContainer">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-youtube-play"></i></span>
-                        {{Form::text('movie_pet','', array('placeholder' => 'Link You Tube','class' => 'form-control'))}}
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-
-                {{ Form::label('state', 'Estado',array('class'=>'col-md-4 control-label'))}}
-                <div class="col-md-4 selectContainer">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                        {{Form::select('state_pet', array('AC'=>'Acre',
-                        'AL'=>'Alagoas',
-                        'AP'=>'Amapá',
-                        'AM'=>'Amazonas',
-                        'BA'=>'Bahia',
-                        'CE'=>'Ceará',
-                        'DF'=>'Distrito Federal',
-                        'ES'=>'Espírito Santo',
-                        'GO'=>'Goiás',
-                        'MA'=>'Maranhão',
-                        'MT'=>'Mato Grosso',
-                        'MS'=>'Mato Grosso do Sul',
-                        'MG'=>'Minas Gerais',
-                        'PA'=>'Pará',
-                        'PB'=>'Paraíba',
-                        'PR'=>'Paraná',
-                        'PE'=>'Pernambuco',
-                        'PI'=>'Piauí',
-                        'RJ'=>'Rio de Janeiro',
-                        'RN'=>'Rio Grande do Norte',
-                        'RS'=>'Rio Grande do Sul',
-                        'RO'=>'Rondônia',
-                        'RR'=>'Roraima',
-                        'SC'=>'Santa Catarina',
-                        'SP'=>'São Paulo',
-                        'SE'=>'Sergipe',
-                        'TO'=>'Tocantins'),null, ['class' => 'form-control', 'required'])}}
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-
-                {{ Form::label('city', 'Cidade',array('class'=>'col-md-4 control-label'))}}
-                <div class="col-md-4 inputGroupContainer">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                        {{Form::text('city_pet','', array('placeholder' => 'Cidade','class' => 'form-control', 'required'))}}
-                    </div>
-                    <div class="help-block with-errors"></div>
-
-
-                </div>
-            </div>
-            <div class="form-group">
-                {{ Form::label('personality_pet', 'Personalidade do animal',array('class'=>'col-md-4 control-label'))}}
-                <div class="col-md-4 inputGroupContainer">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                        {{Form::textarea('personality_pet','', array('placeholder'=>'Personalidade do animal','class' => 'form-control', 'cols'=>'5','rows'=>'5', 'required'))}}
-                    </div>
-                    <div class="help-block with-errors"></div>
-
-                </div>
-            </div>
-
-
-            <div class="form-group">
-                <label for="name" class="col-md-4 control-label">Imagens do animal</label>
-                <div class="col-md-4 inputGroupContainer">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-                        <input type="file" multiple name="photos[]"/>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-3 col-md-offset-3 pull-right">
-
-                    {{Form::submit('Salvar', ['class'=>'btn btn-primary'])}}
-                    {{Form::close()}}
-
-                </div>
-            </div>
-
-        </div>
     </div>
 
 

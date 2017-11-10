@@ -84,33 +84,6 @@ function ocultarMostrar(selectObject) {
 
 }
 
-function oculMostTypeAd(selectObject) {
-    var x = selectObject.value;
-    if (x === 'petDs') {
-        document.getElementById('petApA').style.display = 'none';
-        document.getElementById('petAd').style.display = '';
-
-        document.getElementById('bread').style.display = 'none';
-        document.getElementById('breadDs').style.display = '';
-        document.getElementById('breadApA').style.display = 'none';
-    }
-
-    else if (x === 'petAb') {
-        document.getElementById('petAd').style.display = 'none';
-        document.getElementById('petApA').style.display = '';
-
-        document.getElementById('bread').style.display = 'none';
-        document.getElementById('breadDs').style.display = 'none';
-        document.getElementById('breadApA').style.display = '';
-    }
-    else if (x === 'null'){
-        document.getElementById('petAd').style.display = 'none';
-        document.getElementById('petApA').style.display = 'none';
-        document.getElementById('bread').style.display = '';
-        document.getElementById('breadDs').style.display = 'none';
-        document.getElementById('breadApA').style.display = 'none';
-    }
-}
 
 setTimeout(function () {
     $('#des').fadeOut('last');

@@ -2,14 +2,22 @@
 
 @section('content')
 
-
+    <br>
+    <div class="container">
+        <ol class="breadcrumb  breadcrumb-arrow">
+            <li><a href="/">Página inicial</a></li>
+            <li class="active"><span>Registrar</span></li>
+        </ol>
+    </div>
+    <br>
     {{Form::open(array('route'=>'users.storeUser',  'name'=>'form', 'data-toggle'=>'validator'))}}
     <div class="container">
         @include('errors.alerts')
+        @include('errors._check')
         <div class="row">
             <div class="col col-md-6">
                 <div class="form-group">
-                    <label>Nível Hierárquico</label>
+                    <label>Tipo</label>
                     <div class="selectContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>

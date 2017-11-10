@@ -120,7 +120,7 @@
                         </div>
 
 
-                        <a href="{{url('admin/adverts/abandoned/edit/'.$pet->id)}}" class="btn btn-primary"><span
+                        <a href="{{url('meus_amigos_p_adoção/editar/'.$pet->id)}}" class="btn btn-primary"><span
                                     class="fa fa-pencil-square-o fa-lg"></span></a>
 
 

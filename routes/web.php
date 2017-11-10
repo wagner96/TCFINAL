@@ -68,6 +68,7 @@ Auth::routes();
 
 // INDEX
 Route::get('/', ['as' => 'homeController.index', 'uses' => 'HomeController@index']);
+Route::get('/home', ['as' => 'homeController.index', 'uses' => 'HomeController@index']);
 
 //ANIMAIS PARA ADOÇÃO
 Route::get('/abandonados', ['as' => 'controllerAdAbandonedPet.listIndex', 'uses' => 'ControllerAdAbandonedPet@listIndex']);
@@ -87,18 +88,25 @@ Route::post('contact/sendEmail', ['as' => 'contact.sendEmailContact', 'uses' => 
 
 //MEU PERFIL
 Route::get('/meu_perfil', ['as' => 'myProfile', 'uses' => 'HomeController@myProfile']);
+
+
 // ATUALIZAR INFORMAÇÕES DO MEU PERFIL
 Route::post('/updatePassword/{id}', ['as' => 'user.updatePassword', 'uses' => 'UserController@updatePassword']);
 // ATUALIZAR SENHA
-
 Route::post('/updateForUsers/{id}', ['as' => 'user.updateForUsers', 'uses' => 'UserController@updateForUsers']);
+
 // MEUS AMIGOS PARA ADOÇÃO
 Route::get('/meus_amigos_p_adoção', ['as' => 'myPetsForAdoption', 'uses' => 'ControllerAdAbandonedPet@myPetsForAdoption']);
 // DELETE
 Route::get('/delete/myPetForAdoption/{id}', ['as' => 'myPetsForAdoption.deleteMyPetForAdoption', 'uses' => 'ControllerAdAbandonedPet@deleteMyPetForAdoption']);
+// EDITAR
+Route::get('meus_amigos_p_adoção/editar/{id}', ['as' => 'myPetsAbandoneds.editPet', 'uses' => 'ControllerAdAbandonedPet@editPet']);
+Route::post('meus_amigos_p_adoção/update/{id}', ['as' => 'myPetsAbandoneds.updatePet', 'uses' => 'ControllerAdAbandonedPet@updatePet']);
+
+
 
 // CRIAR ANÚNCIO
-Route::get('/novo_anuncio', ['as' => 'homeController.createAd', 'uses' => 'HomeController@createAd']);
+Route::get('/novo_anuncio_animal_adocao', ['as' => 'homeController.createAd', 'uses' => 'HomeController@createAd']);
 Route::post('/salvarApA', ['as' => 'abandoned.storePet', 'uses' => 'ControllerAdAbandonedPet@storePet']);
 
 

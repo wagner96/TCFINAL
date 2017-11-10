@@ -181,15 +181,14 @@ class ControllerAdAbandonedPet extends Controller
 
             $data = $request->all();
 
-            $validate_movie = $this->validateMovie($data['movie_pet']);
-
-            if ($validate_movie != null) {
+            if ($data['movie_pet'] != null) {
+                $validate_movie = $this->validateMovie($data['movie_pet']);
                 if ($validate_movie == false) {
                     session()->flash('flash_error', 'Link de vídeo inválido!!!');
                     return $this->create();
                 }
             }
-
+            $data['active_pet'] = 1;
             $data['user_id'] = auth()->user()->id;
             $array_pet = $pet->create($data);
             $data = $request->all();
@@ -238,17 +237,19 @@ class ControllerAdAbandonedPet extends Controller
             $pet = new Pet();
 
             $data = $request->all();
-            $validate_movie = $this->validateMovie($data['movie_pet']);
-
-            if ($validate_movie != null) {
+            if ($data['movie_pet'] != null) {
+                $validate_movie = $this->validateMovie($data['movie_pet']);
                 if ($validate_movie == false) {
                     session()->flash('flash_error', 'Link de vídeo inválido!!!');
-                    return view("createAdvertising");
+                    return view("createAdPetAban");
                 }
             }
 
             $data['user_id'] = auth()->user()->id;
-            $request['active_pet'] = 0;
+            $data['active_pet'] = 0;
+            if (auth()->user()->role == 'admin') {
+                $data['active_pet'] =1;
+            }
             $array_pet = $pet->create($data);
             $data = $request->all();
 
@@ -317,6 +318,17 @@ class ControllerAdAbandonedPet extends Controller
         return view('admin.adverts.abandoned.editAdAbandoned', compact('dataPet'));
     }
 
+    //User edita pet
+    public function editPet($id)
+    {
+        try {
+            $dataPet = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])->find($id);
+        } catch (\Exception $e) {
+            session()->flash('flash_error', 'Erro ao pesquisar!!!');
+        }
+        return view('editAdPetAban', compact('dataPet'));
+    }
+
     public function update(Request $request, $id)
     {
         try {
@@ -330,10 +342,12 @@ class ControllerAdAbandonedPet extends Controller
             ]);
             $data = $request->all();
 
-            $validate_movie = $this->validateMovie($data['movie_pet']);
-            if ($validate_movie == false) {
-                session()->flash('flash_error', 'Link de vídeo inválido!!!');
-                return $this->create();
+            if ($data['movie_pet'] != null) {
+                $validate_movie = $this->validateMovie($data['movie_pet']);
+                if ($validate_movie == false) {
+                    session()->flash('flash_error', 'Link de vídeo inválido!!!');
+                    return $this->edit($id);
+                }
             }
             $personality_pet = $request->get('personality_pet');
 
@@ -349,9 +363,42 @@ class ControllerAdAbandonedPet extends Controller
         }
         return redirect()->route('admin.adverts.abandoned.index');
 
-
     }
 
+    public function updatePet(Request $request, $id)
+    {
+        try {
+            $this->validate($request, [
+                'name_pet' => 'required|alpha_spaces',
+                'age_pet' => 'AlphaNum|min:0|max:15',
+                'movie_pet' => '',
+                'city_pet' => 'required|alpha_spaces',
+                'personality_pet' => 'required',
+                'photos' => 'mimes:jpeg,bmp,png,jpg,gif',
+            ]);
+            $data = $request->all();
+            if ($data['movie_pet'] != null) {
+                $validate_movie = $this->validateMovie($data['movie_pet']);
+                if ($validate_movie == false) {
+                    session()->flash('flash_error', 'Link de vídeo inválido!!!');
+                    return $this->editPet($id);
+                }
+            }
+            $personality_pet = $request->get('personality_pet');
+
+            $this->repository->update($data, $id);
+
+            DB::table('ad_pet_abandoned')
+                ->where('pet_id', $id)
+                ->update(['personality_pet' => $personality_pet]);
+
+            session()->flash('flash_message', 'Anúncio foi editado com sucesso!!!');
+        } catch (\Exception $e) {
+            session()->flash('flash_error', 'Erro ao editar!!!');
+        }
+        return redirect()->route('myPetsForAdoption');
+
+    }
 
     public function destroy($id)
     {

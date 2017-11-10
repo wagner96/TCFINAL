@@ -2,12 +2,18 @@
 
 @section('content')
 
-    <h1>Animais Abandonados</h1>
     @include('errors.alerts')
+    <br>
+    <div class="container">
+        <ol class="breadcrumb  breadcrumb-arrow">
+            <li><a href="/">Página inicial</a></li>
+            <li><a style="color:#000000"><b>Administração</b></a></li>
+            <li class="active"><span>Animais para adoção</span></li>
+        </ol>
 
-    <div class="form-group">
+        <br>
+        <div class="form-group">
 
-        <div class="container">
             <div class="row">
 
                 {{Form::open(array('route'=>'admin.adverts.abandoned.index', 'method'=>'GET', 'name'=>'form', 'data-toggle'=>'validator'))}}
@@ -94,8 +100,8 @@
                                         @if ($pet->PhotosPet != "[]")
                                             @foreach($pet->PhotosPet as $photo)
                                                 <div align="center">
-                                                <img style="max-width: 150px; min-width: 150px;max-height: 150px; min-height: 150px"
-                                                     class="img-thumbnail" alt="" src="{{URL::asset($photo->url)}}">
+                                                    <img style="max-width: 150px; min-width: 150px;max-height: 150px; min-height: 150px"
+                                                         class="img-thumbnail" alt="" src="{{URL::asset($photo->url)}}">
                                                 </div>
                                                 @break
                                             @endforeach
@@ -105,9 +111,10 @@
                                         <button type="button" class="btn btn-danger"
                                                 data-dismiss="modal">Fechar
                                         </button>
-                                            <button type="button" class="btn btn-primary">
-                                                     <a  href="{{url('/animal/'.$pet->id)}}" style="color: #ffffff">Ver anúncio</a>
-                                            </button>
+                                        <button type="button" class="btn btn-primary">
+                                            <a href="{{url('/animal/'.$pet->id)}}" style="color: #ffffff">Ver
+                                                anúncio</a>
+                                        </button>
                                     </div>
                                 </div>
                             </div>

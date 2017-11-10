@@ -9,6 +9,8 @@ use Mail;
 use TC\Http\Requests\AdminUserRequest;
 use TC\Models\User;
 use TC\Repositories\UserRepository;
+use Illuminate\Notifications\Notifiable;
+
 
 class UserController extends Controller
 {
@@ -49,7 +51,7 @@ class UserController extends Controller
         $vrf_user = auth()->user();
 
         if ($vrf_user == null) {
-            return view('register_user');
+            return view('registerUser');
 
         }
         return view('admin.users.createUser');

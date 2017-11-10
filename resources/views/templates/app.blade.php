@@ -59,7 +59,7 @@
 
                  style="max-width:100px; margin-top: 2px;" width="70" height="50">
 
-            <a class="navbar-brand" href="{{ url('/') }}" style="color:#000000;"><b>Adote um amigo</b></a>
+            <a class="navbar-brand" href="{{ url('/') }}" style="color:#FFFFFF;"><b>Adote um amigo</b></a>
 
 
         </div>
@@ -90,16 +90,23 @@
 
             <ul class="nav navbar-nav navbar-right">
 
-                <li><a href="{{url('/')}}" style="color:#000000;"><b>Página inicial</b></a></li>
+                <li><a href="{{url('/')}}" style="color:#FFFFFF;"><b>Página inicial</b></a></li>
 
-                <li><a href="{{url('/abandonados')}}" style="color:#000000;"><b>Amigos para adoção</b></a></li>
+                <li><a href="{{url('/abandonados')}}" style="color:#FFFFFF;"><b>Amigos para adoção</b></a></li>
 
-                <li><a href="{{url('/')}}" style="color:#000000;"><b>Amigos desaparecidos</b></a></li>
+                <li><a href="{{url('/')}}" style="color:#FFFFFF;"><b>Amigos desaparecidos</b></a></li>
 
-                <li><a href="{{url('/contato')}}" style="color:#000000;"><b>Contato</b></a></li>
+                <li><a href="{{url('/contato')}}" style="color:#FFFFFF;"><b>Contato</b></a></li>
 
-                <li><a href="{{url('/')}}" style="color:#000000;"><b>Quem Somos</b></a></li>
-
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" style="color:#FFFFFF;"> <span
+                                class="fa fa-plus"></span> <b>Anuncie</b> <b
+                                class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{url('/novo_anuncio_animal_adocao')}}">Amigo para adoção</a></li>
+                        <li><a href="{{ url('') }}">Amigo desaparecido</a></li>
+                    </ul>
+                </li>
 
                 @if(auth()->guest())
 
@@ -119,7 +126,7 @@
 
                     <li class="dropdown">
 
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" style="color:#ffffff"
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" style="color:#f9ffe5"
 
                            aria-expanded="false">{{ auth()->user()->name }} <span class="caret"></span></a>
 
@@ -158,14 +165,7 @@
 <div class="container">
 
     <div id="app">
-        <br><br>
-        <div class="row">
-            <div class="col-md-12 text-right">
-                <a href="{{url('/novo_anuncio')}}">
-                    <button class="btn btn-success"><span class="fa fa-plus"></span> <b>Anuncie</b></button>
-                </a>
-            </div>
-        </div>
+        <br>
         @yield('content')
 
     </div>
@@ -204,7 +204,6 @@
 <script src="{{URL::asset('js/dropzone.js')}}"></script>
 
 <script src="{{URL::asset('css/dropzone.css')}}"></script>
-
 
 
 {{--DROPZONE--}}

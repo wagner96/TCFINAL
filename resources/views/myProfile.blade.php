@@ -12,6 +12,7 @@
     <br>
 
     <div class="container">
+        @include('errors._check')
         @include('errors.alerts')
         <div class="row">
             {{--<div class="col-sm-3">--}}
