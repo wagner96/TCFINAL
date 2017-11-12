@@ -429,25 +429,21 @@
 
     <div class="col-md-9">
         <div class="row text-center">
-
-
             @foreach($pets as $pet)
-
                 <div class="col-lg-4 col-md-6 mb-4">
-
                     <div class="card">
-                        @if ($pet->PhotosPet != "[]")
-                            @foreach($pet->PhotosPet as $photo)
+                            @if ($pet->PhotosPet != "[]")
+                                @foreach($pet->PhotosPet as $photo)
+                                    <a href="{{url('abandonados/animal/'.$pet->id)}}"><img
+                                                style="max-width: 200px; min-width: 200px;max-height: 200px; min-height: 200px"
+                                                class="img-thumbnail" alt="" src="{{$photo->url}}"></a>
+                                    @break
+                                @endforeach
+                            @else
                                 <a href="{{url('abandonados/animal/'.$pet->id)}}"><img
                                             style="max-width: 200px; min-width: 200px;max-height: 200px; min-height: 200px"
-                                            class="img-thumbnail" alt="" src="{{$photo->url}}"></a>
-                                @break
-                            @endforeach
-                        @else
-                            <a href="{{url('abandonados/animal/'.$pet->id)}}"><img
-                                        style="max-width: 200px; min-width: 200px;max-height: 200px; min-height: 200px"
-                                        class="img-thumbnail" alt="" src="{{URL::asset('img/sem imagem.png')}}"></a>
-                        @endif
+                                            class="img-thumbnail" alt="" src="{{URL::asset('img/sem imagem.png')}}"></a>
+                            @endif
                         <div class="card-body">
                             <br>
                             <h4 class="card-title"><b>{{$pet->name_pet}}</b></h4>
@@ -456,17 +452,14 @@
                                 <b>{{$pet->state_pet}}</b></p>
                         </div>
                         <div class="card-footer">
-                            <a href="{{url('abandonados/animal/'.$pet->id)}}" class="btn btn-primary"><i class="fa fa-paw"
-                                                                                              aria-hidden="true"></i>
+                            <a href="{{url('abandonados/animal/'.$pet->id)}}" class="btn btn-primary"><i
+                                        class="fa fa-paw"
+                                        aria-hidden="true"></i>
                                 Adote
                                 me!</a>
                         </div>
                     </div>
                 </div>
-
-
-                {{--@break--}}
-
             @endforeach
             <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12" align="center">
 

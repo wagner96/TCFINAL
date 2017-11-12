@@ -104,7 +104,7 @@
                                 class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><a href="{{url('/novo_anuncio_animal_adocao')}}">Amigo para adoção</a></li>
-                        <li><a href="{{ url('') }}">Amigo desaparecido</a></li>
+                        <li><a href="{{ url('/novo_anuncio_animal_desaparecido') }}">Amigo desaparecido</a></li>
                     </ul>
                 </li>
 
@@ -112,7 +112,7 @@
 
                     @if(!Request::is('auth/login'))
 
-                        <li><a href="{{ url('/login') }}" style="color:#000000;">Entrar</a></li>
+                        <li><a href="/login" style="color:#000000;">Entrar</a></li>
 
                     @endif
 
@@ -139,7 +139,7 @@
                                             class="fa fa-paw"></span> Meus amigos para adoção </a>
                             </li>
 
-                            <li><a href="{{url('/meus_amigos_p_adoção')}}" style="color: #000000"><span
+                            <li><a href="{{url('/meus_amigos_desaparecidos')}}" style="color: #000000"><span
                                             class="fa fa-paw"></span> Meus amigos desaparecidos </a>
                             </li>
 
@@ -169,10 +169,7 @@
         @yield('content')
 
     </div>
-
 </div>
-
-
 <!-- Scripts -->
 
 <script src="{{asset('js/app.js')}}"></script>

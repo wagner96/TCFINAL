@@ -14,7 +14,7 @@
     </div>
     <br>
     @include('errors.alerts')
-    {{Form::open(array('route'=>'controllerAdAbandonedPet.listIndex', 'method'=>'GET', 'name'=>'form', 'data-toggle'=>'validator'))}}
+    {{Form::open(array('route'=>'controllerAdDisappereadPet.listIndex', 'method'=>'GET', 'name'=>'form', 'data-toggle'=>'validator'))}}
     <div class="col-lg-3">
         <div class="form-group">
             <input name="pesq" placeholder="Digite o nome do amigo" type="text" class="form-control"
@@ -69,7 +69,7 @@
                     } catch (Exception $e) {
                     }
 
-                    ?>>Todos amigos para adoção
+                    ?>>Todos amigos desaparecidos
                 </option>
                 <option value="Cachorro"
                 <?php
@@ -80,7 +80,7 @@
                     } catch (Exception $e) {
                     }
 
-                    ?>>Cachorros para adoção
+                    ?>>Cachorros desaparecidos
                 </option>
                 <option value="Gato"
                 <?php
@@ -91,7 +91,7 @@
                     } catch (Exception $e) {
                     }
 
-                    ?>>Gatos para adoção
+                    ?>>Gatos desaparecidos
                 </option>
                 <option value="Outros"
                 <?php
@@ -102,7 +102,7 @@
                     } catch (Exception $e) {
                     }
 
-                    ?>>Outros animais para adoção
+                    ?>>Outros animais para desaparecidos
                 </option>
             </select>
         </div>
@@ -421,7 +421,7 @@
             <button type="submit" id="getRequest" class="btn btn-primary btn-circle">
                 <span class="glyphicon glyphicon-search"></span>
             </button>
-            <a href="/abandonados" class="btn btn-danger">Limpar filtros</a>
+            <a href="/desaparecidos" class="btn btn-danger">Limpar filtros</a>
         </div>
         <br>
     </div>
@@ -438,13 +438,13 @@
                     <div class="card">
                         @if ($pet->PhotosPet != "[]")
                             @foreach($pet->PhotosPet as $photo)
-                                <a href="{{url('abandonados/animal/'.$pet->id)}}"><img
+                                <a href="{{url('desaparecidos/animal/'.$pet->id)}}"><img
                                             style="max-width: 200px; min-width: 200px;max-height: 200px; min-height: 200px"
                                             class="img-thumbnail" alt="" src="{{$photo->url}}"></a>
                                 @break
                             @endforeach
                         @else
-                            <a href="{{url('abandonados/animal/'.$pet->id)}}"><img
+                            <a href="{{url('desaparecidos/animal/'.$pet->id)}}"><img
                                         style="max-width: 200px; min-width: 200px;max-height: 200px; min-height: 200px"
                                         class="img-thumbnail" alt="" src="{{URL::asset('img/sem imagem.png')}}"></a>
                         @endif
@@ -452,14 +452,14 @@
                             <br>
                             <h4 class="card-title"><b>{{$pet->name_pet}}</b></h4>
                             <p class="card-text">Autor: <b>{{$pet->user->name}}</b></p>
+                            <p class="card-text">Desaparecido em: <b>{{$pet->AdPetDisappeared->when}}</b></p>
                             <p class="card-text"><i class="fa fa-map-marker"></i> {{$pet->city_pet ." - "}}
                                 <b>{{$pet->state_pet}}</b></p>
                         </div>
                         <div class="card-footer">
-                            <a href="{{url('abandonados/animal/'.$pet->id)}}" class="btn btn-primary"><i class="fa fa-paw"
-                                                                                              aria-hidden="true"></i>
-                                Adote
-                                me!</a>
+                            <a href="{{url('desaparecidos/animal/'.$pet->id)}}" class="btn btn-danger"><i class="fa fa-paw"
+                                                                                                         aria-hidden="true"></i>
+                                Sabe do meu paradeiro?</a>
                         </div>
                     </div>
                 </div>

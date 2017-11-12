@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="name" class="control-label">Idade do animal</label>
+        <label for="name" class="control-label">Idade do animal(anos)</label>
         <div class="inputGroupContainer">
             <div class="input-group">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>

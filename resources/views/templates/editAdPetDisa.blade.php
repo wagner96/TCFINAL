@@ -1,5 +1,4 @@
 <div class="row">
-
     <div class="col col-md-6">
         <div class="form-group">
             <label for="name" class="control-label">Tipo de animal</label>
@@ -15,7 +14,7 @@
             <div class="inputGroupContainer">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-paw"></i></span>
-                    {{Form::text('name_pet','', array('placeholder' => 'Nome do animal','class' => 'form-control', 'required'))}}
+                    {{Form::text('name_pet',null, array('placeholder' => 'Nome do animal','class' => 'form-control', 'required'))}}
                 </div>
                 <div class="help-block with-errors"></div>
 
@@ -26,7 +25,7 @@
             <div class="inputGroupContainer">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                    {{Form::number('age_pet','', array('class' => 'form-control','min' => '1', 'max' =>'15'))}}
+                    {{Form::number('age_pet',null, array('class' => 'form-control','min' => '1', 'max' =>'15'))}}
                 </div>
             </div>
         </div>
@@ -48,19 +47,30 @@
                 </div>
             </div>
         </div>
+
         <div class="form-group">
-            <label for="name" class="control-label">Imagens do animal</label>
+            {{ Form::label('when', 'Quando',array('class'=>'control-label'))}}
             <div class="inputGroupContainer">
                 <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
-                    <input type="file" class="form-control" id="photos" name="photos[]"
-                           onchange="preview_images();" multiple/>
-                    {{--<input type="file" class="form-control" multiple name="photos[]" onchange="preview_images();"/>--}}
-                    {{--<input type="submit" class="btn btn-primary" name='submit_image' value="Upload Multiple Image"/>--}}
+                    <span class="input-group-addon"><i class="fa fa-calendar fa-lg"></i></span>
+                    {{Form::text('when',$dataPet->AdPetDisappeared->when, array('placeholder' => 'Data de desaparecimento','class' => 'form-control', 'required'))}}
                 </div>
+                <div class="help-block with-errors"></div>
             </div>
         </div>
-        <div class="row" id="image_preview"></div>
+        {{--<div class="form-group">--}}
+        {{--<label for="name" class="control-label">Imagens do animal</label>--}}
+        {{--<div class="inputGroupContainer">--}}
+        {{--<div class="input-group">--}}
+        {{--<span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>--}}
+        {{--<input type="file" class="form-control" id="photos" name="photos[]"--}}
+        {{--onchange="preview_images();" multiple/>--}}
+        {{--<input type="file" class="form-control" multiple name="photos[]" onchange="preview_images();"/>--}}
+        {{--<input type="submit" class="btn btn-primary" name='submit_image' value="Upload Multiple Image"/>--}}
+        {{--</div>--}}
+        {{--</div>--}}
+        {{--</div>--}}
+        {{--<div class="row" id="image_preview"></div>--}}
 
     </div>
     <div class=" col col-md-6">
@@ -69,7 +79,7 @@
             <div class="inputGroupContainer">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-youtube-play"></i></span>
-                    {{Form::text('movie_pet','', array('placeholder' => 'Link You Tube','class' => 'form-control'))}}
+                    {{Form::text('movie_pet',null, array('placeholder' => 'Link You Tube','class' => 'form-control'))}}
                 </div>
             </div>
         </div>
@@ -115,33 +125,31 @@
             <div class="inputGroupContainer">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                    {{Form::text('city_pet','', array('placeholder' => 'Cidade','class' => 'form-control', 'required'))}}
+                    {{Form::text('city_pet',null, array('placeholder' => 'Cidade','class' => 'form-control', 'required'))}}
                 </div>
                 <div class="help-block with-errors"></div>
-
-
             </div>
         </div>
         <div class="form-group">
-            {{ Form::label('personality_pet', 'Personalidade do animal',array('class'=>'control-label'))}}
+            {{ Form::label('reward', 'Recompensa',array('class'=>'control-label'))}}
             <div class="inputGroupContainer">
                 <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                    {{Form::textarea('personality_pet','', array('placeholder'=>'Personalidade do animal','class' => 'form-control', 'cols'=>'5','rows'=>'5', 'required'))}}
+                    <span class="input-group-addon"><i class="fa fa-money fa-lg"></i></span>
+                    {{Form::text('reward',$dataPet->AdPetDisappeared->reward, array('placeholder' => 'Recompensa','id' =>'reward','class' => 'form-control'))}}
                 </div>
                 <div class="help-block with-errors"></div>
-
             </div>
-        </div>
+            <div class="form-group">
+                {{ Form::label('where', 'Local de desaparecimento',array('class'=>'control-label'))}}
+                <div class="inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                        {{Form::textarea('where',$dataPet->AdPetDisappeared->where, array('placeholder'=>'Local que o animal foi visto por último','class' => 'form-control',  'cols'=>'5','rows'=>'5', 'required'))}}
+                    </div>
+                    <div class="help-block with-errors"></div>
 
-        <div class="form-group">
-            <div class="col-md-1 col-md-offset-3 pull-right">
-
-                {{Form::submit('Salvar', ['class'=>'btn btn-primary'])}}
-                {{Form::close()}}
-
+                </div>
             </div>
         </div>
     </div>
-
 </div>

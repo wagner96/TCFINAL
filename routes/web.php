@@ -74,6 +74,7 @@ Route::get('abandonados/animal/{id}', ['as' => 'controllerAdAbandonedPet.show', 
 
 //ENVIAR EMAIL PARA ANUNCIANTE
 Route::post('adverts/abandoned/sendEmail', ['as' => 'adverts.abandoned.sendEmail', 'uses' => 'ControllerAdAbandonedPet@sendEmail']);
+Route::post('adverts/disappeared/sendEmail', ['as' => 'adverts.disappeared.sendEmail', 'uses' => 'ControllerAdDisappereadPet@sendEmail']);
 
 //ANIMAIS DESAPARECIDOS
 Route::get('/desaparecidos', ['as' => 'controllerAdDisappereadPet.listIndex', 'uses' => 'ControllerAdDisappereadPet@listIndex']);
@@ -98,16 +99,29 @@ Route::post('/updateForUsers/{id}', ['as' => 'user.updateForUsers', 'uses' => 'U
 
 // MEUS AMIGOS PARA ADOÇÃO
 Route::get('/meus_amigos_p_adoção', ['as' => 'myPetsForAdoption', 'uses' => 'ControllerAdAbandonedPet@myPetsForAdoption']);
-// DELETE
+
+// MEUS AMIGOS DESAPARECIDOS
+Route::get('/meus_amigos_desaparecidos', ['as' => 'myPetsDisappeared', 'uses' => 'controllerAdDisappereadPet@myPetsDisappeared']);
+
+// DELETE AMIGOS PARA ADOÇÃO
 Route::get('/delete/myPetForAdoption/{id}', ['as' => 'myPetsForAdoption.deleteMyPetForAdoption', 'uses' => 'ControllerAdAbandonedPet@deleteMyPetForAdoption']);
-// EDITAR
+
+// EDITAR AMIGOS PARA ADOÇÃO
 Route::get('meus_amigos_p_adoção/editar/{id}', ['as' => 'myPetsAbandoneds.editPet', 'uses' => 'ControllerAdAbandonedPet@editPet']);
 Route::post('meus_amigos_p_adoção/update/{id}', ['as' => 'myPetsAbandoneds.updatePet', 'uses' => 'ControllerAdAbandonedPet@updatePet']);
 
 
+//EDITAR AMIGOS DESAPARECIDOS
+Route::get('meus_amigos_desaparecidos/editar/{id}', ['as' => 'myPetsDisappeared.editPet', 'uses' => 'controllerAdDisappereadPet@editPet']);
+Route::post('meus_amigos_desaparecidos/update/{id}', ['as' => 'myPetsDisappeared.updatePet', 'uses' => 'controllerAdDisappereadPet@updatePet']);
 
-// CRIAR ANÚNCIO
-Route::get('/novo_anuncio_animal_adocao', ['as' => 'homeController.createAd', 'uses' => 'HomeController@createAd']);
+// DELETE AMIGOS DESAPARECIDOS
+Route::get('/delete/myPetDisapperead/{id}', ['as' => 'myPetsDisapperead.deleteMyPetDisapperead', 'uses' => 'controllerAdDisappereadPet@deleteMyPetDisapperead']);
+
+// CRIAR ANÚNCIO AMIGO PARA ADOÇÃO
+Route::get('/novo_anuncio_animal_adocao', ['as' => 'homeController.createAdAbandoned', 'uses' => 'HomeController@createAdAbandoned']);
 Route::post('/salvarApA', ['as' => 'abandoned.storePet', 'uses' => 'ControllerAdAbandonedPet@storePet']);
 
-
+// CRIAR ANÚNCIO AMIGO DESAPARECIDO
+Route::get('/novo_anuncio_animal_desaparecido', ['as' => 'homeController.createAdDisappeared', 'uses' => 'HomeController@createAdDisappeared']);
+Route::post('/salvarAaD', ['as' => 'disappeared.storePet', 'uses' => 'controllerAdDisappereadPet@storePet']);

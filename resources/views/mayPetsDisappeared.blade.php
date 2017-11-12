@@ -1,22 +1,25 @@
 @extends('templates.app')
 
 @section('content')
+
     <br>
+    <div class="container">
+        <ol class="breadcrumb  breadcrumb-arrow">
+            <li><a href="/">Página inicial</a></li>
+            <li class="active"><span>Meus amigos para adoção</span></li>
+        </ol>
+    </div>
     <br>
 
     <div class="container">
         @include('errors.alerts')
-        <ol class="breadcrumb  breadcrumb-arrow">
-            <li><a href="/">Página inicial</a></li>
-            <li><a style="color:#000000"><b>Administração</b></a></li>
-            <li class="active"><span>Animais para adoção</span></li>
-        </ol>
-        <br>
-        <div class="form-group">
+    </div>
+    <div class="form-group">
 
+        <div class="container">
             <div class="row">
 
-                {{Form::open(array('route'=>'admin.adverts.disappeared.index', 'method'=>'GET', 'name'=>'form', 'data-toggle'=>'validator'))}}
+                {{Form::open(array('route'=>'myPetsForAdoption', 'method'=>'GET', 'name'=>'form', 'data-toggle'=>'validator'))}}
 
                 <div class="col-sm-6 col-sm-offset-3">
 
@@ -32,8 +35,6 @@
                     </div>
                 </div>
                 {{Form::close()}}
-                <a href="/admin/adverts/disappeared/createAdDisappereadPet" class="btn btn-success">Novo Anúncio</a>
-
             </div>
 
         </div>
@@ -43,7 +44,7 @@
             <tr>
                 <th>Nome do Animal</th>
                 <th>Espécie</th>
-                <th>Nome do Anunciante</th>
+                <th>Da de postagem</th>
                 <th>Opções</th>
             </tr>
             </thead>
@@ -53,7 +54,7 @@
 
                     <td>{{$pet->name_pet}}</td>
                     <td>{{$pet->species_pet}}</td>
-                    <td>{{$pet->user->name}}</td>
+                    <td align="center"><b>{{Carbon\Carbon::parse($pet->created_at)->format('d/m/Y  H:i')}}</b></td>
 
                     <td align="center">
                         <a class="btn btn-success" data-toggle="modal"
@@ -75,9 +76,8 @@
                                     <div class="modal-body">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <p>Nome do animal: <b>{{$pet->name_pet}}</b></p>
-                                                <p>Anunciante: <b>{{$pet->user->name}}</b></p>
-                                                <p>Contato: <b>{{$pet->user->phone}}</b></p>
+                                                <p>Nome do animal: <b>{{$pet->name_pet}}</b>
+                                                <p>Idade do animal(anos): <b>{{$pet->age_pet}}</b></p>
                                                 <p>Tamanho do animal: <b>{{$pet->proportion_spet}}</b></p>
                                                 <p>Cidade: <b>{{$pet->city_pet}}</b></p>
                                                 @if ($pet->AdPetAbandoned)
@@ -88,7 +88,6 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <p>Espécie: <b>{{$pet->species_pet}}</b></p>
-                                                <p>E-mail: <b>{{$pet->user->email}}</b></p>
                                                 <p>Idade do animal(anos): <b>{{$pet->age_pet}}</b></p>
                                                 <p>Sexo do animal: <b>{{$pet->breed_pet}}</b></p>
                                                 <p>Estado: <b>{{$pet->state_pet}}</b></p>
@@ -112,7 +111,7 @@
                                                 data-dismiss="modal">Fechar
                                         </button>
                                         <button type="button" class="btn btn-primary">
-                                            <a href="{{url('/animal/'.$pet->id)}}" style="color: #ffffff">Ver
+                                            <a href="{{url('desaparecidos/animal/'.$pet->id)}}" style="color: #ffffff">Ver
                                                 anúncio</a>
                                         </button>
                                     </div>
@@ -121,17 +120,35 @@
                         </div>
 
 
-                        <a href="{{url('admin/adverts/disappeared/edit/'.$pet->id)}}" class="btn btn-primary"><span
+                        <a href="{{url('meus_amigos_desaparecidos/editar/'.$pet->id)}}" class="btn btn-primary"><span
                                     class="fa fa-pencil-square-o fa-lg"></span></a>
-                        @if($pet->active_pet === 1)
-                            <a href="{{url('admin/adverts/disappeared/active/'.$pet->id)}}" class="btn btn-danger"><span
-                                        class="fa fa-lock fa-lg"> </span></a>
-                        @else
-                            <a href="{{url('admin/adverts/disappeared/desactive/'.$pet->id)}}"
-                               class="btn btn-success"><span
-                                        class="fa fa-unlock fa-lg"> </span></a>
-                        @endif
 
+
+                        <button type="button" class="btn btn-danger" data-toggle="modal"
+                                data-target="#exampleModal"
+                                data-whatever="@mdo"><span
+                                    class="fa fa-trash fa-lg"> </span></button>
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                                    aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="exampleModalLabel">{{$pet->name_pet}}</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p><b>Deseja realmente excluir este anuncio?</b></p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="{{url('/delete/myPetDisapperead/'.$pet->id)}}" class="btn btn-primary"><span
+                                                    class="fa fa-trash fa-lg"> </span> Excluir</a>                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                     </td>
 
@@ -146,4 +163,5 @@
             {!!  $pets->render() !!}
         </div>
     </div>
+
 @stop

@@ -60,7 +60,7 @@ class ControllerAdDisappereadPet extends Controller
         } catch (\Exception $e) {
             session()->flash('flash_error', 'Erro ao enviar e-mail!!!');
         }
-        return redirect('animal/' . $idPet);
+        return redirect('desaparecidos/animal/' . $idPet);
     }
 
 
@@ -112,7 +112,17 @@ class ControllerAdDisappereadPet extends Controller
         } catch (\Exception $e) {
             session()->flash('flash_error', 'Erro ao pesquisar!!!');
         }
-        return view('petsDisappeared', compact('pets'));
+        $i = 0;
+        foreach ($pets as $pet) {
+            $parts = explode(' ', $pet->user->name);
+            $firtName = array_shift($parts);
+            $lastName = array_pop($parts);
+            $name = $firtName . ' ' . $lastName;
+            $pets[$i]->user->name = $name;
+            $i++;
+            $name = "";
+        }
+        return view('petsDisapperead', compact('pets'));
     }
 
 
@@ -175,7 +185,6 @@ class ControllerAdDisappereadPet extends Controller
             $request['user'] = auth()->user()->id;
             $this->validate($request, [
                 'name_pet' => 'required|alpha_spaces',
-                'age_pet' => 'AlphaNum|min:0|max:15',
                 'movie_pet' => '',
                 'city_pet' => 'required|alpha_spaces',
                 'where' => 'required',
@@ -234,10 +243,10 @@ class ControllerAdDisappereadPet extends Controller
             $request['user'] = auth()->user()->id;
             $this->validate($request, [
                 'name_pet' => 'required|alpha_spaces',
-                'age_pet' => 'AlphaNum|min:0|max:15',
                 'movie_pet' => '',
                 'city_pet' => 'required|alpha_spaces',
-                'personality_pet' => 'required',
+                'where' => 'required',
+                'when' => 'required',
                 'photos' => 'max:8',
                 'user' => 'required',
             ]);
@@ -300,7 +309,7 @@ class ControllerAdDisappereadPet extends Controller
         } catch (\Exception $e) {
             session()->flash('flash_error', 'Erro ao salvar!!!');
         }
-        return redirect()->route('homeController.createAd');
+        return redirect()->route('homeController.createAdDisappeared');
     }
 
 
@@ -312,7 +321,7 @@ class ControllerAdDisappereadPet extends Controller
         } catch (\Exception $e) {
             session()->flash('flash_error', 'Erro ao pesquisar!!!');
         }
-        return view('showPet', compact('pet'));
+        return view('showPetDisappeared', compact('pet'));
     }
 
 
@@ -330,11 +339,13 @@ class ControllerAdDisappereadPet extends Controller
     public function editPet($id)
     {
         try {
-            $dataPet = Pet::with(['AdDisappeared', 'PhotosPet', 'User'])->find($id);
+            $dataPet = Pet::with(['AdPetDisappeared', 'PhotosPet', 'User'])
+                ->find($id);
+
         } catch (\Exception $e) {
             session()->flash('flash_error', 'Erro ao pesquisar!!!');
         }
-        return view('editAdPetAban', compact('dataPet'));
+        return view('editAdPetDisa', compact('dataPet'));
     }
 
     public function update(Request $request, $id)
@@ -343,7 +354,6 @@ class ControllerAdDisappereadPet extends Controller
             $this->validate($request, [
 
                 'name_pet' => 'required|alpha_spaces',
-                'age_pet' => 'AlphaNum|min:0|max:15',
                 'movie_pet' => '',
                 'city_pet' => 'required|alpha_spaces',
                 'where' => 'required',
@@ -359,7 +369,6 @@ class ControllerAdDisappereadPet extends Controller
                     return $this->edit($id);
                 }
             }
-            $personality_pet = $request->get('personality_pet');
             $reward = $request->get('reward');
             $where = $request->get('where');
             $when = $request->get('when');
@@ -386,11 +395,10 @@ class ControllerAdDisappereadPet extends Controller
         try {
             $this->validate($request, [
                 'name_pet' => 'required|alpha_spaces',
-                'age_pet' => 'AlphaNum|min:0|max:15',
                 'movie_pet' => '',
                 'city_pet' => 'required|alpha_spaces',
-                'personality_pet' => 'required',
-                'photos' => 'mimes:jpeg,bmp,png,jpg,gif',
+                'where' => 'required',
+                'when' => 'required',
             ]);
             $data = $request->all();
             if ($data['movie_pet'] != null) {
@@ -400,19 +408,24 @@ class ControllerAdDisappereadPet extends Controller
                     return $this->editPet($id);
                 }
             }
-            $personality_pet = $request->get('personality_pet');
+            $reward = $request->get('reward');
+            $where = $request->get('where');
+            $when = $request->get('when');
 
             $this->repository->update($data, $id);
 
-            DB::table('ad_pet_abandoned')
+            DB::table('ad_pet_disappeared')
                 ->where('pet_id', $id)
-                ->update(['personality_pet' => $personality_pet]);
+                ->update(['reward' => $reward,
+                    'where' => $where,
+                    'when' => $when
+                ]);
 
             session()->flash('flash_message', 'Anúncio foi editado com sucesso!!!');
         } catch (\Exception $e) {
             session()->flash('flash_error', 'Erro ao editar!!!');
         }
-        return redirect()->route('myPetsForAdoption');
+        return redirect()->route('myPetsDisappeared');
 
     }
 
@@ -462,7 +475,7 @@ class ControllerAdDisappereadPet extends Controller
         return redirect()->route('admin.adverts.disappeared.index');
     }
 
-    public function myPetsForAdoption(Request $request)
+    public function myPetsDisappeared(Request $request)
     {
         try {
             $user_id = auth()->user()->id;
@@ -477,7 +490,7 @@ class ControllerAdDisappereadPet extends Controller
         } catch (\Exception $e) {
             session()->flash('flash_error', 'Erro ao buscar!!!');
         }
-        return view('myPetsAbandoned', compact('pets'));
+        return view('mayPetsDisappeared', compact('pets'));
     }
 
     public function searchMyPetsForAdoption($pesq, $user_id)
@@ -503,7 +516,7 @@ class ControllerAdDisappereadPet extends Controller
         return $pets;
     }
 
-    public function deleteMyPetForAdoption($id)
+    public function deleteMyPetDisapperead($id)
     {
         try {
             $test = DB::table('pets')
@@ -514,7 +527,7 @@ class ControllerAdDisappereadPet extends Controller
         } catch (\Exception $e) {
             session()->flash('flash_error', 'Erro ao excluir!!!');
         }
-        return redirect()->route('myPetsForAdoption');
+        return redirect()->route('myPetsDisappeared');
 //        try {
 //            $user_id = auth()->user()->id;
 //        } catch (\Exception $e) {

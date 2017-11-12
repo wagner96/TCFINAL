@@ -59,7 +59,7 @@ class ControllerAdAbandonedPet extends Controller
         } catch (\Exception $e) {
             session()->flash('flash_error', 'Erro ao enviar e-mail!!!');
         }
-        return redirect('animal/' . $idPet);
+        return redirect('abandonados/animal/' . $idPet);
     }
 
 
@@ -68,13 +68,13 @@ class ControllerAdAbandonedPet extends Controller
     {
         if ($search != null) {
             $pets = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])
-                ->where('type', '=','abandoned')
+                ->where('type', '=', 'abandoned')
                 ->where('name_pet', 'like', '%' . $search . '%')
                 ->paginate(6)
                 ->appends('pesq', request('pesq'));
         } else {
             $pets = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])
-                ->where('type', '=','abandoned')
+                ->where('type', '=', 'abandoned')
                 ->orderByDesc('id')
                 ->paginate(6)
                 ->appends('pesq', request('pesq'));
@@ -99,17 +99,28 @@ class ControllerAdAbandonedPet extends Controller
             $state_pet = $request->state_pet;
             $pesq_pet = $request->pesq;
 
-
             $pets = $this->filter($request);
-            if (($order_pet == '') and ($specie_pet == '') and ($state_pet == '') and ($pesq_pet == '')) {
+            if (($order_pet == null) and ($specie_pet == null) and ($state_pet == null) and ($pesq_pet == null)) {
+
+
                 $pets = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])
-                    ->where('type', '=','abandoned')
+                    ->where('type', '=', 'abandoned')
                     ->where('active_pet', '=', '1')
                     ->orderByDesc('id')
                     ->paginate(6);
             }
         } catch (\Exception $e) {
             session()->flash('flash_error', 'Erro ao pesquisar!!!');
+        }
+        $i = 0;
+        foreach ($pets as $pet) {
+            $parts = explode(' ', $pet->user->name);
+            $firtName = array_shift($parts);
+            $lastName = array_pop($parts);
+            $name = $firtName . ' ' . $lastName;
+            $pets[$i]->user->name = $name;
+            $i++;
+            $name = "";
         }
         return view('petsAbandoned', compact('pets'));
     }
@@ -133,16 +144,16 @@ class ControllerAdAbandonedPet extends Controller
 
             if (($order_pet == "last" || $order_pet == 'null' || $order_pet == '')) {
                 $pets = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])
-                    ->where('type', '=','abandoned')
+                    ->where('type', '=', 'abandoned')
                     ->where('active_pet', '=', '1')
                     ->where('name_pet', 'like', '%' . $pesq_pet . '%')
                     ->where('species_pet', 'like', '%' . $specie_pet . '%')
                     ->where('state_pet', 'like', '%' . $state_pet . '%')
                     ->orderByDesc('id')
-                    ->get();
+                    ->paginate(6);
             } else {
                 $pets = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])
-                    ->where('type', '=','abandoned')
+                    ->where('type', '=', 'abandoned')
                     ->where('active_pet', '=', '1')
                     ->where('name_pet', 'like', '%' . $pesq_pet . '%')
                     ->where('species_pet', 'like', '%' . $specie_pet . '%')
@@ -174,7 +185,6 @@ class ControllerAdAbandonedPet extends Controller
             $request['user'] = auth()->user()->id;
             $this->validate($request, [
                 'name_pet' => 'required|alpha_spaces',
-                'age_pet' => 'AlphaNum|min:0|max:15',
                 'movie_pet' => '',
                 'city_pet' => 'required|alpha_spaces',
                 'personality_pet' => 'required',
@@ -232,7 +242,6 @@ class ControllerAdAbandonedPet extends Controller
             $request['user'] = auth()->user()->id;
             $this->validate($request, [
                 'name_pet' => 'required|alpha_spaces',
-                'age_pet' => 'AlphaNum|min:0|max:15',
                 'movie_pet' => '',
                 'city_pet' => 'required|alpha_spaces',
                 'personality_pet' => 'required',
@@ -253,7 +262,7 @@ class ControllerAdAbandonedPet extends Controller
             $data['user_id'] = auth()->user()->id;
             $data['active_pet'] = 0;
             if (auth()->user()->role == 'admin') {
-                $data['active_pet'] =1;
+                $data['active_pet'] = 1;
             }
             $data['type'] = 'abandoned';
             $array_pet = $pet->create($data);
@@ -298,7 +307,7 @@ class ControllerAdAbandonedPet extends Controller
         } catch (\Exception $e) {
             session()->flash('flash_error', 'Erro ao salvar!!!');
         }
-        return redirect()->route('homeController.createAd');
+        return redirect()->route('homeController.createAdAbandoned');
     }
 
 
@@ -310,7 +319,7 @@ class ControllerAdAbandonedPet extends Controller
         } catch (\Exception $e) {
             session()->flash('flash_error', 'Erro ao pesquisar!!!');
         }
-        return view('showPet', compact('pet'));
+        return view('showPetAbandoned', compact('pet'));
     }
 
 
@@ -340,7 +349,6 @@ class ControllerAdAbandonedPet extends Controller
         try {
             $this->validate($request, [
                 'name_pet' => 'required|alpha_spaces',
-                'age_pet' => 'AlphaNum|min:0|max:15',
                 'movie_pet' => '',
                 'city_pet' => 'required|alpha_spaces',
                 'personality_pet' => 'required',
@@ -376,7 +384,6 @@ class ControllerAdAbandonedPet extends Controller
         try {
             $this->validate($request, [
                 'name_pet' => 'required|alpha_spaces',
-                'age_pet' => 'AlphaNum|min:0|max:15',
                 'movie_pet' => '',
                 'city_pet' => 'required|alpha_spaces',
                 'personality_pet' => 'required',
@@ -474,7 +481,7 @@ class ControllerAdAbandonedPet extends Controller
     {
         if ($pesq != null) {
             $pets = Pet::with(['AdPetAbandoned', 'PhotosPet'])
-                ->where('type','=', 'abandoned')
+                ->where('type', '=', 'abandoned')
                 ->where('active_pet', '=', '1')
                 ->where('user_id', '=', $user_id)
                 ->where('name_pet', 'like', '%' . $pesq . '%')
@@ -483,7 +490,7 @@ class ControllerAdAbandonedPet extends Controller
                 ->appends('pesq', request('pesq'));
         } else {
             $pets = Pet::with(['AdPetAbandoned', 'PhotosPet'])
-                ->where('type','=', 'abandoned')
+                ->where('type', '=', 'abandoned')
                 ->where('active_pet', '=', '1')
                 ->where('user_id', '=', $user_id)
                 ->orderByDesc('id')

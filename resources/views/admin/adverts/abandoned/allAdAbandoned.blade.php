@@ -89,7 +89,7 @@
                                             <div class="col-md-6">
                                                 <p>Espécie: <b>{{$pet->species_pet}}</b></p>
                                                 <p>E-mail: <b>{{$pet->user->email}}</b></p>
-                                                <p>Idade do animal: <b>{{$pet->age_pet}}</b></p>
+                                                <p>Idade do animal(anos): <b>{{$pet->age_pet}}</b></p>
                                                 <p>Sexo do animal: <b>{{$pet->breed_pet}}</b></p>
                                                 <p>Estado: <b>{{$pet->state_pet}}</b></p>
                                                 <p>Anúncio criado em: <b>{{$pet->created_at}}</b></p>

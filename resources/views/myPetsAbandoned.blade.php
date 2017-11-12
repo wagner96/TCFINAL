@@ -77,7 +77,7 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <p>Nome do animal: <b>{{$pet->name_pet}}</b>
-                                                <p>Idade do animal: <b>{{$pet->age_pet}}</b></p>
+                                                <p>Idade do animal(anos): <b>{{$pet->age_pet}}</b></p>
                                                 <p>Tamanho do animal: <b>{{$pet->proportion_spet}}</b></p>
                                                 <p>Cidade: <b>{{$pet->city_pet}}</b></p>
                                                 @if ($pet->AdPetAbandoned)
@@ -88,7 +88,7 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <p>Espécie: <b>{{$pet->species_pet}}</b></p>
-                                                <p>Idade do animal: <b>{{$pet->age_pet}}</b></p>
+                                                <p>Idade do animal(anos): <b>{{$pet->age_pet}}</b></p>
                                                 <p>Sexo do animal: <b>{{$pet->breed_pet}}</b></p>
                                                 <p>Estado: <b>{{$pet->state_pet}}</b></p>
                                                 <p>Anúncio criado em: <b>{{$pet->created_at}}</b></p>
@@ -111,7 +111,7 @@
                                                 data-dismiss="modal">Fechar
                                         </button>
                                         <button type="button" class="btn btn-primary">
-                                            <a href="{{url('/animal/'.$pet->id)}}" style="color: #ffffff">Ver
+                                            <a href="{{url('abandonados/animal/'.$pet->id)}}" style="color: #ffffff">Ver
                                                 anúncio</a>
                                         </button>
                                     </div>

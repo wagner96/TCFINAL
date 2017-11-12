@@ -1,5 +1,4 @@
 <div class="row">
-
     <div class="col col-md-6">
         <div class="form-group">
             <label for="name" class="control-label">Tipo de animal</label>
@@ -46,6 +45,17 @@
                     <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
                     {{Form::select('breed_pet', ['Não informado'=>'Não informar', 'Macho'=>'Macho', 'Fêmea'=>'Fêmea'],null, ['class' => 'form-control'])}}
                 </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ Form::label('when', 'Quando',array('class'=>'control-label'))}}
+            <div class="inputGroupContainer">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-calendar fa-lg"></i></span>
+                    {{Form::text('when','', array('placeholder' => 'Data de desaparecimento','class' => 'form-control', 'required'))}}
+                </div>
+                <div class="help-block with-errors"></div>
             </div>
         </div>
         <div class="form-group">
@@ -118,16 +128,24 @@
                     {{Form::text('city_pet','', array('placeholder' => 'Cidade','class' => 'form-control', 'required'))}}
                 </div>
                 <div class="help-block with-errors"></div>
-
-
             </div>
         </div>
         <div class="form-group">
-            {{ Form::label('personality_pet', 'Personalidade do animal',array('class'=>'control-label'))}}
+            {{ Form::label('reward', 'Recompensa',array('class'=>'control-label'))}}
+            <div class="inputGroupContainer">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-money fa-lg"></i></span>
+                    {{Form::text('reward','', array('placeholder' => 'Recompensa','id' =>'reward','class' => 'form-control'))}}
+                </div>
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="form-group">
+            {{ Form::label('where', 'Local de desaparecimento',array('class'=>'control-label'))}}
             <div class="inputGroupContainer">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                    {{Form::textarea('personality_pet','', array('placeholder'=>'Personalidade do animal','class' => 'form-control', 'cols'=>'5','rows'=>'5', 'required'))}}
+                    {{Form::textarea('where','', array('placeholder'=>'Local que o animal foi visto por último','class' => 'form-control',  'cols'=>'5','rows'=>'5', 'required'))}}
                 </div>
                 <div class="help-block with-errors"></div>
 
@@ -143,5 +161,4 @@
             </div>
         </div>
     </div>
-
 </div>
