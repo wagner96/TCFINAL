@@ -4,6 +4,7 @@ namespace TC\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Mail;
+use function PHPSTORM_META\type;
 use Response;
 use TC\Models\Pet;
 use TC\Models\User;
@@ -24,8 +25,15 @@ class HomeController extends Controller
 
     public function index()
     {
-        $pets = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])->paginate(8);
-        return view('index', compact('pets'));
+        $petsAb = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])
+            ->where('type', '=', 'abandoned')
+            ->orderByDesc('id')
+            ->get();
+        $petsDi = Pet::with(['AdPetDisappeared', 'PhotosPet', 'User'])
+            ->where('type', '=', 'disappeared')
+            ->orderByDesc('id')
+            ->get();
+        return view('index', compact('petsAb','petsDi'));
     }
 
     public function myProfile(){

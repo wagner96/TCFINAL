@@ -429,12 +429,8 @@
 
     <div class="col-md-9">
         <div class="row text-center">
-
-
             @foreach($pets as $pet)
-
                 <div class="col-lg-4 col-md-6 mb-4">
-
                     <div class="card">
                         @if ($pet->PhotosPet != "[]")
                             @foreach($pet->PhotosPet as $photo)

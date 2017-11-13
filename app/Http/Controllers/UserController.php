@@ -21,7 +21,9 @@ class UserController extends Controller
     {
         $this->repository = $repository;
     }
+    public function validateStatus($status){
 
+    }
     public function index(Request $request)
     {
         try {

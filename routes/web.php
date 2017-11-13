@@ -6,7 +6,7 @@ use TC\Models\User;
 Route::get('user/login', 'UserController@login');
 //Route::resource('/', 'UserController');
 
-Route::get('logout', 'UserController@logout');
+Route::get('logout', ['as' => 'users.logout', 'uses' => 'UserController@logout']);
 
 //
 
