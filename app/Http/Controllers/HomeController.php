@@ -33,6 +33,26 @@ class HomeController extends Controller
             ->where('type', '=', 'disappeared')
             ->orderByDesc('id')
             ->get();
+        $i = 0;
+        foreach ($petsAb as $petAb) {
+            $parts = explode(' ', $petAb->user->name);
+            $firtName = array_shift($parts);
+            $lastName = array_pop($parts);
+            $name = $firtName . ' ' . $lastName;
+            $petsAb[$i]->user->name = $name;
+            $i++;
+            $name = "";
+        }
+        $i = 0;
+        foreach ($petsDi as $petDi) {
+            $parts = explode(' ', $petDi->user->name);
+            $firtName = array_shift($parts);
+            $lastName = array_pop($parts);
+            $name = $firtName . ' ' . $lastName;
+            $petsDi[$i]->user->name = $name;
+            $i++;
+            $name = "";
+        }
         return view('index', compact('petsAb','petsDi'));
     }
 

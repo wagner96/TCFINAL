@@ -288,3 +288,14 @@ body {
 .onebyone-carosel .prev {
     left: -33.33%;
 }
+.carousel-caption {
+    color:#AA0000;
+    top: -5%;
+    bottom: auto;
+}
+
+.carousel-caption2 {
+    color:#23527c;
+    top: -50%;
+    bottom: auto;
+}
