@@ -112,7 +112,7 @@
                                                 data-dismiss="modal">Fechar
                                         </button>
                                         <button type="button" class="btn btn-primary">
-                                            <a href="{{url('/animal/'.$pet->id)}}" style="color: #ffffff">Ver
+                                            <a href="{{url('abandonados/animal/'.$pet->id)}}" style="color: #ffffff">Ver
                                                 anúncio</a>
                                         </button>
                                     </div>

@@ -77,8 +77,8 @@
                                         class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="{{ url('admin/users') }}">Usuários</a></li>
-                                <li><a href="{{ url('admin/adverts/abandoned') }}">Animais Abandonados</a></li>
-                                <li><a href="{{ url('admin/adverts/disappeared') }}">Animais Desaparecidos</a></li>
+                                <li><a href="{{ url('admin/adverts/abandoned') }}">Animais para adoção</a></li>
+                                <li><a href="{{ url('admin/adverts/disappeared') }}">Animais desaparecidos</a></li>
                             </ul>
                         </li>
 

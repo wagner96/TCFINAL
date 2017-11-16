@@ -126,9 +126,9 @@
         <div class="row text-center">
             <div class="span12">
                 <div class="well">
-                    <div id="myCarousel" class="carousel fdi-Carousel slide">
+                    <div id="myCarousel2" class="carousel fdi-Carousel slide">
                         <!-- Carousel items -->
-                        <div class="carousel fdi-Carousel slide" id="eventCarousel" data-interval="0">
+                        <div class="carousel fdi-Carousel slide" id="eventCarousel2" data-interval="0">
                             <div class="carousel-inner onebyone-carosel">
                                 <?php $i = 0 ?>
                                 @foreach($petsAb as $petAb)
@@ -216,9 +216,9 @@
                                     @endif
                                 @endforeach
                             </div>
-                            <a class="left carousel-control" href="#eventCarousel" data-slide="prev"><i
+                            <a class="left carousel-control" href="#eventCarousel2" data-slide="prev"><i
                                         class="fa fa-arrow-left"></i></a>
-                            <a class="right carousel-control" href="#eventCarousel" data-slide="next"><i
+                            <a class="right carousel-control" href="#eventCarousel2" data-slide="next"><i
                                         class="fa fa-arrow-right"></i></a>
                         </div>
                         <!--/carousel-inner-->

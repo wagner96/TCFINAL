@@ -299,3 +299,9 @@ body {
     top: -50%;
     bottom: auto;
 }
+.carousel-control{
+    top: 50%;
+    color: #000000;
+    bottom: auto;
+}
+

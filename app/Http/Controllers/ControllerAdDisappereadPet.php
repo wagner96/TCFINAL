@@ -387,7 +387,7 @@ class ControllerAdDisappereadPet extends Controller
             session()->flash('flash_error', 'Erro ao editar!!!');
         }
 
-        return redirect('/admin/adverts/disappeared/edit/'.$id);
+        return redirect('/admin/adverts/disappeared/');
     }
 
     public function updatePet(Request $request, $id)

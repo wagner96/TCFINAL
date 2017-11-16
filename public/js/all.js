@@ -18,8 +18,8 @@ $(document).ready(function () {
     });
 
 });
-$(function() {
-    $("#reward").maskMoney({prefix:'R$ ', allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
+$(function () {
+    $("#reward").maskMoney({prefix: 'R$ ', allowNegative: true, thousands: '.', decimal: ',', affixesStay: false});
 })
 
 $(document).ready(function () {
@@ -40,7 +40,28 @@ $(document).ready(function () {
             $(this).siblings(':first').children(':first-child').clone().appendTo($(this));
         }
     });
+
 });
+$(document).ready(function () {
+    $('#myCarousel2').carousel({
+        interval: 3000
+    })
+    $('.fdi-Carousel2 .item').each(function () {
+        var next = $(this).next();
+        if (!next.length) {
+            next = $(this).siblings(':first');
+        }
+        next.children(':first-child').clone().appendTo($(this));
+
+        if (next.next().length > 0) {
+            next.next().children(':first-child').clone().appendTo($(this));
+        }
+        else {
+            $(this).siblings(':first').children(':first-child').clone().appendTo($(this));
+        }
+    });
+});
+
 $(document).ready(function () {
 
     $(document).ready(function ($) {
@@ -214,9 +235,7 @@ function preview_images() {
     }
 }
 
-// $(document).ready(function() {
-//     $('#getRequest').click(function(){
-//         alert($(this).text());
-//     });
-//
-// });
+$(window).load(function () {
+    $('.page_spinner').fadeOut(1000);
+    $('body').css({overflow: 'visible'})
+})
