@@ -20,7 +20,7 @@
         @include('templates.editAdPetDisa')
         <div class="form-group">
             <div class="pull-right">
-                {{Form::submit('Salvar', ['class'=>'btn btn-primary'])}}
+                {{Form::submit('Salvar', ['class'=>'btn btn-primary', 'id'=>'loadingSPDe', 'data-loading-text'=>'Validando...'])}}
                 {{Form::close()}}
                 <a href="{{URL::asset('admin/adverts/disappeared/')}}" class="btn btn-danger">Cancelar</a>
             </div>

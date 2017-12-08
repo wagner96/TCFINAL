@@ -215,7 +215,7 @@
         <div class="form-group">
             <div class="col-md-3 col-md-offset-3 pull-right">
 
-                {{Form::submit('Salvar', ['class'=>'btn btn-primary'])}}
+                {{Form::submit('Salvar', ['class'=>'btn btn-primary', 'id'=>'loadingResg', 'data-loading-text'=>'Validando...'])}}
                 {{Form::close()}}
             </div>
         </div>

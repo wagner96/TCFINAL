@@ -9,7 +9,7 @@
         <ol class="breadcrumb  breadcrumb-arrow">
             <li><a href="/">Página inicial</a></li>
             <li><a style="color:#000000"><b>Administração</b></a></li>
-            <li class="active"><span>Animais para adoção</span></li>
+            <li class="active"><span>Animais desaparecidos</span></li>
         </ol>
         <br>
         <div class="form-group">
@@ -24,7 +24,7 @@
 
                         <input type="text" class="form-control" name="pesq" placeholder="Pesquisar pelo nome do animal">
                         <span class="input-group-addon">
-                        <button type="submit">
+                        <button id="loading" data-loading-text="Pesquisando..." type="submit">
                             <span class="glyphicon glyphicon-search"></span>
                         </button>
 

@@ -13,7 +13,7 @@
     {{Form::open(array('route'=>'users.storeUser',  'name'=>'form', 'data-toggle'=>'validator'))}}
     <div class="container">
         @include('errors.alerts')
-        @include('errors._check')
+        {{--@include('errors._check')--}}
         <div class="row">
             <div class="col col-md-6">
                 <div class="form-group">
@@ -205,7 +205,7 @@
 
                 <div class="form-group">
                     <div class="pull-right">
-                        {{Form::submit('Salvar', ['class'=>'btn btn-primary'])}}
+                        {{Form::submit('Salvar', ['class'=>'btn btn-primary',  'id'=>'loadingResg', 'data-loading-text'=>'Validando...'])}}
                         {{Form::close()}}
                     </div>
                 </div>

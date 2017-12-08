@@ -53,7 +53,7 @@
                                         class="fa fa-pencil-square-o bigicon fa-lg"></i></span>
                             <div class="col-md-8">
                                 <textarea class="form-control" id="msn" name="msn"
-                                          placeholder="Digite sua mensagem para nós aqui. Nós retornaremos para você dentro assim que possível."
+                                          placeholder="Digite sua mensagem..."
                                           rows="7" required></textarea>
                                 <div class="help-block with-errors"></div>
 
@@ -63,7 +63,7 @@
 
                         <div class="form-group">
                             <div class="col-md-11 text-right">
-                               <button type="submit" class="btn btn-primary btn-lg"><span class="fa fa-paper-plane-o"> Enviar</span></button>
+                                <button id="loadingCon" data-loading-text="Enviando..." type="submit" class="btn btn-primary btn-lg"><span class="fa fa-paper-plane-o"></span> Enviar</button>
                             </div>
 
                         </div>

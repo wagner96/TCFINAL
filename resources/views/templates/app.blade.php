@@ -166,6 +166,7 @@
 
     <div id="app">
         <br>
+
         @yield('content')
 
     </div>

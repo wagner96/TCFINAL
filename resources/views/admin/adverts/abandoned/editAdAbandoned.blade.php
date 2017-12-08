@@ -20,7 +20,7 @@
         <div class="row">
             @include('templates.editAdPetAban')
             <div class="form-group  pull-right">
-                {{Form::submit('Salvar', ['class'=>'btn btn-primary'])}}
+                {{Form::submit('Salvar', ['class'=>'btn btn-primary','id'=>'loadingSPAb', 'data-loading-text'=>'Validando...'])}}
                 {{Form::close()}}
                 <a href="{{URL::asset('admin/adverts/abandoned/')}}" class="btn btn-danger">Cancelar</a>
             </div>

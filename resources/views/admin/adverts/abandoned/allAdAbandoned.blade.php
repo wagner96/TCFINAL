@@ -24,7 +24,7 @@
 
                         <input type="text" class="form-control" name="pesq" placeholder="Pesquisar pelo nome do animal">
                         <span class="input-group-addon">
-                        <button type="submit">
+                        <button id="loading" data-loading-text="Pesquisando..." type="submit">
                             <span class="glyphicon glyphicon-search"></span>
                         </button>
 

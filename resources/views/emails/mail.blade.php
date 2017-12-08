@@ -12,7 +12,7 @@
 
     <h1>Adote um amigo</h1>
     <h3>Olá temos boas notícias !!!</h3>
-    <h4>Você possui uma mensagem o(a) amigo(a) <b>{{$namePet}}</b></h4>
+    <h4>Você possui uma mensagem sobre o(a) amigo(a) <b>{{$namePet}}</b></h4>
     <h4>Contato</h4>
     <p>Nome: <b>{{$nameUser}}</b></p>
     <p>Telefone: <b>{{$phone}}</b></p>

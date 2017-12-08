@@ -235,7 +235,58 @@ function preview_images() {
     }
 }
 
-$(window).load(function () {
-    $('.page_spinner').fadeOut(1000);
-    $('body').css({overflow: 'visible'})
-})
+$('#loading').on('click', function () {
+    $(this).button('loading').delay();
+});
+
+
+$('#loading2').on('click', function () {
+    if ($("#name").val() != ""
+        && $("#msg").val() != ""
+        && $("#phone").val() != ""
+        && $("#email").val() != "")
+    {
+        $(this).button('loading').delay();
+    }
+});
+$('#loadingLogin').on('click', function () {
+    if ($("#email").val() != ""
+        && $("#password").val() != "")
+    {
+        $(this).button('loading').delay();
+    }
+});
+$('#loadingResg').on('click', function () {
+    if ($("#email").val() != ""
+        && $("#password").val() != ""
+        && $("#name").val() != ""
+        && $("#city").val() != "")
+    {
+        $(this).button('loading').delay();
+    }
+});
+$('#loadingSPAb').on('click', function () {
+    if ($("#name_pet").val() != ""
+        && $("#city_pet").val() != ""
+        && $("#personality_pet").val() != "")
+    {
+        $(this).button('loading').delay();
+    }
+});
+$('#loadingSPDe').on('click', function () {
+    if ($("#name_pet").val() != ""
+        && $("#city_pet").val() != ""
+        && $("#where").val() != ""
+        && $("#when").val() != "")
+    {
+        $(this).button('loading').delay();
+    }
+});
+$('#loadingCon').on('click', function () {
+    if ($("#msn").val() != ""
+        && $("#name").val() != ""
+        && $("#email").val() != "")
+    {
+        $(this).button('loading').delay();
+    }
+});

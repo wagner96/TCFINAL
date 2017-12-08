@@ -147,8 +147,8 @@
 
                             </div>
                             <div class="form-group" align="center">
-                                <button type="submit" name="submit" value="Entrar em contato" class="btn btn-success">
-                                    <i class="fa fa-send-o"><b> Entar em contato</b></i>
+                                <button id="loading2" data-loading-text="Enviando..." type="submit" name="submit"  value="Entrar em contato" class="btn btn-success">
+                                    <i class="fa fa-send-o"></i><b> Entar em contato</b>
                                 </button>
                             </div>
                         </div>

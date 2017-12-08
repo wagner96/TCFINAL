@@ -5,15 +5,21 @@
 
 
 
-    <h1>Usuários</h1>
     @include('errors.alerts')
 
 
     <div class="form-group">
 
         <div class="container">
-            <div class="row">
 
+            <div class="row">
+                <br>
+                <ol class="breadcrumb  breadcrumb-arrow">
+                    <li><a href="/">Página inicial</a></li>
+                    <li><a style="color:#000000"><b>Administração</b></a></li>
+                    <li class="active"><span>Usuários</span></li>
+                </ol>
+                <br>
                 {{Form::open(array('route'=>'admin.users.index', 'method'=>'GET', 'name'=>'form', 'data-toggle'=>'validator'))}}
 
                 <div class="col-sm-6 col-sm-offset-3">
@@ -22,7 +28,7 @@
 
                         <input type="text" class="form-control" name="pesq" placeholder="Pesquisar por Nome ou E-mail">
                         <span class="input-group-addon">
-                        <button type="submit">
+                        <button id="loading" data-loading-text="Pesquisando..." type="submit">
                             <span class="glyphicon glyphicon-search"></span>
                         </button>
 

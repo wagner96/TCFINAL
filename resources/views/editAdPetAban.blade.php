@@ -21,7 +21,7 @@
             @include('templates.editAdPetAban')
 
             <div class="form-group pull-right">
-                {{Form::submit('Salvar', ['class'=>'btn btn-primary'])}}
+                {{Form::submit('Salvar', ['class'=>'btn btn-primary','id'=>'loadingSPAb', 'data-loading-text'=>'Validando...'])}}
                 {{Form::close()}}
                 <a href="{{URL::asset('/meus_amigos_p_adoção')}}" class="btn btn-danger">Cancelar</a>
             </div>
