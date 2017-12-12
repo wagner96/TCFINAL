@@ -102,7 +102,7 @@ class HomeController extends Controller
                 $data['name'] = $request->name;
                 $data['phone'] = $request->phone;
                 $data['email'] = $request->email;
-                $data['msn'] = $request->msg;
+                $data['msn'] = $request->msn;
                 $data['email_to'] = $user['email'];
                 Mail::send('emails.contact', $data, function ($message) use ($data) {
 

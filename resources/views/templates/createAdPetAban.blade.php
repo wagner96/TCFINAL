@@ -22,11 +22,11 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="name" class="control-label">Idade do animal(anos)</label>
+            <label for="name" class="control-label">Idade do animal</label>
             <div class="inputGroupContainer">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                    {{Form::number('age_pet','', array('class' => 'form-control','min' => '1', 'max' =>'15'))}}
+                    {{Form::select('age_pet', ['Desconhecido'=>'Desconhecido', 'Filhote'=>'Filhote', 'Adulto'=>'Adulto'],null, ['class' => 'form-control', 'required'])}}
                 </div>
             </div>
         </div>
@@ -54,7 +54,7 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
                     <input type="file" class="form-control" id="photos" name="photos[]"
-                           onchange="preview_images();" multiple/>
+                           onchange="preview_images();" accept="image/*" multiple/>
                     {{--<input type="file" class="form-control" multiple name="photos[]" onchange="preview_images();"/>--}}
                     {{--<input type="submit" class="btn btn-primary" name='submit_image' value="Upload Multiple Image"/>--}}
                 </div>

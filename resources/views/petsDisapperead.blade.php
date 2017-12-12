@@ -418,7 +418,7 @@
             </select>
         </div>
         <div align="center">
-            <button type="submit" id="loading" data-loading-text="Procurando..." class="btn btn-primary btn-circle">
+            <button data-original-title="Pesquisar" data-placement="bottom" type="submit" id="loading" data-loading-text="Procurando..." class="btn btn-primary btn-circle">
                 <span class="glyphicon glyphicon-search"></span>
             </button>
             <a href="/desaparecidos" class="btn btn-danger">Limpar filtros</a>

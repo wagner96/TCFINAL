@@ -27,7 +27,7 @@
 
                         <input type="text" class="form-control" name="pesq" placeholder="Pesquisar pelo nome do animal">
                         <span class="input-group-addon">
-                        <button type="submit">
+                        <button id="loading" data-loading-text="Pesquisando..." type="submit" data-original-title="Pesquisar">
                             <span class="glyphicon glyphicon-search"></span>
                         </button>
 
@@ -44,7 +44,7 @@
             <tr>
                 <th>Nome do Animal</th>
                 <th>Espécie</th>
-                <th>Da de postagem</th>
+                <th>Data de postagem</th>
                 <th>Opções</th>
             </tr>
             </thead>
@@ -57,7 +57,7 @@
                     <td align="center"><b>{{Carbon\Carbon::parse($pet->created_at)->format('d/m/Y  H:i')}}</b></td>
 
                     <td align="center">
-                        <a class="btn btn-success" data-toggle="modal"
+                        <a class="btn btn-success" data-original-title="Ver anúncio" data-toggle="modal"
                            data-target="#exampleModalLong{{$pet->id}}"><span
                                     class="fa fa-eye fa-lg"></span></a>
 
@@ -120,11 +120,11 @@
                         </div>
 
 
-                        <a href="{{url('meus_amigos_desaparecidos/editar/'.$pet->id)}}" class="btn btn-primary"><span
+                        <a href="{{url('meus_amigos_desaparecidos/editar/'.$pet->id)}}" data-original-title="Editar" class="btn btn-primary"><span
                                     class="fa fa-pencil-square-o fa-lg"></span></a>
 
 
-                        <button type="button" class="btn btn-danger" data-toggle="modal"
+                        <button type="button" class="btn btn-danger" data-original-title="Excluir" data-toggle="modal"
                                 data-target="#exampleModal"
                                 data-whatever="@mdo"><span
                                     class="fa fa-trash fa-lg"> </span></button>

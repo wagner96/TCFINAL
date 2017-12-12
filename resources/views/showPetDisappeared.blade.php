@@ -83,10 +83,11 @@
                 <div class="panel panel-danger">
                     <div class="panel-body">
                         <p><span class="fa fa-paw"></span> Nome do amigo: <b>{{$pet->name_pet}}</b></p>
-                        <p><span class="fa fa-money"></span> Recompensa: <b>R$ {{$pet->AdPetDisappeared->reward}}</b></p>
-                        @if($pet->age_pet != null)
-                            <p><span class="fa fa-calendar"></span> Idade do amigo: <b>{{$pet->age_pet}}</b></p>
+                        @if($pet->AdPetDisappeared->reward != null)
+                            <p><span class="fa fa-money"></span> Recompensa:
+                                <b>R$ {{$pet->AdPetDisappeared->reward}}</b></p>
                         @endif
+                        <p><span class="fa fa-calendar"></span> Idade do amigo: <b>{{$pet->age_pet}}</b></p>
                         <p><span class="fa fa-arrows-alt"></span> Tamanho: <b>{{$pet->proportion_pet}}</b></p>
                         <p><span class="fa fa-github"></span> Espécie: <b>{{$pet->species_pet}}</b></p>
                         <p><span class="fa fa-intersex"></span> Sexo: <b>{{$pet->breed_pet}}</b></p>
@@ -115,7 +116,7 @@
                         <p><span class="fa fa-user-circle-o"></span> Anuciante: <b>{{$pet->user->name}}</b></p>
                         <p><span class="fa fa-envelope"></span> E-mail: <b>{{$pet->user->email}}</b></p>
                         <p><span class="fa fa-phone-square"></span> Telefone: <b>{{$pet->user->phone}}</b></p>
-                        <meta name="_token" content="{{ csrf_token() }}" />
+                        <meta name="_token" content="{{ csrf_token() }}"/>
 
 
                         {{Form::open(array('route'=>'adverts.disappeared.sendEmail','name'=>'sendEmail','id'=>'sendEmail','data-toggle'=>'validator'))}}
@@ -125,29 +126,31 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input type="text" name="name" id="name" placeholder="Nome e sobrenome" size="30" required>
+                                <input type="text" name="name" id="name" placeholder="Nome e sobrenome" size="30"
+                                       required>
                                 <div class="help-block with-errors"></div>
 
                             </div>
                             <div class="form-group">
-                                <textarea id="msg" name="msg"  cols="29" rows="4"  required></textarea>
+                                <textarea id="msg" name="msg" cols="29" rows="4" required></textarea>
                                 <div class="help-block with-errors"></div>
 
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input type="text" name="phone" id="phone"  size="30" placeholder="Telefone" required>
+                                <input type="text" name="phone" id="phone" size="30" placeholder="Telefone" required>
                                 <div class="help-block with-errors"></div>
 
                             </div>
                             <div class="form-group">
-                                <input type="email" id="email" name="email" placeholder="E-mail"  size="30" required>
+                                <input type="email" id="email" name="email" placeholder="E-mail" size="30" required>
                                 <div class="help-block with-errors"></div>
 
                             </div>
                             <div class="form-group" align="center">
-                                <button id="loading2" data-loading-text="Enviando..." type="submit" name="submit"  value="Entrar em contato" class="btn btn-success">
+                                <button id="loading2" data-loading-text="Enviando..." type="submit" name="submit"
+                                        value="Entrar em contato" class="btn btn-success">
                                     <i class="fa fa-send-o"></i><b> Entar em contato</b>
                                 </button>
                             </div>

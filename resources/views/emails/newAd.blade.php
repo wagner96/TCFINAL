@@ -12,7 +12,8 @@
 
     <h1>Adote um amigo</h1>
     <h3>Olá</h3>
-    <h4>Temos um novo anúncio postado por <b>{{$name_user}}</b>!!!</h4>
+    <h4>Temos um anúncio disponível para análise postado por <b>{{$name_user}}</b>!!!</h4>
+    <h5>Nome do animal: <b>{{$name_pet}}</b>.</h5>
     <h3>Desbloquei ele !!!</h3>
     <a href="http://127.0.0.1:8000">Ir para o site</a>
     <br>

@@ -2,18 +2,14 @@
 
 @section('content')
     <br>
-    <br>
-
     <div class="container">
-        @include('errors.alerts')
         <ol class="breadcrumb  breadcrumb-arrow">
             <li><a href="/">Página inicial</a></li>
             <li><a style="color:#000000"><b>Administração</b></a></li>
             <li class="active"><span>Animais desaparecidos</span></li>
         </ol>
-        <br>
+        @include('errors.alerts')
         <div class="form-group">
-
             <div class="row">
 
                 {{Form::open(array('route'=>'admin.adverts.disappeared.index', 'method'=>'GET', 'name'=>'form', 'data-toggle'=>'validator'))}}
@@ -24,7 +20,7 @@
 
                         <input type="text" class="form-control" name="pesq" placeholder="Pesquisar pelo nome do animal">
                         <span class="input-group-addon">
-                        <button id="loading" data-loading-text="Pesquisando..." type="submit">
+                        <button id="loading" data-loading-text="Pesquisando..." data-original-title="Pesquisar" type="submit">
                             <span class="glyphicon glyphicon-search"></span>
                         </button>
 
@@ -56,7 +52,7 @@
                     <td>{{$pet->user->name}}</td>
 
                     <td align="center">
-                        <a class="btn btn-success" data-toggle="modal"
+                        <a class="btn btn-success" data-original-title="Ver anúncio" data-toggle="modal"
                            data-target="#exampleModalLong{{$pet->id}}"><span
                                     class="fa fa-eye fa-lg"></span></a>
 
@@ -112,7 +108,7 @@
                                                 data-dismiss="modal">Fechar
                                         </button>
                                         <button type="button" class="btn btn-primary">
-                                            <a href="{{url('desaparecidos/animal/'.$pet->id)}}" style="color: #ffffff">Ver
+                                            <a href="{{url('desaparecidos/animal/'.$pet->id)}}" target=“_blank” style="color: #ffffff">Ver
                                                 anúncio</a>
                                         </button>
                                     </div>
@@ -121,14 +117,14 @@
                         </div>
 
 
-                        <a href="{{url('admin/adverts/disappeared/edit/'.$pet->id)}}" class="btn btn-primary"><span
+                        <a href="{{url('admin/adverts/disappeared/edit/'.$pet->id)}}" data-original-title="Editar" class="btn btn-primary"><span
                                     class="fa fa-pencil-square-o fa-lg"></span></a>
                         @if($pet->active_pet === 1)
-                            <a href="{{url('admin/adverts/disappeared/active/'.$pet->id)}}" class="btn btn-danger"><span
+                            <a href="{{url('admin/adverts/disappeared/active/'.$pet->id)}}" data-original-title="Desativar" class="btn btn-danger"><span
                                         class="fa fa-lock fa-lg"> </span></a>
                         @else
                             <a href="{{url('admin/adverts/disappeared/desactive/'.$pet->id)}}"
-                               class="btn btn-success"><span
+                               data-original-title="Ativar" class="btn btn-success"><span
                                         class="fa fa-unlock fa-lg"> </span></a>
                         @endif
 

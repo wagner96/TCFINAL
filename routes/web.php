@@ -62,15 +62,20 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth.checkrole', 'as' => 'ad
 
 
 Auth::routes();
+//Delete FOTO ANIMAL PARA ADOÇÃO
+Route::get('abandoned/deletePhoto/{id}', ['as' => 'controllerAdAbandonedPet','uses' => 'ControllerAdAbandonedPet@deletePhoto']);
 
+
+//Delete FOTO ANIMAL DESAPARECIDO
+Route::get('disappeared/deletePhoto/{id}', ['as' => 'controllerAdAbandonedPet','uses' => 'ControllerAdDisappereadPet@deletePhoto']);
 
 // INDEX
 Route::get('/', ['as' => 'homeController.index', 'uses' => 'HomeController@index']);
 Route::get('/home', ['as' => 'homeController.index', 'uses' => 'HomeController@index']);
 
 //ANIMAIS PARA ADOÇÃO
-Route::get('/abandonados', ['as' => 'controllerAdAbandonedPet.listIndex', 'uses' => 'ControllerAdAbandonedPet@listIndex']);
-Route::get('abandonados/animal/{id}', ['as' => 'controllerAdAbandonedPet.show', 'uses' => 'ControllerAdAbandonedPet@show']);
+Route::get('/adocao', ['as' => 'controllerAdAbandonedPet.listIndex', 'uses' => 'ControllerAdAbandonedPet@listIndex']);
+Route::get('adocao/animal/{id}', ['as' => 'controllerAdAbandonedPet.show', 'uses' => 'ControllerAdAbandonedPet@show']);
 
 //ENVIAR EMAIL PARA ANUNCIANTE
 Route::post('adverts/abandoned/sendEmail', ['as' => 'adverts.abandoned.sendEmail', 'uses' => 'ControllerAdAbandonedPet@sendEmail']);

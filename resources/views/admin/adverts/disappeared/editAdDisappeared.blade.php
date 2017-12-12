@@ -2,7 +2,7 @@
 
 @section('content')
 
-    {{Form::model($dataPet, array('route'=> array('admin.adverts.disappeared.update', $dataPet->id)))}}
+    {{Form::model($dataPet, array('files' => true, 'route'=> array('admin.adverts.disappeared.update', $dataPet->id)))}}
 
     <div class="container">
         <ol class="breadcrumb  breadcrumb-arrow">

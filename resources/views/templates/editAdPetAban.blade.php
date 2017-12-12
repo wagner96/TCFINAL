@@ -20,11 +20,11 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="name" class="control-label">Idade do animal(anos)</label>
+        <label for="name" class="control-label">Idade do animal</label>
         <div class="inputGroupContainer">
             <div class="input-group">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                {{Form::number('age_pet',null, array('class' => 'form-control','min' => '1', 'max' =>'15'))}}
+                {{Form::select('age_pet', ['Desconhecido'=>'Desconhecido', 'Filhote'=>'Filhote', 'Adulto'=>'Adulto'],null, ['class' => 'form-control', 'required'])}}
             </div>
         </div>
     </div>
@@ -60,8 +60,79 @@
     {{--</div>--}}
     {{--<div class="row" id="image_preview"></div>--}}
 
+    <div class="panel panel-danger">
+        <div class="panel-body">
+            @foreach($dataPet->PhotosPet as $photo)
+                <div class="col col-lg-3" align="center">
+                    <a data-toggle="modal"
+                       data-target="#photo{{$photo->id}}"><img style="max-width: 100px; min-width: 100px;max-height: 100px; min-height: 100px"
+                            class="img-thumbnail" alt="" src="{{URL::asset($photo->url)}}"></a>
+                    <a data-toggle="modal" data-original-title="Excluir foto"
+                       data-target="#exampleModalLong{{$photo->id}}"><span style="color:#FF0000"
+                                                                           class="fa fa-trash-o fa-lg"></span></a>
+                </div>
+
+            {{--CONFIRMAÇÃO--}}
+
+                <div class="modal fade" id="exampleModalLong{{$photo->id}}" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                            aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="exampleModalLabel">Excluir imagem</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p><b>Deseja realmente excluir esta imagem?</b></p>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="{{url('abandoned/deletePhoto/'.$photo->id)}}" class="btn btn-primary"><span
+                                            class="fa fa-trash fa-lg"> </span> Excluir</a>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{--ZOOM IMAGENS--}}
+                <div class="modal fade" id="photo{{$photo->id}}" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                            aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="exampleModalLabel">Imagem</h4>
+                            </div>
+                            <div class="modal-body" align="center">
+                                <img style="max-width: 300px; min-width: 300px;max-height: 300px; min-height: 200px"
+                                     class="img-responsive" alt="" src="{{URL::asset($photo->url)}}">                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-light" data-dismiss="modal">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
 </div>
 <div class=" col col-md-6">
+    <div class="form-group">
+        <label for="name" class="control-label">Imagens do animal</label>
+        <div class="inputGroupContainer">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+                <input type="file" class="form-control" id="photos" name="photos[]"
+                       onchange="preview_images();" accept="image/*" multiple/>
+                {{--<input type="file" class="form-control" multiple name="photos[]" onchange="preview_images();"/>--}}
+                {{--<input type="submit" class="btn btn-primary" name='submit_image' value="Upload Multiple Image"/>--}}
+            </div>
+        </div>
+    </div>
+    <div class="row" id="image_preview"></div>
+
     <div class="form-group">
         <label for="name" class="control-label">Link de vídeo</label>
         <div class="inputGroupContainer">
@@ -131,7 +202,6 @@
 
         </div>
     </div>
-
 
 
 </div>

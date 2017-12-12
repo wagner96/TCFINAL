@@ -284,9 +284,9 @@ class ControllerAdDisappereadPet extends Controller
                     $photos_pet = new PhotosPet();
                     $s_photo = $this->removeCharacters($photo->getClientOriginalName());
                     $photo_name = time() . $s_photo;
-                    $photo->move('images/Pets Abandoned', $photo_name);
+                    $photo->move('images/Pets Disappeared', $photo_name);
                     $photos_pet->pet_id = $fk_pet;
-                    $photos_pet->url = 'images/Pets Abandoned/' . $photo_name;
+                    $photos_pet->url = 'images/Pets Disappeared/' . $photo_name;
                     $photos_pet->save();
                     unset($photos_pet);
                 }
@@ -300,7 +300,7 @@ class ControllerAdDisappereadPet extends Controller
                     Mail::send('emails.newAd', $email, function ($message) use ($email) {
 
                         $message->to($email['email_to'], '')
-                            ->subject('Adote um amigo (Contato)');
+                            ->subject('Adote um amigo (Anúncio para análise)');
 
                     });
                 }
@@ -381,7 +381,20 @@ class ControllerAdDisappereadPet extends Controller
                     'where' => $where,
                     'when' => $when
                 ]);
-
+            if ($request['photos']['0'] != null) {
+                $photos = $request->photos;
+                $i = 0;
+                foreach ($photos as $photo) {
+                    $photos_pet = new PhotosPet();
+                    $s_photo = $this->removeCharacters($photo->getClientOriginalName());
+                    $photo_name = time() . $s_photo;
+                    $photo->move('images/Pets Disappeared', $photo_name);
+                    $photos_pet->pet_id = $id;
+                    $photos_pet->url = 'images/Pets Disappeared/' . $photo_name;
+                    $photos_pet->save();
+                    unset($photos_pet);
+                }
+            }
             session()->flash('flash_message', 'Anúncio foi editado com sucesso!!!');
         } catch (\Exception $e) {
             session()->flash('flash_error', 'Erro ao editar!!!');
@@ -412,6 +425,10 @@ class ControllerAdDisappereadPet extends Controller
             $where = $request->get('where');
             $when = $request->get('when');
 
+            $data['active_pet'] = 0;
+            if (auth()->user()->role == 'admin') {
+                $data['active_pet'] = 1;
+            }
             $this->repository->update($data, $id);
 
             DB::table('ad_pet_disappeared')
@@ -421,7 +438,23 @@ class ControllerAdDisappereadPet extends Controller
                     'when' => $when
                 ]);
 
-            session()->flash('flash_message', 'Anúncio foi editado com sucesso!!!');
+            $email['name_pet'] = $data['name_pet'];
+            $email['name_user'] = auth()->user()->name;
+            if (auth()->user()->role != 'admin') {
+                $users = User::where('role', '=', 'admin')
+                    ->select('email')
+                    ->get();
+                foreach ($users as $user) {
+                    $email['email_to'] = $user['email'];
+                    Mail::send('emails.newAd', $email, function ($message) use ($email) {
+
+                        $message->to($email['email_to'], '')
+                            ->subject('Adote um amigo (Anúncio para análise)');
+
+                    });
+                }
+            }
+            session()->flash('flash_message', 'Anúncio editado, em breve ele estará disponível para visualização!!!');
         } catch (\Exception $e) {
             session()->flash('flash_error', 'Erro ao editar!!!');
         }
@@ -515,7 +548,28 @@ class ControllerAdDisappereadPet extends Controller
         }
         return $pets;
     }
+    public function deletePhoto($id)
+    {
+        try {
+            $photo = DB::table('photos_pets')
+                ->where('id', '=', $id)
+                ->get();
 
+            unlink($photo[0]->url);
+
+            DB::table('photos_pets')
+                ->where('id', '=', $id)
+                ->delete();
+
+            session()->flash('flash_message', 'Imagem excluida!!!');
+        } catch (\Exception $e) {
+            session()->flash('flash_error', 'Erro ao excluir imagem!!!');
+
+        }
+
+        return redirect($_SERVER['HTTP_REFERER']);
+
+    }
     public function deleteMyPetDisapperead($id)
     {
         try {

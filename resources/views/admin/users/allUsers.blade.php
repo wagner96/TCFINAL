@@ -2,16 +2,8 @@
 
 @section('content')
 
-
-
-
-    @include('errors.alerts')
-
-
     <div class="form-group">
-
         <div class="container">
-
             <div class="row">
                 <br>
                 <ol class="breadcrumb  breadcrumb-arrow">
@@ -19,7 +11,7 @@
                     <li><a style="color:#000000"><b>Administração</b></a></li>
                     <li class="active"><span>Usuários</span></li>
                 </ol>
-                <br>
+                @include('errors.alerts')
                 {{Form::open(array('route'=>'admin.users.index', 'method'=>'GET', 'name'=>'form', 'data-toggle'=>'validator'))}}
 
                 <div class="col-sm-6 col-sm-offset-3">
@@ -28,7 +20,7 @@
 
                         <input type="text" class="form-control" name="pesq" placeholder="Pesquisar por Nome ou E-mail">
                         <span class="input-group-addon">
-                        <button id="loading" data-loading-text="Pesquisando..." type="submit">
+                        <button id="loading" data-loading-text="Pesquisando..." data-original-title="Pesquisar" type="submit">
                             <span class="glyphicon glyphicon-search"></span>
                         </button>
 
@@ -62,7 +54,7 @@
                     <td>{{$user->role}}</td>
 
                     <td align="center">
-                        <a class="btn btn-success" data-toggle="modal" data-target="#exampleModalLong{{$user->id}}"><span
+                        <a class="btn btn-success" data-toggle="modal" data-original-title="Ver usuário" data-target="#exampleModalLong{{$user->id}}"><span
                                     class="fa fa-eye fa-lg"></span></a>
 
                         <!-- Modal -->
@@ -120,13 +112,13 @@
                         </div>
 
 
-                        <a href="{{url('admin/users/edit/'.$user->id)}}" class="btn btn-primary"><span
+                        <a href="{{url('admin/users/edit/'.$user->id)}}" data-original-title="Editar" class="btn btn-primary"><span
                                     class="fa fa-pencil-square-o fa-lg"></span></a>
                         @if($user->active_user === 1)
-                            <a href="{{url('admin/users/active/'.$user->id)}}" class="btn btn-danger"><span
+                            <a href="{{url('admin/users/active/'.$user->id)}}" data-original-title="Desativar" class="btn btn-danger"><span
                                         class="fa fa-lock fa-lg"> </span></a>
                         @else
-                            <a href="{{url('admin/users/desactive/'.$user->id)}}" class="btn btn-success"><span
+                            <a href="{{url('admin/users/desactive/'.$user->id)}}" data-original-title="Ativar" class="btn btn-success"><span
                                         class="fa fa-unlock fa-lg"> </span></a>
                         @endif
 

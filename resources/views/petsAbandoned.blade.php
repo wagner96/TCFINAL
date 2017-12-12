@@ -418,7 +418,7 @@
             </select>
         </div>
         <div align="center">
-            <button type="submit" id="loading" data-loading-text="Procurando..." class="btn btn-primary btn-circle">
+            <button data-original-title="Pesquisar" data-placement="bottom" type="submit" id="loading" data-loading-text="Procurando..." class="btn btn-primary btn-circle">
                 <span class="glyphicon glyphicon-search"></span>
             </button>
             <a href="/abandonados" class="btn btn-danger">Limpar filtros</a>
@@ -434,13 +434,13 @@
                     <div class="card">
                             @if ($pet->PhotosPet != "[]")
                                 @foreach($pet->PhotosPet as $photo)
-                                    <a href="{{url('abandonados/animal/'.$pet->id)}}"><img
+                                    <a href="{{url('adocao/animal/'.$pet->id)}}"><img
                                                 style="max-width: 200px; min-width: 200px;max-height: 200px; min-height: 200px"
                                                 class="img-thumbnail" alt="" src="{{$photo->url}}"></a>
                                     @break
                                 @endforeach
                             @else
-                                <a href="{{url('abandonados/animal/'.$pet->id)}}"><img
+                                <a href="{{url('adocao/animal/'.$pet->id)}}"><img
                                             style="max-width: 200px; min-width: 200px;max-height: 200px; min-height: 200px"
                                             class="img-thumbnail" alt="" src="{{URL::asset('img/sem imagem.png')}}"></a>
                             @endif
@@ -452,7 +452,7 @@
                                 <b>{{$pet->state_pet}}</b></p>
                         </div>
                         <div class="card-footer">
-                            <a href="{{url('abandonados/animal/'.$pet->id)}}" class="btn btn-primary"><i
+                            <a href="{{url('adocao/animal/'.$pet->id)}}" class="btn btn-primary"><i
                                         class="fa fa-paw"
                                         aria-hidden="true"></i>
                                 Adote

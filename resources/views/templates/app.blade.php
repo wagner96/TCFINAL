@@ -73,7 +73,8 @@
                 @if(Auth::user())
                     @if(Auth::user()->role == 'admin')
                         <li class="dropdown">
-                            <a data-toggle="dropdown" class="dropdown-toggle" style="color:#ffffff;">Administração <b
+                            <a data-toggle="dropdown" class="dropdown-toggle" style="color:#ffffff; cursor: pointer;
+">Administração <b
                                         class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="{{ url('admin/users') }}">Usuários</a></li>
@@ -92,14 +93,15 @@
 
                 <li><a href="{{url('/')}}" style="color:#FFFFFF;"><b>Página inicial</b></a></li>
 
-                <li><a href="{{url('/abandonados')}}" style="color:#FFFFFF;"><b>Amigos para adoção</b></a></li>
+                <li><a href="{{url('/adocao')}}" style="color:#FFFFFF;"><b>Amigos para adoção</b></a></li>
 
                 <li><a href="{{url('/desaparecidos')}}" style="color:#FFFFFF;"><b>Amigos desaparecidos</b></a></li>
 
                 <li><a href="{{url('/contato')}}" style="color:#FFFFFF;"><b>Contato</b></a></li>
 
                 <li class="dropdown">
-                    <a data-toggle="dropdown" class="dropdown-toggle" style="color:#FFFFFF;"> <span
+                    <a data-toggle="dropdown" class="dropdown-toggle" style="color:#FFFFFF; cursor: pointer;
+"> <span
                                 class="fa fa-plus"></span> <b>Anuncie</b> <b
                                 class="caret"></b></a>
                     <ul class="dropdown-menu">

@@ -290,3 +290,12 @@ $('#loadingCon').on('click', function () {
         $(this).button('loading').delay();
     }
 });
+
+$('#loadingMail').on('click', function () {
+    if ($("#email").val() != "")
+    {
+        $(this).button('loading').delay();
+    }
+});
+$('a').tooltip();
+$('button').tooltip();

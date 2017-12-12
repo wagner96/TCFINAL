@@ -298,12 +298,12 @@ class ControllerAdAbandonedPet extends Controller
                     Mail::send('emails.newAd', $email, function ($message) use ($email) {
 
                         $message->to($email['email_to'], '')
-                            ->subject('Adote um amigo (Contato)');
+                            ->subject('Adote um amigo (Anúncio para análise)');
 
                     });
                 }
             }
-            session()->flash('flash_message', 'Anúncio salvo, em breve ele estara disponível para visualização!!!');
+            session()->flash('flash_message', 'Anúncio salvo, em breve ele estará disponível para visualização!!!');
         } catch (\Exception $e) {
             session()->flash('flash_error', 'Erro ao salvar!!!');
         }
@@ -347,31 +347,46 @@ class ControllerAdAbandonedPet extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $this->validate($request, [
-                'name_pet' => 'required|alpha_spaces',
-                'movie_pet' => '',
-                'city_pet' => 'required|alpha_spaces',
-                'personality_pet' => 'required',
-                'photos' => 'mimes:jpeg,bmp,png,jpg,gif',
-            ]);
-            $data = $request->all();
+        $this->validate($request, [
+            'name_pet' => 'required|alpha_spaces',
+            'movie_pet' => '',
+            'city_pet' => 'required|alpha_spaces',
+            'personality_pet' => 'required',
+            'photos' => 'max:8',
+        ]);
 
-            if ($data['movie_pet'] != null) {
-                $validate_movie = $this->validateMovie($data['movie_pet']);
-                if ($validate_movie == false) {
-                    session()->flash('flash_error', 'Link de vídeo inválido!!!');
-                    return $this->edit($id);
-                }
+        $data = $request->all();
+
+        if ($data['movie_pet'] != null) {
+            $validate_movie = $this->validateMovie($data['movie_pet']);
+            if ($validate_movie == false) {
+                session()->flash('flash_error', 'Link de vídeo inválido!!!');
+                return $this->edit($id);
             }
-            $personality_pet = $request->get('personality_pet');
+        }
+        $personality_pet = $request->get('personality_pet');
+        $this->repository->update($data, $id);
 
-            $this->repository->update($data, $id);
+        DB::table('ad_pet_abandoned')
+            ->where('pet_id', $id)
+            ->update(['personality_pet' => $personality_pet]);
+        $data = $request->all();
+        if ($request['photos']['0'] != null) {
+            $photos = $request->photos;
+            $i = 0;
+            foreach ($photos as $photo) {
+                $photos_pet = new PhotosPet();
+                $s_photo = $this->removeCharacters($photo->getClientOriginalName());
+                $photo_name = time() . $s_photo;
+                $photo->move('images/Pets Abandoned', $photo_name);
+                $photos_pet->pet_id = $id;
+                $photos_pet->url = 'images/Pets Abandoned/' . $photo_name;
+                $photos_pet->save();
+                unset($photos_pet);
+            }
+        }
 
-            DB::table('ad_pet_abandoned')
-                ->where('pet_id', $id)
-                ->update(['personality_pet' => $personality_pet]);
-
-            session()->flash('flash_message', 'Anúncio foi editado com sucesso!!!');
+        session()->flash('flash_message', 'Anúncio foi editado com sucesso!!!');
         } catch (\Exception $e) {
             session()->flash('flash_error', 'Erro ao editar!!!');
         }
@@ -387,8 +402,9 @@ class ControllerAdAbandonedPet extends Controller
                 'movie_pet' => '',
                 'city_pet' => 'required|alpha_spaces',
                 'personality_pet' => 'required',
-                'photos' => 'mimes:jpeg,bmp,png,jpg,gif',
+                'photos' => 'max:8',
             ]);
+
             $data = $request->all();
             if ($data['movie_pet'] != null) {
                 $validate_movie = $this->validateMovie($data['movie_pet']);
@@ -396,6 +412,10 @@ class ControllerAdAbandonedPet extends Controller
                     session()->flash('flash_error', 'Link de vídeo inválido!!!');
                     return $this->editPet($id);
                 }
+            }
+            $data['active_pet'] = 0;
+            if (auth()->user()->role == 'admin') {
+                $data['active_pet'] = 1;
             }
             $personality_pet = $request->get('personality_pet');
 
@@ -405,7 +425,37 @@ class ControllerAdAbandonedPet extends Controller
                 ->where('pet_id', $id)
                 ->update(['personality_pet' => $personality_pet]);
 
-            session()->flash('flash_message', 'Anúncio foi editado com sucesso!!!');
+            $email['name_pet'] = $data['name_pet'];
+            $email['name_user'] = auth()->user()->name;
+            if (auth()->user()->role != 'admin') {
+                $users = User::where('role', '=', 'admin')
+                    ->select('email')
+                    ->get();
+                foreach ($users as $user) {
+                    $email['email_to'] = $user['email'];
+                    Mail::send('emails.newAd', $email, function ($message) use ($email) {
+
+                        $message->to($email['email_to'], '')
+                            ->subject('Adote um amigo (Anúncio para análise)');
+
+                    });
+                }
+            }
+            if ($request['photos']['0'] != null) {
+                $photos = $request->photos;
+                $i = 0;
+                foreach ($photos as $photo) {
+                    $photos_pet = new PhotosPet();
+                    $s_photo = $this->removeCharacters($photo->getClientOriginalName());
+                    $photo_name = time() . $s_photo;
+                    $photo->move('images/Pets Abandoned', $photo_name);
+                    $photos_pet->pet_id = $id;
+                    $photos_pet->url = 'images/Pets Abandoned/' . $photo_name;
+                    $photos_pet->save();
+                    unset($photos_pet);
+                }
+            }
+            session()->flash('flash_message', 'Anúncio editado, em breve ele estará disponível para visualização!!!');
         } catch (\Exception $e) {
             session()->flash('flash_error', 'Erro ao editar!!!');
         }
@@ -498,6 +548,29 @@ class ControllerAdAbandonedPet extends Controller
                 ->appends('pesq', request('pesq'));
         }
         return $pets;
+    }
+
+    public function deletePhoto($id)
+    {
+        try {
+            $photo = DB::table('photos_pets')
+                ->where('id', '=', $id)
+                ->get();
+
+            unlink($photo[0]->url);
+
+            DB::table('photos_pets')
+                ->where('id', '=', $id)
+                ->delete();
+
+            session()->flash('flash_message', 'Imagem excluida!!!');
+        } catch (\Exception $e) {
+            session()->flash('flash_error', 'Erro ao excluir imagem!!!');
+
+        }
+
+        return redirect($_SERVER['HTTP_REFERER']);
+
     }
 
     public function deleteMyPetForAdoption($id)

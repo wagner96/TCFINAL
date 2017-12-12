@@ -32,7 +32,7 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button id="loadingMail" data-loading-text="Enviando, aguarde..." type="submit" class="btn btn-primary">
                                     Enviar link de redefinição de senha
                                 </button>
                             </div>

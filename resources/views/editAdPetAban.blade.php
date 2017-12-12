@@ -12,7 +12,7 @@
     </div>
 
     <br>
-    {{Form::model($dataPet, array('route'=> array('myPetsAbandoneds.updatePet', $dataPet->id)))}}
+    {{Form::model($dataPet, array('files' => true, 'route'=> array('myPetsAbandoneds.updatePet', $dataPet->id)))}}
 
     <div class="container">
         @include('errors._check')
@@ -28,4 +28,5 @@
         </div>
     </div>
     <br>
+    <input name="red" type="hidden" value="meus">
 @stop
