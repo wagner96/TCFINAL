@@ -95,6 +95,7 @@
                             <p class="fa fa-youtube-play fa-lg"></p><a href="{{$pet->movie_pet}}" target="_blank"> Ver
                                 vídeo</a>
                         @endif
+                        <?php $pet->AdPetDisappeared->when = implode('/', array_reverse(explode('-', $pet->AdPetDisappeared->when)));?>
                         <p><span class="fa fa-clock-o"></span> Desaparecido em:
                             <b>{{$pet->AdPetDisappeared->when}}</b></p>
                         <p><span class="fa fa-clock-o"></span> Visto por último em:

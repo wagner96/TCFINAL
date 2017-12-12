@@ -454,6 +454,20 @@ class ControllerAdDisappereadPet extends Controller
                     });
                 }
             }
+            if ($request['photos']['0'] != null) {
+                $photos = $request->photos;
+                $i = 0;
+                foreach ($photos as $photo) {
+                    $photos_pet = new PhotosPet();
+                    $s_photo = $this->removeCharacters($photo->getClientOriginalName());
+                    $photo_name = time() . $s_photo;
+                    $photo->move('images/Pets Disappeared', $photo_name);
+                    $photos_pet->pet_id = $id;
+                    $photos_pet->url = 'images/Pets Disappeared/' . $photo_name;
+                    $photos_pet->save();
+                    unset($photos_pet);
+                }
+            }
             session()->flash('flash_message', 'Anúncio editado, em breve ele estará disponível para visualização!!!');
         } catch (\Exception $e) {
             session()->flash('flash_error', 'Erro ao editar!!!');

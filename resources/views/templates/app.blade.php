@@ -189,7 +189,7 @@
 
 <script src="{{URL::asset('js/jquery.maskedinput.min.js')}}"></script>
 
-<script src="{{URL::asset('js/bootstrap-datepicker.min.js')}}"></script>
+{{--<script src="{{URL::asset('js/bootstrap-datepicker.min.js')}}"></script>--}}
 
 {{--<link src="{{URL::asset('css/bootstrap-datepicker3.css')}}"/>--}}
 

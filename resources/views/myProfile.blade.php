@@ -218,8 +218,9 @@
 
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                            {{Form::text('birth_date',null, array('placeholder' => '00/00/0000','class' => 'form-control'))}}
+                            {{Form::date('birth_date',null, array('placeholder' => '00/00/0000','class' => 'form-control','data-format' => 'dd/MM/yyyy','max'=> date('Y-m-d')))}}
                         </div>
+                        <div class="help-block with-errors"></div>
                     </div>
                 </div>
 

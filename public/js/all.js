@@ -67,8 +67,8 @@ $(document).ready(function () {
     $(document).ready(function ($) {
         $("#phone").mask("(99)9 9999-9999");
         $("#cep").mask("99999-999");
-        $("#birth_date").mask("99/99/9999");
-        $("#when").mask("99/99/9999");
+        // $("#birth_date").mask("99/99/9999");
+        // $("#when").mask("99/99/9999");
 
     });
     // $(document).ready(function () {
@@ -119,7 +119,9 @@ function ocultarMostrar(selectObject) {
         document.getElementById('complemento').style.display = '';
         document.getElementById('rdSocial').style.display = '';
         document.getElementById('acoes').style.display = '';
+        document.getElementById('iniAt').style.display = '';
         document.getElementById('sexo').style.display = 'none';
+        document.getElementById('dateNas').style.display = 'none';
     }
 
     else {
@@ -127,7 +129,9 @@ function ocultarMostrar(selectObject) {
         document.getElementById('complemento').style.display = 'none';
         document.getElementById('rdSocial').style.display = 'none';
         document.getElementById('acoes').style.display = 'none';
+        document.getElementById('iniAt').style.display = 'none';
         document.getElementById('sexo').style.display = '';
+        document.getElementById('dateNas').style.display = '';
 
     }
 
@@ -299,3 +303,11 @@ $('#loadingMail').on('click', function () {
 });
 $('a').tooltip();
 $('button').tooltip();
+
+$('.input-group.date').datepicker({
+    format: 'dd/mm/yyyy',
+    language: 'pt-BR',
+    weekStart: 0,
+    startDate:'0d',
+    todayHighlight: true
+});

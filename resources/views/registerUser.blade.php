@@ -185,14 +185,16 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    {{ Form::label('birth_date', 'Data Nascimento',array('class'=>'control-label'))}}
-                    <div class="inputGroupContainer">
+                    {{ Form::label('birth_date', 'Data Nascimento',array('id'=>'dateNas', 'class'=>'control-label'))}}
+                    {{ Form::label('birth_date', 'Início das Atividades',array( 'id'=>'iniAt', 'style'=>'display:none','class'=>'control-label'))}}                    <div class="inputGroupContainer">
                         <div class="input-group date" id="datetimepicker1">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            {{Form::text('birth_date','', array('placeholder' => '00/00/0000','class' => 'form-control','data-format' => 'dd/MM/yyyy',))}}
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            {{Form::date('birth_date','', array('placeholder' => '00/00/0000','class' => 'form-control','data-format' => 'dd/MM/yyyy','max'=> date('Y-m-d')))}}
                         </div>
+                        <div class="help-block with-errors"></div>
                     </div>
                 </div>
+
                 <div class="form-group" id="rdSocial" style="display:none">
                     <label>Link Facebook</label>
                     <div class="inputGroupContainer">

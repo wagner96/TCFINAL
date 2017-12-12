@@ -448,6 +448,7 @@
                             <br>
                             <h4 class="card-title"><b>{{$pet->name_pet}}</b></h4>
                             <p class="card-text">Autor: <b>{{$pet->user->name}}</b></p>
+                            <?php $pet->AdPetDisappeared->when = implode('/', array_reverse(explode('-', $pet->AdPetDisappeared->when)));?>
                             <p class="card-text">Desaparecido em: <b>{{$pet->AdPetDisappeared->when}}</b></p>
                             <p class="card-text"><i class="fa fa-map-marker"></i> {{$pet->city_pet ." - "}}
                                 <b>{{$pet->state_pet}}</b></p>

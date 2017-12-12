@@ -53,7 +53,7 @@
             <div class="inputGroupContainer">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-calendar fa-lg"></i></span>
-                    {{Form::text('when','', array('placeholder' => 'Data de desaparecimento','class' => 'form-control', 'required'))}}
+                    {{Form::date('when','', array('placeholder' => 'Data de desaparecimento','class' => 'form-control','data-format' => 'dd/MM/yyyy','max'=> date('Y-m-d'), 'required'))}}
                 </div>
                 <div class="help-block with-errors"></div>
             </div>

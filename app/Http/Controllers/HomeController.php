@@ -27,11 +27,15 @@ class HomeController extends Controller
     {
         $petsAb = Pet::with(['AdPetAbandoned', 'PhotosPet', 'User'])
             ->where('type', '=', 'abandoned')
+            ->where('active_pet', '=', '1')
             ->orderByDesc('id')
+            ->take(3)
             ->get();
         $petsDi = Pet::with(['AdPetDisappeared', 'PhotosPet', 'User'])
             ->where('type', '=', 'disappeared')
+            ->where('active_pet', '=', '1')
             ->orderByDesc('id')
+            ->take(3)
             ->get();
         $i = 0;
         foreach ($petsAb as $petAb) {
